@@ -9,13 +9,13 @@ extends Resource
 var _half_cell_size = cell_size / 2
 
 ## Returns the coordinates of the cell on the grid given a position on the map.
-func calculate_cell_coordinates(glob_pos: Vector2) -> Vector2:
+func calculate_cell_coordinates(glob_pos: Vector2) -> Vector2i:
 	return (glob_pos / cell_size).floor()
 	
 ## Returns the position of a cell's center in pixels
-func calculate_cell_position(cell_coord: Vector2) -> Vector2:
+func calculate_cell_position(cell_coord: Vector2i) -> Vector2:
 	_half_cell_size = cell_size / 2
-	return cell_coord * cell_size + _half_cell_size
+	return Vector2(cell_coord) * cell_size + _half_cell_size
 
 ## Returns true if the `cell_coordinates` are within the grid.
 func is_within_bounds(cell_coordinates: Vector2) -> bool:
