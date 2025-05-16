@@ -34,6 +34,7 @@ func _ready() -> void:
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
+	print(current_state)
 
 func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
@@ -47,7 +48,10 @@ func _physics_process(delta: float) -> void:
 	
 	if global_position == _desired_cell_position:
 		_calculate_next_desired_position()
-		_calculate_next_move()
+		if current_state == State.TARGETING:
+			_calculate_next_move()
+		elif current_state == State.FRIGHTENED:
+			_randomize_next_move()
 	
 	_wrap_around_the_screen()
 	
@@ -59,6 +63,8 @@ func _calculate_next_desired_position() -> void:
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
 		_desired_cell_position = _current_cell_position
+	if current_state == State.FRIGHTENED:
+		return
 	match _direction:
 		Vector2i.UP:
 			animated_sprite_2d.animation = "up"
