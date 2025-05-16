@@ -188,6 +188,7 @@ script = ExtResource("1_6attn")
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_v5pp4")
 sprite_frames = SubResource("SpriteFrames_ecrtm")
+animation = &"right"
 
 [node name="TargetCell" type="Panel" parent="."]
 unique_name_in_owner = true

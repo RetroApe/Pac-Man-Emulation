@@ -12,18 +12,18 @@ var _current_cell_coordinates : Vector2i
 var _current_cell_position : Vector2
 var _desired_cell_coordinates : Vector2i
 var _desired_cell_position : Vector2
-var target_coordinates : Vector2i
+var target_coordinates := Vector2i(14, 26)
 var target_position : Vector2
 
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 
-var _direction := Vector2i.RIGHT
+var _direction := Vector2i.LEFT
 var _speed := 1.0
 
 func _ready() -> void:
 	_current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
 	_current_cell_position = GRID.calculate_cell_position(_current_cell_coordinates)
-	animated_sprite_2d.play("right")
+	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
@@ -50,6 +50,15 @@ func _calculate_next_desired_position() -> void:
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
 		_desired_cell_position = _current_cell_position
+	match _direction:
+		Vector2i.UP:
+			animated_sprite_2d.animation = "up"
+		Vector2i.LEFT:
+			animated_sprite_2d.animation = "left"
+		Vector2i.DOWN:
+			animated_sprite_2d.animation = "down"
+		Vector2i.RIGHT:
+			animated_sprite_2d.animation = "right"
 
 func _calculate_next_move() -> void:
 	var possible_directions := [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
