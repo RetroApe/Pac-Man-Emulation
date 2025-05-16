@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://6sccxj213h6m"]
 
-[ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_4mw0u"]
+[ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_5f360"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_syhbm"]
 blend_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7bw8"]
-atlas = ExtResource("1_4mw0u")
+atlas = ExtResource("1_5f360")
 region = Rect2(345, 48, 2, 2)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ippvd"]

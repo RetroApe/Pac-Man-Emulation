@@ -1,3 +1,4 @@
+class_name PacMan
 extends CharacterBody2D
 
 @onready var cell_coordinates: Label = %CellCoordinates
@@ -7,13 +8,13 @@ extends CharacterBody2D
 @onready var dots_number: Label = %DotsNumber
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 
-const GRID = preload("res://assets/resources/Grid.tres")
-var _current_cell_coordinates: Vector2i
+const GRID = preload("res://resources/Grid.tres")
+var current_cell_coordinates: Vector2i
 var _current_cell_position: Vector2
 var _desired_cell_coordinates : Vector2i
 var _desired_cell_position : Vector2
 
-const WALKABLE_CELLS = preload("res://assets/resources/WalkableCells.tres")
+const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 
 var _direction := Vector2.RIGHT
 var _speed := 1.0
@@ -25,8 +26,8 @@ func _ready() -> void:
 	this_area.area_entered.connect(_on_area_entered)
 
 func _physics_process(delta: float) -> void:
-	_current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
-	_current_cell_position = GRID.calculate_cell_position(_current_cell_coordinates)
+	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
+	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	
 	_process_input()
 	
@@ -36,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		is_walkable.text = "false"
 	
-	cell_coordinates.text = "Cell Coordinates: " + str(_current_cell_coordinates)
+	cell_coordinates.text = "Cell Coordinates: " + str(current_cell_coordinates)
 	
 	#global_position = global_position.move_toward(desired_cell_position, delta * 60.0)
 	if global_position.x != _desired_cell_position.x:
@@ -56,35 +57,35 @@ func _process_input() -> void:
 	if (
 		Input.is_action_pressed("move_up") and 
 		can_change_direction and
-		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.UP)
+		WALKABLE_CELLS.is_walkable(current_cell_coordinates + Vector2i.UP)
 	):
 		_direction = Vector2.UP
 		animated_sprite_2d.play("up")
 	if (
 		Input.is_action_pressed("move_left") and
 		can_change_direction and
-		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.LEFT)
+		WALKABLE_CELLS.is_walkable(current_cell_coordinates + Vector2i.LEFT)
 	):
 		_direction = Vector2.LEFT
 		animated_sprite_2d.play("left")
 	if (
 		Input.is_action_pressed("move_down") and
 		can_change_direction and
-		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.DOWN)
+		WALKABLE_CELLS.is_walkable(current_cell_coordinates + Vector2i.DOWN)
 	):
 		_direction = Vector2.DOWN
 		animated_sprite_2d.play("down")
 	if (
 		Input.is_action_pressed("move_right") and
 		can_change_direction and
-		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.RIGHT)
+		WALKABLE_CELLS.is_walkable(current_cell_coordinates + Vector2i.RIGHT)
 	):
 		_direction = Vector2.RIGHT
 		animated_sprite_2d.play("right")
 	#if Input.is_action_just_pressed("stop"): _direction = Vector2.ZERO
 
 func _calculate_next_desired_position() -> void:
-	_desired_cell_coordinates = _current_cell_coordinates + Vector2i(_direction)
+	_desired_cell_coordinates = current_cell_coordinates + Vector2i(_direction)
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
 	desired_cell.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
