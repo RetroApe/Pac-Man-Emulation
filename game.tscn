@@ -17,3 +17,8 @@ position = Vector2(112, 212)
 [node name="Ghost" parent="." instance=ExtResource("3_feb5d")]
 unique_name_in_owner = true
 position = Vector2(112, 116)
+
+[node name="FrightenedTimer" type="Timer" parent="Ghost"]
+unique_name_in_owner = true
+wait_time = 6.0
+one_shot = true
