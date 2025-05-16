@@ -100,3 +100,11 @@ func _wrap_around_the_screen() -> void:
 		_current_cell_coordinates.x = Vector2i(-2, 0).x
 		global_position.x = GRID.calculate_cell_position(_current_cell_coordinates).x
 		_calculate_next_desired_position()
+
+func switch_direction() -> void:
+	_direction = - _direction
+	_desired_cell_coordinates += _direction
+	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
+
+func death() -> void:
+	print("Ghost Dead")
