@@ -26,7 +26,10 @@ enum State {
 	EATEN
 }
 var current_state := State.TARGETING
+var _seed := "FRIGHTENED".hash()
+
 func _ready() -> void:
+	seed(_seed)
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	animated_sprite_2d.play("left")
