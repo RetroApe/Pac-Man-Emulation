@@ -137,7 +137,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"frightened_flashing",
-"speed": 3.0
+"speed": 9.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -188,7 +188,8 @@ script = ExtResource("1_6attn")
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_v5pp4")
 sprite_frames = SubResource("SpriteFrames_ecrtm")
-animation = &"right"
+animation = &"frightened_flashing"
+frame_progress = 0.0676057
 
 [node name="TargetCell" type="Panel" parent="."]
 unique_name_in_owner = true
