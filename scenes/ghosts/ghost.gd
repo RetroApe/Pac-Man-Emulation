@@ -20,6 +20,12 @@ const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 var _direction := Vector2i.LEFT
 var speed := 1.0
 
+enum State {
+	TARGETING,
+	FRIGHTENED,
+	EATEN
+}
+var current_state := State.TARGETING
 func _ready() -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
