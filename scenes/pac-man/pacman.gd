@@ -46,6 +46,8 @@ func _physics_process(delta: float) -> void:
 	if global_position.y != _desired_cell_position.y:
 		var dir_y : float = sign(_desired_cell_position.y - global_position.y)
 		_move_y(dir_y * delta * 60 * _speed)
+	_wrap_around_the_screen()
+	
 	if global_position == _desired_cell_position:
 		animated_sprite_2d.stop()
 
@@ -91,11 +93,16 @@ func _calculate_next_desired_position() -> void:
 	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
 		_desired_cell_position = _current_cell_position
 
-
 func _move_x(velocity_x: float):
 	global_position.x += velocity_x
 func _move_y(velocity_y: float):
 	global_position.y += velocity_y
+
+func _wrap_around_the_screen() -> void:
+	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
+		global_position.x = GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(0, 0)).x
+	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(0, 0)).x:
+		global_position.x = GRID.calculate_cell_position(Vector2i(-2, 0)).x
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("dots"):

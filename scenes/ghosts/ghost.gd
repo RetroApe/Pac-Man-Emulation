@@ -40,6 +40,8 @@ func _physics_process(delta: float) -> void:
 		_calculate_next_desired_position()
 		_calculate_next_move()
 	
+	_wrap_around_the_screen()
+	
 	global_position = global_position.move_toward(_desired_cell_position, 60.0 * delta * _speed)
 
 func _calculate_next_desired_position() -> void:
@@ -69,6 +71,8 @@ func _calculate_next_move() -> void:
 	for dir in possible_directions:
 		cell_pos = GRID.calculate_cell_position(_desired_cell_coordinates + dir)
 		length_to_target.append((target_position - cell_pos).length())
+	if possible_directions.is_empty():
+		return
 	_direction = possible_directions[0]
 	if length_to_target.is_empty():
 		return
@@ -77,3 +81,13 @@ func _calculate_next_move() -> void:
 		if length_to_target[i] < min_length:
 			min_length = length_to_target[i]
 			_direction = possible_directions[i]
+
+func _wrap_around_the_screen() -> void:
+	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
+		_current_cell_coordinates.x = Vector2i(GRID.size).x
+		global_position.x = GRID.calculate_cell_position(_current_cell_coordinates).x
+		_calculate_next_desired_position()
+	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size)).x:
+		_current_cell_coordinates.x = Vector2i(-2, 0).x
+		global_position.x = GRID.calculate_cell_position(_current_cell_coordinates).x
+		_calculate_next_desired_position()
