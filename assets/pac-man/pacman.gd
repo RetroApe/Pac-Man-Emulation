@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
-@onready var cell_position: Label = %CellPosition
 @onready var cell_coordinates: Label = %CellCoordinates
 @onready var is_walkable: Label = %IsWalkable
 @onready var desired_cell: Panel = %DesiredCell
+@onready var this_area: Area2D = %Area2D
+@onready var dots_number: Label = %DotsNumber
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 
 const GRID = preload("res://assets/resources/Grid.tres")
 var _current_cell_coordinates: Vector2i
@@ -15,9 +17,12 @@ const WALKABLE_CELLS = preload("res://assets/resources/WalkableCells.tres")
 
 var _direction := Vector2.RIGHT
 var _speed := 1.0
+var _dots_eaten := 0
 
 func _ready() -> void:
+	animated_sprite_2d.play("right")
 	_calculate_next_desired_position()
+	this_area.area_entered.connect(_on_area_entered)
 
 func _physics_process(delta: float) -> void:
 	_current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
@@ -32,7 +37,6 @@ func _physics_process(delta: float) -> void:
 		is_walkable.text = "false"
 	
 	cell_coordinates.text = "Cell Coordinates: " + str(_current_cell_coordinates)
-	cell_position.text = "Cell Position: " + str(_current_cell_position)
 	
 	#global_position = global_position.move_toward(desired_cell_position, delta * 60.0)
 	if global_position.x != _desired_cell_position.x:
@@ -41,14 +45,8 @@ func _physics_process(delta: float) -> void:
 	if global_position.y != _desired_cell_position.y:
 		var dir_y : float = sign(_desired_cell_position.y - global_position.y)
 		_move_y(dir_y * delta * 60)
-
-
-func _calculate_next_desired_position() -> void:
-	_desired_cell_coordinates = _current_cell_coordinates + Vector2i(_direction)
-	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
-	desired_cell.global_position = _desired_cell_position - Vector2(4.0, 4.0)
-	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
-		_desired_cell_position = _current_cell_position
+	if global_position == _desired_cell_position:
+		animated_sprite_2d.stop()
 
 func _process_input() -> void:
 	var can_change_direction := (
@@ -61,27 +59,48 @@ func _process_input() -> void:
 		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.UP)
 	):
 		_direction = Vector2.UP
+		animated_sprite_2d.play("up")
 	if (
 		Input.is_action_pressed("move_left") and
 		can_change_direction and
 		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.LEFT)
 	):
 		_direction = Vector2.LEFT
+		animated_sprite_2d.play("left")
 	if (
 		Input.is_action_pressed("move_down") and
 		can_change_direction and
 		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.DOWN)
 	):
 		_direction = Vector2.DOWN
+		animated_sprite_2d.play("down")
 	if (
 		Input.is_action_pressed("move_right") and
 		can_change_direction and
 		WALKABLE_CELLS.is_walkable(_current_cell_coordinates + Vector2i.RIGHT)
 	):
 		_direction = Vector2.RIGHT
+		animated_sprite_2d.play("right")
 	#if Input.is_action_just_pressed("stop"): _direction = Vector2.ZERO
+
+func _calculate_next_desired_position() -> void:
+	_desired_cell_coordinates = _current_cell_coordinates + Vector2i(_direction)
+	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
+	desired_cell.global_position = _desired_cell_position - Vector2(4.0, 4.0)
+	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
+		_desired_cell_position = _current_cell_position
+
 
 func _move_x(velocity_x: float):
 	global_position.x += velocity_x
 func _move_y(velocity_y: float):
 	global_position.y += velocity_y
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("dots"):
+		_dots_eaten += 1
+		dots_number.text = "Dots: " + str(_dots_eaten)
+		area.queue_free()
+
+func death() -> void:
+	print("Pac-Man Dead")
