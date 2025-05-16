@@ -1,6 +1,8 @@
 class_name PacMan
 extends CharacterBody2D
 
+signal energizer_eaten
+
 @onready var cell_coordinates: Label = %CellCoordinates
 @onready var is_walkable: Label = %IsWalkable
 @onready var desired_cell: Panel = %DesiredCell
@@ -108,6 +110,9 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("dots"):
 		_dots_eaten += 1
 		dots_number.text = "Dots: " + str(_dots_eaten)
+		area.queue_free()
+	if area.is_in_group("energizers"):
+		energizer_eaten.emit()
 		area.queue_free()
 
 func death() -> void:
