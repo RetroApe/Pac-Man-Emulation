@@ -8,7 +8,7 @@ extends Node2D
 @onready var current_cell_coordinates_label: Label = %CurrentCellCoordinates
 
 const GRID = preload("res://resources/Grid.tres")
-var _current_cell_coordinates : Vector2i
+var current_cell_coordinates : Vector2i
 var _current_cell_position : Vector2
 var _desired_cell_coordinates : Vector2i
 var _desired_cell_position : Vector2
@@ -18,22 +18,22 @@ var target_position : Vector2
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 
 var _direction := Vector2i.LEFT
-var _speed := 1.0
+var speed := 1.0
 
 func _ready() -> void:
-	_current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
-	_current_cell_position = GRID.calculate_cell_position(_current_cell_coordinates)
+	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
+	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
-	_current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
-	_current_cell_position = GRID.calculate_cell_position(_current_cell_coordinates)
+	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
+	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	if target_coordinates:
 		target_position = GRID.calculate_cell_position(target_coordinates)
 		target_cell_panel.global_position = target_position - Vector2(4.0, 4.0)
 		target_cell_coordinates_label.text = str(target_coordinates)
-	current_cell_coordinates_label.text = str(_current_cell_coordinates)
+	current_cell_coordinates_label.text = str(current_cell_coordinates)
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	
 	if global_position == _desired_cell_position:
@@ -42,10 +42,10 @@ func _physics_process(delta: float) -> void:
 	
 	_wrap_around_the_screen()
 	
-	global_position = global_position.move_toward(_desired_cell_position, 60.0 * delta * _speed)
+	global_position = global_position.move_toward(_desired_cell_position, 60.0 * delta * speed)
 
 func _calculate_next_desired_position() -> void:
-	_desired_cell_coordinates = _current_cell_coordinates + _direction
+	_desired_cell_coordinates = current_cell_coordinates + _direction
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
@@ -93,12 +93,12 @@ func _calculate_next_move() -> void:
 
 func _wrap_around_the_screen() -> void:
 	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
-		_current_cell_coordinates.x = Vector2i(GRID.size).x
-		global_position.x = GRID.calculate_cell_position(_current_cell_coordinates).x
+		current_cell_coordinates.x = Vector2i(GRID.size).x
+		global_position.x = GRID.calculate_cell_position(current_cell_coordinates).x
 		_calculate_next_desired_position()
 	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size)).x:
-		_current_cell_coordinates.x = Vector2i(-2, 0).x
-		global_position.x = GRID.calculate_cell_position(_current_cell_coordinates).x
+		current_cell_coordinates.x = Vector2i(-2, 0).x
+		global_position.x = GRID.calculate_cell_position(current_cell_coordinates).x
 		_calculate_next_desired_position()
 
 func switch_direction() -> void:
