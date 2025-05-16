@@ -42,10 +42,10 @@ func _physics_process(delta: float) -> void:
 	#global_position = global_position.move_toward(desired_cell_position, delta * 60.0)
 	if global_position.x != _desired_cell_position.x:
 		var dir_x : float = sign(_desired_cell_position.x - global_position.x)
-		_move_x(dir_x * delta * 60)
+		_move_x(dir_x * delta * 60 * _speed)
 	if global_position.y != _desired_cell_position.y:
 		var dir_y : float = sign(_desired_cell_position.y - global_position.y)
-		_move_y(dir_y * delta * 60)
+		_move_y(dir_y * delta * 60 * _speed)
 	if global_position == _desired_cell_position:
 		animated_sprite_2d.stop()
 
