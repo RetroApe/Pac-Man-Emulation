@@ -100,6 +100,21 @@ func _calculate_next_move() -> void:
 			min_length = length_to_target[i]
 			_direction = possible_directions[i]
 
+func _randomize_next_move() -> void:
+	var possible_directions : Array[Vector2i]= [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
+	# Remove backward direction
+	possible_directions.erase(- _direction)
+	var chosen_direction : Vector2i = possible_directions.pick_random()
+	if WALKABLE_CELLS.is_walkable(_desired_cell_coordinates + chosen_direction):
+		_direction = chosen_direction
+		return
+	else:
+		possible_directions.erase(chosen_direction)
+	for dir in possible_directions:
+		if WALKABLE_CELLS.is_walkable(_desired_cell_coordinates + dir):
+			_direction = dir
+			return
+
 func _wrap_around_the_screen() -> void:
 	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
 		current_cell_coordinates.x = Vector2i(GRID.size).x
