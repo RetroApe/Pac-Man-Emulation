@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=9 format=3 uid="uid://guqe5ya1mek0"]
 
 [ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_0hpsc"]
-[ext_resource type="PackedScene" uid="uid://6sccxj213h6m" path="res://assets/tiles/dot.tscn" id="2_k8n7d"]
+[ext_resource type="PackedScene" uid="uid://6sccxj213h6m" path="res://tiles/dot.tscn" id="2_k8n7d"]
 [ext_resource type="Texture2D" uid="uid://boft72rmj1a1b" path="res://assets/sprites/text.png" id="3_w1ku8"]
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="4_18k7h"]
 

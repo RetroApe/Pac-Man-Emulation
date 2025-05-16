@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WalkableCells" load_steps=2 format=3 uid="uid://b2se5ha5l644"]
 
-[ext_resource type="Script" uid="uid://cnb4qcybf1k1c" path="res://assets/resources/walkable_cells.gd" id="1_huluj"]
+[ext_resource type="Script" uid="uid://cnb4qcybf1k1c" path="res://resources/walkable_cells.gd" id="1_huluj"]
 
 [resource]
 script = ExtResource("1_huluj")

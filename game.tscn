@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dufj73kjgu7d3"]
 
-[ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://assets/tiles/tile_set.tscn" id="1_e2o6t"]
-[ext_resource type="PackedScene" uid="uid://c28t5y2csfsgm" path="res://assets/pac-man/pacman.tscn" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://c28t5y2csfsgm" path="res://scenes/pac-man/pacman.tscn" id="2_feb5d"]
 
 [node name="Game" type="Node2D"]
 

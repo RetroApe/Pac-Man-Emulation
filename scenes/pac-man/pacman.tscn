@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://c28t5y2csfsgm"]
 
-[ext_resource type="Script" uid="uid://b1v2st2vr8726" path="res://assets/pac-man/pacman.gd" id="1_hf5wl"]
+[ext_resource type="Script" uid="uid://b1v2st2vr8726" path="res://scenes/pac-man/pacman.gd" id="1_hf5wl"]
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="2_q8msc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]

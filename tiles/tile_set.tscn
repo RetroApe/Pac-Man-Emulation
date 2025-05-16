@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://dyp3tsyto2co"]
 
-[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://assets/tiles/tile_set.tres" id="1_5x3a6"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="1_5x3a6"]
 [ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_6ksk5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ai7bx"]
