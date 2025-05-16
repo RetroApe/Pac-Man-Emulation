@@ -65,15 +65,7 @@ func _calculate_next_desired_position() -> void:
 		_desired_cell_position = _current_cell_position
 	if current_state == State.FRIGHTENED:
 		return
-	match _direction:
-		Vector2i.UP:
-			animated_sprite_2d.animation = "up"
-		Vector2i.LEFT:
-			animated_sprite_2d.animation = "left"
-		Vector2i.DOWN:
-			animated_sprite_2d.animation = "down"
-		Vector2i.RIGHT:
-			animated_sprite_2d.animation = "right"
+	_match_animation()
 
 func _calculate_next_move() -> void:
 	var possible_directions := [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
@@ -120,6 +112,29 @@ func _randomize_next_move() -> void:
 		if WALKABLE_CELLS.is_walkable(_desired_cell_coordinates + dir):
 			_direction = dir
 			return
+
+func _match_animation() -> void:
+	if current_state == State.TARGETING:
+		match _direction:
+			Vector2i.UP:
+				animated_sprite_2d.animation = "up"
+			Vector2i.LEFT:
+				animated_sprite_2d.animation = "left"
+			Vector2i.DOWN:
+				animated_sprite_2d.animation = "down"
+			Vector2i.RIGHT:
+				animated_sprite_2d.animation = "right"
+	if current_state == State.EATEN:
+		animated_sprite_2d.animation = "eaten"
+		match _direction:
+			Vector2i.UP:
+				animated_sprite_2d.frame = 0
+			Vector2i.LEFT:
+				animated_sprite_2d.frame = 1
+			Vector2i.DOWN:
+				animated_sprite_2d.frame = 2
+			Vector2i.RIGHT:
+				animated_sprite_2d.frame = 3
 
 func _wrap_around_the_screen() -> void:
 	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
