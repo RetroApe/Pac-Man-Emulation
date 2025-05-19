@@ -89,7 +89,8 @@ func _calculate_next_desired_position() -> void:
 	_desired_cell_coordinates = current_cell_coordinates + _direction
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates, _adjust_the_grid)
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
-	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
+
+	if _check_walkability(_desired_cell_coordinates) == false:
 		_desired_cell_position = _current_cell_position
 	if current_state == State.FRIGHTENED:
 		return
@@ -102,7 +103,7 @@ func _calculate_next_move() -> void:
 	# Remove non-walkable directions
 	for i in range(possible_directions.size()):
 		var to_check_walkable : Vector2i = _desired_cell_coordinates + possible_directions[i]
-		if !WALKABLE_CELLS.is_walkable(to_check_walkable):
+		if _check_walkability(to_check_walkable) == false:
 			possible_directions[i] = null
 	while possible_directions.find(null) != -1:
 		possible_directions.erase(null)
@@ -222,3 +223,8 @@ func _ghost_house_behaviour() -> void:
 	if current_state == State.TARGETING and current_cell_coordinates == _in_front_of_ghost_house[0]:
 		is_inside_the_ghost_house = false
 
+func _check_walkability(to_check_walkable: Vector2i) -> bool:
+	return !(
+			!WALKABLE_CELLS.is_walkable(to_check_walkable) and
+			(!(current_state == State.EATEN) or !WALKABLE_GHOST_HOUSE.has(to_check_walkable))
+		)
