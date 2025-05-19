@@ -6,15 +6,21 @@ extends Resource
 ## The size of a cell in pixels
 @export var cell_size := Vector2(80, 80)
 
-var _half_cell_size = cell_size / 2
+var _half_cell_size := cell_size / 2
+
+
 
 ## Returns the coordinates of the cell on the grid given a position on the map.
-func calculate_cell_coordinates(glob_pos: Vector2) -> Vector2i:
+func calculate_cell_coordinates(glob_pos: Vector2, adjust_grid_by_half := false) -> Vector2i:
+	if adjust_grid_by_half:
+		glob_pos += cell_size / 2.0
 	return (glob_pos / cell_size).floor()
 	
 ## Returns the position of a cell's center in pixels
-func calculate_cell_position(cell_coord: Vector2i) -> Vector2:
+func calculate_cell_position(cell_coord: Vector2i, adjust_grid_by_half := false) -> Vector2:
 	_half_cell_size = cell_size / 2
+	if adjust_grid_by_half:
+		_half_cell_size = Vector2.ZERO
 	return Vector2(cell_coord) * cell_size + _half_cell_size
 
 ## Returns true if the `cell_coordinates` are within the grid.
