@@ -173,4 +173,9 @@ func frightened() -> void:
 	switch_direction()
 
 func death() -> void:
-	print("Ghost Dead")
+	print("Ghost Eaten")
+	target_coordinates = _in_front_of_ghost_house[0]
+	current_state = State.EATEN
+	speed = 2.0
+	frightened_timer.stop()
+	_match_animation()
