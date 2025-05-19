@@ -10,6 +10,7 @@ extends Node2D
 
 const GRID = preload("res://resources/Grid.tres")
 var current_cell_coordinates : Vector2i
+var _previous_cell_coordinates : Vector2i
 var _current_cell_position : Vector2
 var _desired_cell_coordinates : Vector2i
 var _desired_cell_position : Vector2
@@ -68,6 +69,7 @@ func _physics_process(delta: float) -> void:
 	global_position = global_position.move_toward(_desired_cell_position, 60.0 * delta * speed)
 
 func _calculate_next_desired_position() -> void:
+	_previous_cell_coordinates = current_cell_coordinates
 	_desired_cell_coordinates = current_cell_coordinates + _direction
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates, _adjust_the_grid)
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
@@ -157,8 +159,8 @@ func _wrap_around_the_screen() -> void:
 		_calculate_next_desired_position()
 
 func switch_direction() -> void:
-	_direction = - _direction
-	_desired_cell_coordinates += _direction
+	_desired_cell_coordinates = _previous_cell_coordinates
+	_calculate_next_move()
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
 
 func frightened() -> void:
