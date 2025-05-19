@@ -80,6 +80,7 @@ func _physics_process(delta: float) -> void:
 	
 	if frightened_timer.time_left < 2.0 and !frightened_timer.is_stopped():
 		animated_sprite_2d.animation = "frightened_flashing"
+	
 	_wrap_around_the_screen()
 	
 	global_position = global_position.move_toward(_desired_cell_position, 60.0 * delta * speed)
@@ -226,5 +227,9 @@ func _ghost_house_behaviour() -> void:
 func _check_walkability(to_check_walkable: Vector2i) -> bool:
 	return !(
 			!WALKABLE_CELLS.is_walkable(to_check_walkable) and
-			(!(current_state == State.EATEN) or !WALKABLE_GHOST_HOUSE.has(to_check_walkable))
+			(
+				!(current_state == State.EATEN) and 
+				!(is_inside_the_ghost_house) or 
+				!WALKABLE_GHOST_HOUSE.has(to_check_walkable)
+			)
 		)
