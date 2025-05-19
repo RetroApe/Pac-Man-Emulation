@@ -72,6 +72,9 @@ func _physics_process(delta: float) -> void:
 		elif current_state == State.FRIGHTENED:
 			_randomize_next_move()
 	
+	_ghost_house_behaviour()
+	
+	
 	if frightened_timer.time_left < 2.0 and !frightened_timer.is_stopped():
 		animated_sprite_2d.animation = "frightened_flashing"
 	_wrap_around_the_screen()
@@ -191,3 +194,28 @@ func death() -> void:
 	speed = 2.0
 	frightened_timer.stop()
 	_match_animation()
+
+func _ghost_house_behaviour() -> void:
+	if (
+		(
+			current_cell_coordinates == _in_front_of_ghost_house[0] or 
+			current_cell_coordinates == _in_front_of_ghost_house[1]
+		) 
+		and current_state == State.EATEN and _adjust_the_grid == false
+	):
+		_desired_cell_position = GRID.calculate_cell_position(_in_front_of_ghost_house[0])
+		_desired_cell_position.x += GRID.cell_size.x / 2.0
+		_adjust_the_grid = true
+		_direction = Vector2i.DOWN
+		target_coordinates = _target_inside_the_house
+	
+	if current_state == State.EATEN and current_cell_coordinates == _target_inside_the_house:
+		current_state = State.TARGETING
+		is_inside_the_ghost_house = true
+		
+	if current_state == State.TARGETING and is_inside_the_ghost_house:
+		target_coordinates = _in_front_of_ghost_house[0]
+		_direction = Vector2i.UP
+	if current_state == State.TARGETING and current_cell_coordinates == _in_front_of_ghost_house[0]:
+		is_inside_the_ghost_house = false
+
