@@ -16,6 +16,7 @@ var _desired_cell_position : Vector2
 var target_coordinates := Vector2i(14, 26)
 var target_position : Vector2
 
+var _adjust_the_grid := false
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 
 var _direction := Vector2i.LEFT
@@ -44,10 +45,10 @@ func _ready() -> void:
 	)
 
 func _physics_process(delta: float) -> void:
-	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
-	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
+	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
+	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	if target_coordinates:
-		target_position = GRID.calculate_cell_position(target_coordinates)
+		target_position = GRID.calculate_cell_position(target_coordinates, _adjust_the_grid)
 		target_cell_panel.global_position = target_position - Vector2(4.0, 4.0)
 		target_cell_coordinates_label.text = str(target_coordinates)
 	current_cell_coordinates_label.text = str(current_cell_coordinates)
@@ -68,7 +69,7 @@ func _physics_process(delta: float) -> void:
 
 func _calculate_next_desired_position() -> void:
 	_desired_cell_coordinates = current_cell_coordinates + _direction
-	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
+	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates, _adjust_the_grid)
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	if !WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
 		_desired_cell_position = _current_cell_position
@@ -94,7 +95,7 @@ func _calculate_next_move() -> void:
 	var length_to_target : Array[float]= []
 	var cell_pos : Vector2
 	for dir in possible_directions:
-		cell_pos = GRID.calculate_cell_position(_desired_cell_coordinates + dir)
+		cell_pos = GRID.calculate_cell_position(_desired_cell_coordinates + dir, _adjust_the_grid)
 		length_to_target.append((target_position - cell_pos).length())
 	if possible_directions.is_empty():
 		return
