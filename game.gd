@@ -15,7 +15,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	ghost.target_coordinates = pac_man.current_cell_coordinates
+	if ghost.current_state == ghost.State.TARGETING and ghost.is_inside_the_ghost_house == false:
+		ghost.target_coordinates = pac_man.current_cell_coordinates
 	if ghost.current_cell_coordinates == pac_man.current_cell_coordinates:
 		if ghost.current_state == ghost.State.TARGETING:
 			pac_man.death()
