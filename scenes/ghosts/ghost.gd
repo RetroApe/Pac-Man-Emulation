@@ -177,6 +177,7 @@ func _wrap_around_the_screen() -> void:
 		_calculate_next_desired_position()
 
 func switch_direction() -> void:
+	_direction = _previous_cell_coordinates - _desired_cell_coordinates
 	_desired_cell_coordinates = _previous_cell_coordinates
 	_calculate_next_move()
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
