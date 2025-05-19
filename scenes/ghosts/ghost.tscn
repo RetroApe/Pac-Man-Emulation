@@ -107,7 +107,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xtt71")
 }],
-"loop": true,
+"loop": false,
 "name": &"eaten",
 "speed": 5.0
 }, {
@@ -188,8 +188,9 @@ script = ExtResource("1_6attn")
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_v5pp4")
 sprite_frames = SubResource("SpriteFrames_ecrtm")
-animation = &"frightened_flashing"
-frame_progress = 0.0676057
+animation = &"eaten"
+frame = 3
+frame_progress = 1.0
 
 [node name="TargetCell" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -220,3 +221,8 @@ offset_right = 40.0
 offset_bottom = 4.33333
 scale = Vector2(0.4, 0.4)
 text = "Target"
+
+[node name="FrightenedTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 6.0
+one_shot = true

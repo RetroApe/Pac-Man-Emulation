@@ -6,6 +6,7 @@ extends Node2D
 @onready var desired_cell_position_panel: Panel = %DesiredCellPositionPanel
 @onready var target_cell_coordinates_label: Label = %TargetCellCoordinates
 @onready var current_cell_coordinates_label: Label = %CurrentCellCoordinates
+@onready var frightened_timer: Timer = %FrightenedTimer
 
 const GRID = preload("res://resources/Grid.tres")
 var current_cell_coordinates : Vector2i
@@ -27,6 +28,7 @@ enum State {
 }
 var current_state := State.TARGETING
 var _seed := "FRIGHTENED".hash()
+var _frightened_timing := 6.0
 
 func _ready() -> void:
 	seed(_seed)
@@ -35,6 +37,11 @@ func _ready() -> void:
 	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
 	print(current_state)
+	
+	frightened_timer.timeout.connect(func() -> void:
+		current_state = State.TARGETING
+		speed = 1.0
+	)
 
 func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
@@ -53,6 +60,8 @@ func _physics_process(delta: float) -> void:
 		elif current_state == State.FRIGHTENED:
 			_randomize_next_move()
 	
+	if frightened_timer.time_left < 2.0 and !frightened_timer.is_stopped():
+		animated_sprite_2d.animation = "frightened_flashing"
 	_wrap_around_the_screen()
 	
 	global_position = global_position.move_toward(_desired_cell_position, 60.0 * delta * speed)
@@ -150,6 +159,17 @@ func switch_direction() -> void:
 	_direction = - _direction
 	_desired_cell_coordinates += _direction
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
+
+func frightened() -> void:
+	if current_state == State.EATEN or is_inside_the_ghost_house:
+		return
+	current_state = State.FRIGHTENED
+	animated_sprite_2d.animation = "frightened"
+	speed = 0.5
+	frightened_timer.start(_frightened_timing)
+	if current_state == State.EATEN:
+		return
+	switch_direction()
 
 func death() -> void:
 	print("Ghost Dead")
