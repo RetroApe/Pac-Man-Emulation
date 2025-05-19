@@ -67,7 +67,10 @@ func _physics_process(delta: float) -> void:
 	
 	if global_position == _desired_cell_position:
 		_calculate_next_desired_position()
-		if current_state == State.TARGETING:
+		if (
+			current_state == State.TARGETING or 
+			current_state == State.EATEN
+		):
 			_calculate_next_move()
 		elif current_state == State.FRIGHTENED:
 			_randomize_next_move()
