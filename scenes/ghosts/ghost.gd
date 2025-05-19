@@ -17,8 +17,18 @@ var _desired_cell_position : Vector2
 var target_coordinates := Vector2i(14, 26)
 var target_position : Vector2
 
+var _in_front_of_ghost_house := [Vector2i(13, 14), Vector2i(14, 14)]
+var _target_inside_the_house := Vector2i(14, 18)
 var _adjust_the_grid := false
+var is_inside_the_ghost_house := false
+
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
+const WALKABLE_GHOST_HOUSE := [
+	Vector2i(14, 15), Vector2i(14, 16), Vector2i(14, 17), Vector2i(14, 18),
+	Vector2i(13, 17), Vector2i(13, 18), Vector2i(12, 17), Vector2i(12, 18),
+	Vector2i(13, 17), Vector2i(13, 18), Vector2i(12, 17), Vector2i(12, 18),
+	Vector2i(15, 17), Vector2i(15, 18), Vector2i(16, 17), Vector2i(16, 18)
+]
 
 var _direction := Vector2i.LEFT
 var speed := 1.0
