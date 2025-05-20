@@ -20,8 +20,10 @@ var target_position : Vector2
 
 var _in_front_of_ghost_house := [Vector2i(13, 14), Vector2i(14, 14)]
 @export var _target_inside_the_house := Vector2i(14, 18)
+var _house_exit_coordinates := Vector2i(14, 18)
 var _adjust_the_grid := false
-var is_inside_the_ghost_house := false
+@export var is_inside_the_ghost_house := false
+@export var locked_inside_the_ghost_house := false
 
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 const WALKABLE_GHOST_HOUSE := [
@@ -35,23 +37,30 @@ const TUNNEL_CELLS := [
 ]
 var _tunnel_traveling := false
 
-var _direction := Vector2i.LEFT
+@export var _direction := Vector2i.LEFT
 var normal_speed := 1.0
 var speed := 1.0
 
 enum State {
 	TARGETING,
 	FRIGHTENED,
-	EATEN
+	EATEN,
+	LOCKED
 }
 var current_state := State.TARGETING
 var _seed := "FRIGHTENED".hash()
 var _frightened_timing := 6.0
 
 func _ready() -> void:
+	
+	if is_inside_the_ghost_house:
+		_adjust_the_grid = true
+		speed /= 2.0
+	if locked_inside_the_ghost_house:
+		current_state = State.LOCKED
 	seed(_seed)
-	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
-	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
+	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
+	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
 	
@@ -86,9 +95,10 @@ func _physics_process(delta: float) -> void:
 			_calculate_next_move()
 		elif current_state == State.FRIGHTENED:
 			_randomize_next_move()
+		elif current_state == State.LOCKED:
+			_locked_behaviour()
 	
 	_ghost_house_behaviour()
-	
 	
 	if frightened_timer.time_left < 2.0 and !frightened_timer.is_stopped():
 		animated_sprite_2d.animation = "frightened_flashing"
@@ -230,8 +240,13 @@ func _ghost_house_behaviour() -> void:
 	if current_state == State.EATEN and current_cell_coordinates == _target_inside_the_house:
 		current_state = State.TARGETING
 		is_inside_the_ghost_house = true
-		
-	if current_state == State.TARGETING and is_inside_the_ghost_house:
+		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
+	if (
+		current_state == State.TARGETING and 
+		is_inside_the_ghost_house and
+		_current_cell_position == _desired_cell_position
+	):
+		print("boop")
 		target_coordinates = _in_front_of_ghost_house[1]
 		_direction = Vector2i.UP
 		speed = 0.5
@@ -251,3 +266,11 @@ func _check_walkability(to_check_walkable: Vector2i) -> bool:
 				!WALKABLE_GHOST_HOUSE.has(to_check_walkable)
 			)
 		)
+
+func _locked_behaviour() -> void:
+	_direction *= -1
+	_calculate_next_desired_position()
+	print("LOCK")
+	if Input.is_action_pressed("release") and current_cell_coordinates.y == _house_exit_coordinates.y:
+		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
+		current_state = State.TARGETING
