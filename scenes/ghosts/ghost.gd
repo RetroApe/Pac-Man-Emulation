@@ -137,6 +137,13 @@ func _calculate_next_move() -> void:
 		var to_check_walkable : Vector2i = _desired_cell_coordinates + possible_directions[i]
 		if _check_walkability(to_check_walkable) == false:
 			possible_directions[i] = null
+		if (
+			current_cell_coordinates.y == 26 and
+			(to_check_walkable == Vector2i(12, 25) or to_check_walkable == Vector2i(15, 25)) or
+			current_cell_coordinates.y == 14 and
+			(to_check_walkable == Vector2i(12, 13) or to_check_walkable == Vector2i(15, 13))
+		):
+			possible_directions[i] = null
 	while possible_directions.find(null) != -1:
 		possible_directions.erase(null)
 	if possible_directions.size() == 1:
