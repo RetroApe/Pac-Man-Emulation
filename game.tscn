@@ -41,3 +41,10 @@ ghost_color = Color(1, 0.717647, 1, 0.6)
 [node name="ScatterChaseTimer" type="Timer" parent="Ghosts"]
 unique_name_in_owner = true
 autostart = true
+
+[node name="StartTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+wait_time = 2.0
+one_shot = true
+autostart = true
