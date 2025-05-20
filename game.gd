@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var pac_man: PacMan = %PacMan
+@onready var ghosts: Ghosts = %Ghosts
 @onready var ghost: Ghost = %Ghost
 
 const GRID = preload("res://resources/Grid.tres")
@@ -12,17 +13,12 @@ var _scatter_chase_timing : Dictionary = {
 
 func _ready() -> void:
 	pac_man.energizer_eaten.connect(_on_eaten_energizer)
-
+	
+	ghosts.pacman_dead.connect(pac_man.death)
 
 func _process(_delta: float) -> void:
-	if ghost.current_state == ghost.State.TARGETING and ghost.is_inside_the_ghost_house == false:
-		ghost.target_coordinates = pac_man.current_cell_coordinates
-	if ghost.current_cell_coordinates == pac_man.current_cell_coordinates:
-		if ghost.current_state == ghost.State.TARGETING:
-			pac_man.death()
-		if ghost.current_state == ghost.State.FRIGHTENED:
-			ghost.death()
+	ghosts.pacman_current_cell_coordinates = pac_man.current_cell_coordinates
 	
 
 func _on_eaten_energizer() -> void:
-	ghost.frightened()
+	ghosts.frightened()
