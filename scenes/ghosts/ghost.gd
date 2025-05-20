@@ -29,8 +29,14 @@ const WALKABLE_GHOST_HOUSE := [
 	Vector2i(13, 17), Vector2i(13, 18), Vector2i(12, 17), Vector2i(12, 18),
 	Vector2i(15, 17), Vector2i(15, 18), Vector2i(16, 17), Vector2i(16, 18)
 ]
+const TUNNEL_CELLS := [
+	Vector2i(-2, 17), Vector2i(-1, 17), Vector2i(0, 17), Vector2i(1, 17), Vector2i(2, 17), Vector2i(3, 17), Vector2i(4, 17),
+	Vector2i(23, 17), Vector2i(24, 17), Vector2i(25, 17), Vector2i(26, 17), Vector2i(27, 17), Vector2i(28, 17), Vector2i(29, 17),
+]
+var _tunnel_traveling := false
 
 var _direction := Vector2i.LEFT
+var normal_speed := 1.0
 var speed := 1.0
 
 enum State {
@@ -58,6 +64,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
+	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false:
+		speed /= 2
+		_tunnel_traveling = true
+	elif !TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == true:
+		speed = normal_speed
+		_tunnel_traveling = false
+	
 	if target_coordinates:
 		target_position = GRID.calculate_cell_position(target_coordinates, _adjust_the_grid)
 		target_cell_panel.global_position = target_position - Vector2(4.0, 4.0)
