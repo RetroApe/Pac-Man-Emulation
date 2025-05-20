@@ -26,9 +26,8 @@ var is_inside_the_ghost_house := false
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 const WALKABLE_GHOST_HOUSE := [
 	Vector2i(14, 15), Vector2i(14, 16), Vector2i(14, 17), Vector2i(14, 18),
-	Vector2i(13, 17), Vector2i(13, 18), Vector2i(12, 17), Vector2i(12, 18),
-	Vector2i(13, 17), Vector2i(13, 18), Vector2i(12, 17), Vector2i(12, 18),
-	Vector2i(15, 17), Vector2i(15, 18), Vector2i(16, 17), Vector2i(16, 18)
+	Vector2i(-13, -17), Vector2i(13, 18), Vector2i(12, 17), Vector2i(12, 18),
+	Vector2i(-15, -17), Vector2i(15, 18), Vector2i(16, 17), Vector2i(16, 18)
 ]
 const TUNNEL_CELLS := [
 	Vector2i(-2, 17), Vector2i(-1, 17), Vector2i(0, 17), Vector2i(1, 17), Vector2i(2, 17), Vector2i(3, 17), Vector2i(4, 17),
