@@ -6,11 +6,6 @@ extends Node2D
 
 const GRID = preload("res://resources/Grid.tres")
 
-var _scatter_chase_timing : Dictionary = {
-	"level_1": [7.0, 20.0, 7.0, 20.0, 5.0, 20.0, 5.0, -1.0]
-}
-
-
 func _ready() -> void:
 	pac_man.energizer_eaten.connect(_on_eaten_energizer)
 	
