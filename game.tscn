@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dufj73kjgu7d3"]
+[gd_scene load_steps=9 format=3 uid="uid://dufj73kjgu7d3"]
 
 [ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="1_e2o6t"]
 [ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://game.gd" id="1_fc0e3"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://do5q0ccp36hbm" path="res://scenes/ghosts/ghost.tscn" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://doiygfqfxs7le" path="res://ghosts.gd" id="4_7jktm"]
 [ext_resource type="SpriteFrames" uid="uid://c8inyipwm2ly2" path="res://scenes/ghosts/pinky_sprite_frames.tres" id="6_ryrav"]
+[ext_resource type="SpriteFrames" uid="uid://c5a87yxul3go5" path="res://scenes/ghosts/inky_sprite_frames.tres" id="7_eow3j"]
+[ext_resource type="SpriteFrames" uid="uid://ckbag7ue1x50b" path="res://scenes/ghosts/clyde_sprite_frames.tres" id="8_j5wjh"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fc0e3")
@@ -30,13 +32,34 @@ position = Vector2(112, 116)
 
 [node name="Pinky" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
 unique_name_in_owner = true
-position = Vector2(112, 144)
+position = Vector2(112, 140)
 scatter_coordinates = Vector2i(2, 0)
-_target_inside_the_house = Vector2i(12, 18)
 is_inside_the_ghost_house = true
-_direction = Vector2i(0, 1)
+_direction = Vector2i(0, -1)
 sprite_frames = ExtResource("6_ryrav")
 ghost_color = Color(1, 0.717647, 1, 0.6)
+
+[node name="Inky" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
+unique_name_in_owner = true
+position = Vector2(96, 140)
+scatter_coordinates = Vector2i(27, 35)
+_target_inside_the_house = Vector2i(12, 18)
+is_inside_the_ghost_house = true
+locked_inside_the_ghost_house = true
+_direction = Vector2i(0, -1)
+sprite_frames = ExtResource("7_eow3j")
+ghost_color = Color(0, 1, 1, 0.6)
+
+[node name="Clyde" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
+unique_name_in_owner = true
+position = Vector2(128, 140)
+scatter_coordinates = Vector2i(0, 35)
+_target_inside_the_house = Vector2i(12, 18)
+is_inside_the_ghost_house = true
+locked_inside_the_ghost_house = true
+_direction = Vector2i(0, -1)
+sprite_frames = ExtResource("8_j5wjh")
+ghost_color = Color(1, 0.717647, 0.317647, 0.6)
 
 [node name="ScatterChaseTimer" type="Timer" parent="Ghosts"]
 unique_name_in_owner = true

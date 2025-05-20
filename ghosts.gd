@@ -3,7 +3,6 @@ extends Node2D
 
 signal pacman_dead
 
-@onready var blinky : Ghost = %Blinky
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 
 enum {
@@ -16,6 +15,7 @@ var pacman_current_cell_coordinates : Vector2i
 var pacman_direction : Vector2i
 var _ghosts_array : Array[Node]
 var _current_level : String
+var _blinky_coordinates : Vector2i
 
 func _ready() -> void:
 	_current_level = EventBus.current_level[EventBus.current_level_counter]
@@ -45,6 +45,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	for ghost in _ghosts_array:
+		if ghost.name == "Blinky":
+			_blinky_coordinates = ghost.current_cell_coordinates
 		if (
 			ghost.current_state == ghost.State.TARGETING and 
 			ghost.is_inside_the_ghost_house == false and
@@ -63,6 +65,7 @@ func _process(_delta: float) -> void:
 				ghost.death()
 
 func _assign_special_target(ghost: Node2D) -> void:
+	ghost = ghost as Ghost
 	match ghost.name:
 		"Blinky": 
 			ghost.target_coordinates = pacman_current_cell_coordinates
@@ -70,6 +73,14 @@ func _assign_special_target(ghost: Node2D) -> void:
 			ghost.target_coordinates = pacman_current_cell_coordinates + 4 * pacman_direction
 			if pacman_direction == Vector2i.UP:
 				ghost.target_coordinates += Vector2i(-4, 0)
+		"Inky":
+			var intermediary := pacman_current_cell_coordinates + 2 * pacman_direction
+			ghost.target_coordinates = 2 * intermediary - _blinky_coordinates
+		"Clyde":
+			var ghost_distance : float = (pacman_current_cell_coordinates - ghost.current_cell_coordinates).length()
+			ghost_distance = floorf(ghost_distance)
+			print(ghost_distance)
+			ghost.target_coordinates = pacman_current_cell_coordinates if ghost_distance > 8.0 else ghost.scatter_coordinates
 
 func frightened() -> void:
 	for ghostee in _ghosts_array:
