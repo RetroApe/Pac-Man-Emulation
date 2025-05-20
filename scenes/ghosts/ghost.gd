@@ -168,10 +168,10 @@ func _match_animation() -> void:
 
 func _wrap_around_the_screen() -> void:
 	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
-		current_cell_coordinates.x = Vector2i(GRID.size).x
+		current_cell_coordinates.x = (Vector2i(GRID.size) + Vector2i(1, 0)).x
 		global_position.x = GRID.calculate_cell_position(current_cell_coordinates).x
 		_calculate_next_desired_position()
-	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size)).x:
+	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(1, 0)).x:
 		current_cell_coordinates.x = Vector2i(-2, 0).x
 		global_position.x = GRID.calculate_cell_position(current_cell_coordinates).x
 		_calculate_next_desired_position()

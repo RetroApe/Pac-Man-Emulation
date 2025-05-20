@@ -102,8 +102,8 @@ func _move_y(velocity_y: float):
 
 func _wrap_around_the_screen() -> void:
 	if global_position.x <= GRID.calculate_cell_position(Vector2i(-2, 0)).x:
-		global_position.x = GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(0, 0)).x
-	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(0, 0)).x:
+		global_position.x = GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(1, 0)).x
+	elif global_position.x >= GRID.calculate_cell_position(Vector2i(GRID.size) + Vector2i(1, 0)).x:
 		global_position.x = GRID.calculate_cell_position(Vector2i(-2, 0)).x
 
 func _on_area_entered(area: Area2D) -> void:
