@@ -16,9 +16,10 @@ var _desired_cell_coordinates : Vector2i
 var _desired_cell_position : Vector2
 var target_coordinates := Vector2i(14, 26)
 var target_position : Vector2
+@export var _scatter_coordinates := Vector2i(25, 0)
 
 var _in_front_of_ghost_house := [Vector2i(13, 14), Vector2i(14, 14)]
-var _target_inside_the_house := Vector2i(14, 18)
+@export var _target_inside_the_house := Vector2i(14, 18)
 var _adjust_the_grid := false
 var is_inside_the_ghost_house := false
 
@@ -54,7 +55,6 @@ func _ready() -> void:
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
-	print(current_state)
 	
 	frightened_timer.timeout.connect(func() -> void:
 		current_state = State.TARGETING
