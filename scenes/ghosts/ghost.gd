@@ -63,10 +63,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
-	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false:
-		speed /= 2
+	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false and current_state == State.TARGETING:
+		speed /= 2.0
 		_tunnel_traveling = true
-	elif !TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == true:
+	elif !TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == true and current_state == State.TARGETING:
 		speed = normal_speed
 		_tunnel_traveling = false
 	
