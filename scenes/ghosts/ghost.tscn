@@ -1,199 +1,31 @@
-[gd_scene load_steps=22 format=3 uid="uid://do5q0ccp36hbm"]
+[gd_scene load_steps=6 format=3 uid="uid://do5q0ccp36hbm"]
 
 [ext_resource type="Script" uid="uid://c1xbti6tc15u5" path="res://scenes/ghosts/ghost.gd" id="1_6attn"]
-[ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="1_v5pp4"]
+[ext_resource type="SpriteFrames" uid="uid://dsplgcpdq54rm" path="res://scenes/ghosts/blinky_sprite_frames.tres" id="2_3q22o"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v5pp4"]
 blend_mode = 1
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6attn"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(0, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_obmiq"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(16, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2jh1f"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(96, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pa7oq"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(112, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hiw70"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(160, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kjq22"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(144, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jw18l"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(176, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xtt71"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(128, 80, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yc3kp"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(128, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bqjpw"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(144, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wacvi"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(160, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_neao1"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(176, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2pguw"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(32, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_702ga"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(48, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d0t02"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(64, 64, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0fo3v"]
-atlas = ExtResource("1_v5pp4")
-region = Rect2(80, 64, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ecrtm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6attn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_obmiq")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2jh1f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pa7oq")
-}],
-"loop": true,
-"name": &"down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hiw70")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kjq22")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jw18l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xtt71")
-}],
-"loop": false,
-"name": &"eaten",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yc3kp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bqjpw")
-}],
-"loop": true,
-"name": &"frightened",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wacvi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_neao1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yc3kp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bqjpw")
-}],
-"loop": true,
-"name": &"frightened_flashing",
-"speed": 9.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2pguw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_702ga")
-}],
-"loop": true,
-"name": &"left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6attn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_obmiq")
-}],
-"loop": true,
-"name": &"right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d0t02")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0fo3v")
-}],
-"loop": true,
-"name": &"up",
-"speed": 5.0
-}]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ypo3"]
+bg_color = Color(0.2237, 0.6, 0.174, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q22o"]
-bg_color = Color(1, 0, 0, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.633333, 0, 1, 1)
+bg_color = Color(0.947406, 3.77826e-06, 1.73271e-06, 0)
 
 [node name="Ghost" type="Node2D"]
 script = ExtResource("1_6attn")
+sprite_frames = ExtResource("2_3q22o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_v5pp4")
-sprite_frames = SubResource("SpriteFrames_ecrtm")
+sprite_frames = ExtResource("2_3q22o")
 
 [node name="TargetCell" type="Panel" parent="."]
 unique_name_in_owner = true
 offset_right = 8.0
 offset_bottom = 8.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_3q22o")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ypo3")
 
 [node name="DesiredCellPositionPanel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -203,6 +35,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3q22o")
 
 [node name="TargetCellCoordinates" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -10.0
 offset_top = -28.0
 offset_right = 40.0
@@ -212,6 +45,7 @@ text = "Target"
 
 [node name="CurrentCellCoordinates" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -10.0
 offset_top = -18.0
 offset_right = 40.0

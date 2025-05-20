@@ -8,23 +8,6 @@ extends Node2D
 @onready var current_cell_coordinates_label: Label = %CurrentCellCoordinates
 @onready var frightened_timer: Timer = %FrightenedTimer
 
-const GRID = preload("res://resources/Grid.tres")
-var current_cell_coordinates : Vector2i
-var _previous_cell_coordinates : Vector2i
-var _current_cell_position : Vector2
-var _desired_cell_coordinates : Vector2i
-var _desired_cell_position : Vector2
-var target_coordinates := Vector2i(14, 26)
-var target_position : Vector2
-@export var _scatter_coordinates := Vector2i(25, 0)
-
-var _in_front_of_ghost_house := [Vector2i(13, 14), Vector2i(14, 14)]
-@export var _target_inside_the_house := Vector2i(14, 18)
-var _house_exit_coordinates := Vector2i(14, 18)
-var _adjust_the_grid := false
-@export var is_inside_the_ghost_house := false
-@export var locked_inside_the_ghost_house := false
-
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 const WALKABLE_GHOST_HOUSE := [
 	Vector2i(14, 15), Vector2i(14, 16), Vector2i(14, 17), Vector2i(14, 18),
@@ -37,9 +20,30 @@ const TUNNEL_CELLS := [
 ]
 var _tunnel_traveling := false
 
+const GRID = preload("res://resources/Grid.tres")
+var current_cell_coordinates : Vector2i
+var _previous_cell_coordinates : Vector2i
+var _current_cell_position : Vector2
+var _desired_cell_coordinates : Vector2i
+var _desired_cell_position : Vector2
+var target_coordinates := Vector2i(14, 26)
+var target_position : Vector2
+@export var scatter_coordinates := Vector2i(25, 0)
+
+var _in_front_of_ghost_house := [Vector2i(13, 14), Vector2i(14, 14)]
+@export var _target_inside_the_house := Vector2i(14, 18)
+var _house_exit_coordinates := Vector2i(14, 18)
+var _adjust_the_grid := false
+@export var is_inside_the_ghost_house := false
+@export var locked_inside_the_ghost_house := false
+
+
 @export var _direction := Vector2i.LEFT
 var normal_speed := 1.0
 var speed := 1.0
+
+@export var sprite_frames : SpriteFrames
+@export var ghost_color : Color = Color("RED", 0.6)
 
 enum State {
 	TARGETING,
@@ -52,6 +56,7 @@ var _seed := "FRIGHTENED".hash()
 var _frightened_timing := 6.0
 
 func _ready() -> void:
+	_individual_ghost_adjustments()
 	
 	if is_inside_the_ghost_house:
 		_adjust_the_grid = true
@@ -69,6 +74,12 @@ func _ready() -> void:
 		speed = 1.0
 	)
 
+func _individual_ghost_adjustments() -> void:
+	animated_sprite_2d.sprite_frames = sprite_frames
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = ghost_color
+	target_cell_panel.add_theme_stylebox_override("panel", stylebox)
+
 func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
@@ -82,8 +93,6 @@ func _physics_process(delta: float) -> void:
 	if target_coordinates:
 		target_position = GRID.calculate_cell_position(target_coordinates, _adjust_the_grid)
 		target_cell_panel.global_position = target_position - Vector2(4.0, 4.0)
-		target_cell_coordinates_label.text = str(target_coordinates)
-	current_cell_coordinates_label.text = str(current_cell_coordinates)
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	
 	if global_position == _desired_cell_position:

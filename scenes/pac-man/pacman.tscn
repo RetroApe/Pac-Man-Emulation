@@ -247,6 +247,7 @@ offset = Vector2(0.5, 0.5)
 
 [node name="IsWalkable" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -12.0
 offset_top = -41.0
 offset_right = 48.0
@@ -256,6 +257,7 @@ text = "false"
 
 [node name="CellCoordinates" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -12.0
 offset_top = -30.0
 offset_right = 48.0
@@ -265,6 +267,7 @@ text = "Vector2"
 
 [node name="DotsNumber" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -12.0
 offset_top = -19.0
 offset_right = 48.0
@@ -274,6 +277,7 @@ text = "Vector2"
 
 [node name="DesiredCell" type="Panel" parent="."]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

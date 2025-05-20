@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	ghosts.pacman_current_cell_coordinates = pac_man.current_cell_coordinates
-	
+	ghosts.pacman_direction = pac_man.direction
 
 func _on_eaten_energizer() -> void:
 	ghosts.frightened()
