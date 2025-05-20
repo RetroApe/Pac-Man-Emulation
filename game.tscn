@@ -23,9 +23,19 @@ position = Vector2(112, 120)
 unique_name_in_owner = true
 script = ExtResource("4_7jktm")
 
-[node name="Ghost" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
+[node name="Blinky" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
 unique_name_in_owner = true
 position = Vector2(112, 116)
+
+[node name="Pinky" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
+unique_name_in_owner = true
+texture_filter = 2
+position = Vector2(96, 136)
+_scatter_coordinates = Vector2i(2, 0)
+_target_inside_the_house = Vector2i(12, 18)
+is_inside_the_ghost_house = true
+locked_inside_the_ghost_house = true
+_direction = Vector2i(0, 1)
 
 [node name="ScatterChaseTimer" type="Timer" parent="Ghosts"]
 unique_name_in_owner = true
