@@ -78,6 +78,11 @@ func _individual_ghost_adjustments() -> void:
 	animated_sprite_2d.sprite_frames = sprite_frames
 	var stylebox = StyleBoxFlat.new()
 	stylebox.bg_color = ghost_color
+	stylebox.border_width_bottom = 1
+	stylebox.border_width_left = 1
+	stylebox.border_width_right = 1
+	stylebox.border_width_top = 1
+	stylebox.border_color = Color(ghost_color, 1.0)
 	target_cell_panel.add_theme_stylebox_override("panel", stylebox)
 
 func _physics_process(delta: float) -> void:
