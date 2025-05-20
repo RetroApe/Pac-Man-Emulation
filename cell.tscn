@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxaaky61r3ti7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14hpr"]
+bg_color = Color(0.3484, 0.67, 0.5896, 0.231373)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.73, 0.499807, 0.1022, 0.286275)
+
+[node name="Cell" type="Panel"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14hpr")

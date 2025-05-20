@@ -2,11 +2,16 @@ extends Node2D
 
 @onready var pac_man: PacMan = %PacMan
 @onready var ghosts: Ghosts = %Ghosts
-@onready var ghost: Ghost = %Ghost
 
 const GRID = preload("res://resources/Grid.tres")
+const CELL = preload("res://cell.tscn")
 
 func _ready() -> void:
+	for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
+		var cell_panel : Panel = CELL.instantiate()
+		cell_panel.position = GRID.calculate_cell_position(cell_coord, true) - Vector2(4.0, 4.0)
+		add_child(cell_panel)
+	
 	pac_man.energizer_eaten.connect(_on_eaten_energizer)
 	
 	ghosts.pacman_dead.connect(pac_man.death)
