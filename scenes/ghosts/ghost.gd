@@ -235,12 +235,12 @@ func _ghost_house_behaviour() -> void:
 		target_coordinates = _in_front_of_ghost_house[1]
 		_direction = Vector2i.UP
 		speed = 0.5
-	if current_state == State.TARGETING and current_cell_coordinates == _in_front_of_ghost_house[1]:
-		is_inside_the_ghost_house = false
-		_adjust_the_grid = false
-		_direction = Vector2i.LEFT
-		speed = 1.0
-		_calculate_next_desired_position()
+		if current_cell_coordinates == _in_front_of_ghost_house[1]:
+			is_inside_the_ghost_house = false
+			_adjust_the_grid = false
+			_direction = Vector2i.LEFT
+			speed = 1.0
+			_calculate_next_desired_position()
 
 func _check_walkability(to_check_walkable: Vector2i) -> bool:
 	return !(
