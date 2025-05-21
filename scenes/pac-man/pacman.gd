@@ -1,6 +1,7 @@
 class_name PacMan
 extends CharacterBody2D
 
+signal pacman_dead
 signal energizer_eaten
 signal dot_eaten
 
@@ -118,4 +119,6 @@ func _on_area_entered(area: Area2D) -> void:
 			area.queue_free()
 
 func death() -> void:
+	pacman_dead.emit()
+	get_tree().paused = true
 	print("Pac-Man Dead")

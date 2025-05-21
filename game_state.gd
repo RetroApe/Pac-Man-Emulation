@@ -25,6 +25,7 @@ var current_level : Dictionary = {
 	21: "level_21",
 }
 
+var player_ready_screen := true
 var dots_eaten := 0
 
 var scatter_chase_timing : Dictionary[String, Array] = {

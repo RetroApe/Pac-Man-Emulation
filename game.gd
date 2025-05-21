@@ -10,8 +10,10 @@ const CELL = preload("res://cell.tscn")
 func _ready() -> void:
 	start_timer.timeout.connect(func() -> void:
 		get_tree().paused = false
+		GameState.player_ready_screen = false
 	)
 	get_tree().paused = true
+	GameState.player_ready_screen = true
 	
 	for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
 		var cell_panel : Panel = CELL.instantiate()
