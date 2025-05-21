@@ -296,6 +296,7 @@ func death() -> void:
 	speed = 2.0
 	frightened_timer.stop()
 	_match_animation()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ghost_house_behaviour() -> void:
 	
@@ -314,6 +315,7 @@ func _ghost_house_behaviour() -> void:
 	
 	if current_state == State.EATEN and current_cell_coordinates == _target_inside_the_house:
 		current_state = State.TARGETING
+		process_mode = Node.PROCESS_MODE_INHERIT
 		is_inside_the_ghost_house = true
 		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
 	if (

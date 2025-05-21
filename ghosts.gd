@@ -48,6 +48,10 @@ func _process(_delta: float) -> void:
 				pacman_dead.emit()
 			if ghost.current_state == ghost.State.FRIGHTENED:
 				ghost.death()
+				get_tree().paused = true
+				get_tree().create_timer(1.0).timeout.connect(func() -> void:
+					get_tree().paused = false
+				)
 
 func _assign_special_target(ghost: Node2D) -> void:
 	ghost = ghost as Ghost

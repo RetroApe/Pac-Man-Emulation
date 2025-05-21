@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://do5q0ccp36hbm"]
+[gd_scene load_steps=6 format=3 uid="uid://do5q0ccp36hbm"]
 
 [ext_resource type="Script" uid="uid://c1xbti6tc15u5" path="res://scenes/ghosts/ghost.gd" id="1_6attn"]
 [ext_resource type="SpriteFrames" uid="uid://dsplgcpdq54rm" path="res://scenes/ghosts/blinky_sprite_frames.tres" id="2_3q22o"]
-[ext_resource type="Script" uid="uid://c16fgqwiwvpq8" path="res://utility/animation_process.gd" id="3_4ypo3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v5pp4"]
 blend_mode = 1
@@ -19,10 +18,8 @@ sprite_frames = ExtResource("2_3q22o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-process_mode = 3
 material = SubResource("CanvasItemMaterial_v5pp4")
 sprite_frames = ExtResource("2_3q22o")
-script = ExtResource("3_4ypo3")
 
 [node name="TargetCell" type="Panel" parent="."]
 unique_name_in_owner = true
