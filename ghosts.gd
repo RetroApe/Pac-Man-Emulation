@@ -20,11 +20,7 @@ var _blinky_coordinates : Vector2i
 func _ready() -> void:
 	_current_level = EventBus.current_level[EventBus.current_level_counter]
 	
-	_ghosts_array = get_children()
-	for ghost in _ghosts_array:
-		if ghost.is_class("Node2D"):
-			continue
-		_ghosts_array.erase(ghost)
+	_ghosts_array = find_children("*", "Ghost", false)
 	
 	scatter_chase_timer.start(EventBus.scatter_chase_timing[_current_level][0])
 	scatter_chase_timer.timeout.connect(func() -> void:
@@ -33,7 +29,10 @@ func _ready() -> void:
 		_current_state = EventBus.scatter_chase_timing_counter % 2
 		#print(_current_state, " = ", EventBus.scatter_chase_timing_counter)
 		for ghost in _ghosts_array:
-			if ghost.is_inside_the_ghost_house == false and ghost.current_state == ghost.State.TARGETING:
+			if (
+				ghost.is_inside_the_ghost_house == false and 
+				(ghost.current_state == ghost.State.TARGETING or ghost.current_state == ghost.State.EATEN)
+			):
 				ghost.switch_direction()
 		var time : float = EventBus.scatter_chase_timing[_current_level][EventBus.scatter_chase_timing_counter]
 		if time != -1.0:
@@ -83,5 +82,7 @@ func _assign_special_target(ghost: Node2D) -> void:
 			ghost.target_coordinates = pacman_current_cell_coordinates if ghost_distance > 8.0 else ghost.scatter_coordinates
 
 func frightened() -> void:
-	for ghostee in _ghosts_array:
-		ghostee.frightened()
+	for ghost in _ghosts_array:
+		ghost.frightened()
+		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
+			ghost.death()
