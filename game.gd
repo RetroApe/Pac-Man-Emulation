@@ -24,7 +24,10 @@ func _ready() -> void:
 	
 	pac_man.energizer_eaten.connect(_on_eaten_energizer)
 	
-	ghosts.pacman_dead.connect(pac_man.death)
+	ghosts.pacman_dead.connect(func() -> void:
+		pac_man.death()
+		ghosts.on_pacman_dead()
+	)
 
 func _process(_delta: float) -> void:
 	ghosts.pacman_current_cell_coordinates = pac_man.current_cell_coordinates

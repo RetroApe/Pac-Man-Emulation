@@ -58,6 +58,7 @@ var current_state := State.TARGETING
 var _seed := "FRIGHTENED".hash()
 var _fright_time := 6.0
 var _is_frightened := false
+var pacman_eaten := false
 
 var _current_level : String
 var personal_dot_counter := 0
@@ -110,7 +111,8 @@ func _individual_ghost_adjustments() -> void:
 	target_cell_panel.add_theme_stylebox_override("panel", stylebox)
 
 func _physics_process(delta: float) -> void:
-	
+	if pacman_eaten:
+		return
 	personal_dot_counter_label.text = str(personal_dot_counter)
 	if personal_dot_counter == _personal_dot_number:
 		release = true

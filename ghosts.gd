@@ -108,3 +108,7 @@ func set_dots(new_dots: int) -> void:
 				ghost = ghost as Ghost
 				ghost.personal_dot_counter += 1
 				break
+
+func on_pacman_dead() -> void:
+	for ghost in _ghosts_array as Array[Ghost]:
+		ghost.pacman_eaten = true
