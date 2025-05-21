@@ -25,10 +25,32 @@ var current_level : Dictionary = {
 	21: "level_21",
 }
 
-var scatter_chase_timing : Dictionary = {
+var scatter_chase_timing : Dictionary[String, Array] = {
 	"level_1": [7.0, 20.0, 7.0, 20.0, 5.0, 20.0, 5.0, -1.0],
 	"level_2": [7.0, 20.0, 7.0, 20.0, 5.0, 1033.0 + 14.0/60.0, 1.0/60.0, -1.0],
 	"level_3": [7.0, 20.0, 7.0, 20.0, 5.0, 1033.0 + 14.0/60.0, 1.0/60.0, -1.0],
 	"level_4": [7.0, 20.0, 7.0, 20.0, 5.0, 1033.0 + 14.0/60.0, 1.0/60.0, -1.0],
 	"level_5": [5.0, 20.0, 5.0, 20.0, 5.0, 1037.0 + 14.0/60.0, 1.0/60.0, -1.0],
+}
+
+var fright_time : Dictionary[String, float] = {
+	"level_1": 6.0,
+	"level_2": 5.0,
+	"level_3": 4.0,
+	"level_4": 3.0,
+	"level_5": 2.0,
+	"level_6": 5.0,
+	"level_7": 2.0,
+	"level_8": 2.0,
+	"level_9": 1.0,
+	"level_10": 5.0,
+	"level_11": 2.0,
+	"level_12": 1.0,
+	"level_13": 1.0,
+	"level_14": 3.0,
+	"level_15": 1.0,
+	"level_16": 1.0,
+	"level_17": 0.0,
+	"level_18": 1.0,
+	"level_19": 0.0,
 }

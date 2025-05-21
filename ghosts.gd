@@ -60,7 +60,6 @@ func _assign_special_target(ghost: Node2D) -> void:
 		"Clyde":
 			var ghost_distance : float = (pacman_current_cell_coordinates - ghost.current_cell_coordinates).length()
 			ghost_distance = floorf(ghost_distance)
-			print(ghost_distance)
 			ghost.target_coordinates = pacman_current_cell_coordinates if ghost_distance > 8.0 else ghost.scatter_coordinates
 
 func _scatter_chase_behaviour() -> void:

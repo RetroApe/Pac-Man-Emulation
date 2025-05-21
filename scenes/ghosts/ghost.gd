@@ -53,10 +53,18 @@ enum State {
 }
 var current_state := State.TARGETING
 var _seed := "FRIGHTENED".hash()
-var _frightened_timing := 6.0
+var _fright_time := 6.0
+var _is_frightened := false
+var _current_level : String
 
 func _ready() -> void:
 	_individual_ghost_adjustments()
+	
+	_current_level = EventBus.current_level[EventBus.current_level_counter]
+	if EventBus.current_level_counter > 19:
+		_fright_time = 0.0
+	else:
+		_fright_time = EventBus.fright_time[_current_level]
 	
 	if is_inside_the_ghost_house:
 		_adjust_the_grid = true
@@ -70,6 +78,9 @@ func _ready() -> void:
 	_calculate_next_desired_position()
 	
 	frightened_timer.timeout.connect(func() -> void:
+		_is_frightened = false
+		if current_state == State.LOCKED:
+			return
 		current_state = State.TARGETING
 		speed = 1.0
 	)
@@ -129,7 +140,7 @@ func _calculate_next_desired_position() -> void:
 
 	if _check_walkability(_desired_cell_coordinates) == false:
 		_desired_cell_position = _current_cell_position
-	if current_state == State.FRIGHTENED:
+	if current_state == State.FRIGHTENED or _is_frightened:
 		return
 	_match_animation()
 
@@ -226,12 +237,19 @@ func switch_direction() -> void:
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
 
 func frightened() -> void:
+	_is_frightened = true
+	if current_state == State.LOCKED:
+		animated_sprite_2d.animation = "frightened"
+		frightened_timer.start(_fright_time)
 	if current_state == State.EATEN or is_inside_the_ghost_house:
+		return
+	if _fright_time == 0.0:
+		switch_direction()
 		return
 	current_state = State.FRIGHTENED
 	animated_sprite_2d.animation = "frightened"
 	speed = 0.5
-	frightened_timer.start(_frightened_timing)
+	frightened_timer.start(_fright_time)
 	if current_state == State.EATEN:
 		return
 	switch_direction()
@@ -290,6 +308,8 @@ func _check_walkability(to_check_walkable: Vector2i) -> bool:
 func _locked_behaviour() -> void:
 	_direction *= -1
 	_calculate_next_desired_position()
+	if _is_frightened:
+		return
 	_match_animation()
 	if Input.is_action_pressed("release") and current_cell_coordinates.y == _house_exit_coordinates.y:
 		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
