@@ -198,7 +198,7 @@ func _randomize_next_move() -> void:
 			return
 
 func _match_animation() -> void:
-	if current_state == State.TARGETING or current_state == State.LOCKED:
+	if (current_state == State.TARGETING or current_state == State.LOCKED) and !_is_frightened:
 		match _direction:
 			Vector2i.UP:
 				animated_sprite_2d.animation = "up"
@@ -237,11 +237,13 @@ func switch_direction() -> void:
 	_desired_cell_position = GRID.calculate_cell_position(_desired_cell_coordinates)
 
 func frightened() -> void:
+	if current_state == State.EATEN:
+		return
 	_is_frightened = true
-	if current_state == State.LOCKED:
+	if current_state == State.LOCKED or is_inside_the_ghost_house:
 		animated_sprite_2d.animation = "frightened"
 		frightened_timer.start(_fright_time)
-	if current_state == State.EATEN or is_inside_the_ghost_house:
+	if is_inside_the_ghost_house:
 		return
 	if _fright_time == 0.0:
 		switch_direction()
@@ -256,6 +258,7 @@ func frightened() -> void:
 
 func death() -> void:
 	print("Ghost Eaten")
+	_is_frightened = false
 	target_coordinates = _in_front_of_ghost_house[0]
 	current_state = State.EATEN
 	speed = 2.0
@@ -292,8 +295,11 @@ func _ghost_house_behaviour() -> void:
 			is_inside_the_ghost_house = false
 			_adjust_the_grid = false
 			_direction = Vector2i.LEFT
-			speed = 1.0
 			_calculate_next_desired_position()
+			if _is_frightened:
+				current_state = State.FRIGHTENED
+				return
+			speed = 1.0
 
 func _check_walkability(to_check_walkable: Vector2i) -> bool:
 	return !(
@@ -308,11 +314,11 @@ func _check_walkability(to_check_walkable: Vector2i) -> bool:
 func _locked_behaviour() -> void:
 	_direction *= -1
 	_calculate_next_desired_position()
-	if _is_frightened:
-		return
-	_match_animation()
 	if Input.is_action_pressed("release") and current_cell_coordinates.y == _house_exit_coordinates.y:
 		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
 		_direction = (_desired_cell_position - _current_cell_position).sign()
 		_match_animation()
 		current_state = State.TARGETING
+	if _is_frightened:
+		return
+	_match_animation()
