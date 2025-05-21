@@ -19,7 +19,7 @@ var _current_level : String
 var _blinky_coordinates : Vector2i
 
 func _ready() -> void:
-	_current_level = EventBus.current_level[EventBus.current_level_counter]
+	_current_level = GameState.current_level[GameState.current_level_counter]
 	_ghosts_array = find_children("*", "Ghost", false)
 	
 	_scatter_chase_behaviour()
@@ -63,10 +63,10 @@ func _assign_special_target(ghost: Node2D) -> void:
 			ghost.target_coordinates = pacman_current_cell_coordinates if ghost_distance > 8.0 else ghost.scatter_coordinates
 
 func _scatter_chase_behaviour() -> void:
-	if EventBus.current_level_counter > 5:
-		_scatter_chase_timing = EventBus.scatter_chase_timing["level_5"]
+	if GameState.current_level_counter > 5:
+		_scatter_chase_timing = GameState.scatter_chase_timing["level_5"]
 	else:
-		_scatter_chase_timing = EventBus.scatter_chase_timing[_current_level]
+		_scatter_chase_timing = GameState.scatter_chase_timing[_current_level]
 	
 	scatter_chase_timer.start(_scatter_chase_timing[0])
 	scatter_chase_timer.timeout.connect(func() -> void:

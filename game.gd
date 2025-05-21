@@ -11,9 +11,7 @@ func _ready() -> void:
 	start_timer.timeout.connect(func() -> void:
 		get_tree().paused = false
 	)
-	
 	get_tree().paused = true
-	
 	
 	for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
 		var cell_panel : Panel = CELL.instantiate()

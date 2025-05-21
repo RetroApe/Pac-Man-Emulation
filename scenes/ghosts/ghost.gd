@@ -60,11 +60,11 @@ var _current_level : String
 func _ready() -> void:
 	_individual_ghost_adjustments()
 	
-	_current_level = EventBus.current_level[EventBus.current_level_counter]
-	if EventBus.current_level_counter > 19:
+	_current_level = GameState.current_level[GameState.current_level_counter]
+	if GameState.current_level_counter > 19:
 		_fright_time = 0.0
 	else:
-		_fright_time = EventBus.fright_time[_current_level]
+		_fright_time = GameState.fright_time[_current_level]
 	
 	if is_inside_the_ghost_house:
 		_adjust_the_grid = true
