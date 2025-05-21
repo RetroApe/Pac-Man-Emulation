@@ -65,6 +65,14 @@ ghost_color = Color(1, 0.717647, 0.317647, 0.6)
 unique_name_in_owner = true
 autostart = true
 
+[node name="DotsEaten" type="Label" parent="Ghosts"]
+unique_name_in_owner = true
+offset_left = 172.0
+offset_top = 4.0
+offset_right = 212.0
+offset_bottom = 26.3333
+text = "000"
+
 [node name="StartTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 process_mode = 3

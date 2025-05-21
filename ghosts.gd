@@ -3,6 +3,8 @@ extends Node2D
 
 signal pacman_dead
 
+@onready var dots_eaten: Label = %DotsEaten
+
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 var _scatter_chase_timing : Array
 var _scatter_chase_timing_counter := 0
@@ -14,9 +16,11 @@ var _current_state := SCATTER
 
 var pacman_current_cell_coordinates : Vector2i
 var pacman_direction : Vector2i
+var pacman_dots_eaten := 0: set = set_dots
 var _ghosts_array : Array[Node]
 var _current_level : String
 var _blinky_coordinates : Vector2i
+var _ghost_dot_counter_active := true
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter]
@@ -90,3 +94,13 @@ func frightened() -> void:
 		ghost.frightened()
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
 			ghost.death()
+
+func set_dots(new_dots: int) -> void:
+	pacman_dots_eaten = new_dots
+	dots_eaten.text = str(pacman_dots_eaten)
+	if _ghost_dot_counter_active:
+		for ghost in _ghosts_array:
+			if ghost.release == false:
+				ghost = ghost as Ghost
+				ghost.personal_dot_counter += 1
+				break

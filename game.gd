@@ -18,6 +18,8 @@ func _ready() -> void:
 		cell_panel.position = GRID.calculate_cell_position(cell_coord, true) - Vector2(4.0, 4.0)
 		add_child(cell_panel)
 	
+	pac_man.dot_eaten.connect(_on_eaten_dot)
+	
 	pac_man.energizer_eaten.connect(_on_eaten_energizer)
 	
 	ghosts.pacman_dead.connect(pac_man.death)
@@ -25,6 +27,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	ghosts.pacman_current_cell_coordinates = pac_man.current_cell_coordinates
 	ghosts.pacman_direction = pac_man.direction
+
+func _on_eaten_dot(new_dots: int) -> void:
+	ghosts.pacman_dots_eaten = new_dots
 
 func _on_eaten_energizer() -> void:
 	ghosts.frightened()

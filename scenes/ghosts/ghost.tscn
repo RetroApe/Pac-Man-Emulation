@@ -43,15 +43,15 @@ offset_bottom = -5.66667
 scale = Vector2(0.4, 0.4)
 text = "Target"
 
-[node name="CurrentCellCoordinates" type="Label" parent="."]
+[node name="PersonalDotCounterLabel" type="Label" parent="."]
 unique_name_in_owner = true
-visible = false
 offset_left = -10.0
 offset_top = -18.0
 offset_right = 40.0
 offset_bottom = 4.33333
 scale = Vector2(0.4, 0.4)
-text = "Target"
+text = "0"
+horizontal_alignment = 1
 
 [node name="FrightenedTimer" type="Timer" parent="."]
 unique_name_in_owner = true

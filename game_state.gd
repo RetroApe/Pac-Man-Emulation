@@ -25,6 +25,8 @@ var current_level : Dictionary = {
 	21: "level_21",
 }
 
+var dots_eaten := 0
+
 var scatter_chase_timing : Dictionary[String, Array] = {
 	"level_1": [7.0, 20.0, 7.0, 20.0, 5.0, 20.0, 5.0, -1.0],
 	"level_2": [7.0, 20.0, 7.0, 20.0, 5.0, 1033.0 + 14.0/60.0, 1.0/60.0, -1.0],
@@ -53,4 +55,10 @@ var fright_time : Dictionary[String, float] = {
 	"level_17": 0.0,
 	"level_18": 1.0,
 	"level_19": 0.0,
+}
+
+var personal_dot_number : Dictionary[String, Array] = {
+	"level_1": [0, 0, 30, 60],
+	"level_2": [0, 0, 0, 50],
+	"level_3": [0, 0, 0, 0]
 }

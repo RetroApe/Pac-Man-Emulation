@@ -1,11 +1,13 @@
 class_name Ghost
 extends Node2D
 
+signal personal_dot_count_reached
+
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var target_cell_panel: Panel = %TargetCell
 @onready var desired_cell_position_panel: Panel = %DesiredCellPositionPanel
 @onready var target_cell_coordinates_label: Label = %TargetCellCoordinates
-@onready var current_cell_coordinates_label: Label = %CurrentCellCoordinates
+@onready var personal_dot_counter_label: Label = %PersonalDotCounterLabel
 @onready var frightened_timer: Timer = %FrightenedTimer
 
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
@@ -52,19 +54,20 @@ enum State {
 	LOCKED
 }
 var current_state := State.TARGETING
+
 var _seed := "FRIGHTENED".hash()
 var _fright_time := 6.0
 var _is_frightened := false
+
 var _current_level : String
+var personal_dot_counter := 0
+var _personal_dot_number := -1
+var release := false
 
 func _ready() -> void:
-	_individual_ghost_adjustments()
-	
 	_current_level = GameState.current_level[GameState.current_level_counter]
-	if GameState.current_level_counter > 19:
-		_fright_time = 0.0
-	else:
-		_fright_time = GameState.fright_time[_current_level]
+	
+	_individual_ghost_adjustments()
 	
 	if is_inside_the_ghost_house:
 		_adjust_the_grid = true
@@ -77,16 +80,27 @@ func _ready() -> void:
 	animated_sprite_2d.play("left")
 	_calculate_next_desired_position()
 	
-	frightened_timer.timeout.connect(func() -> void:
-		_is_frightened = false
-		if current_state == State.LOCKED:
-			return
-		current_state = State.TARGETING
-		speed = 1.0
-	)
+	_fright_timer_setup()
 
 func _individual_ghost_adjustments() -> void:
 	animated_sprite_2d.sprite_frames = sprite_frames
+	
+	if GameState.current_level_counter > 3:
+		_personal_dot_number = 0
+	else:
+		match name:
+			"Blinky":
+				_personal_dot_number = GameState.personal_dot_number[_current_level][0]
+			"Pinky":
+				_personal_dot_number = GameState.personal_dot_number[_current_level][1]
+			"Inky":
+				_personal_dot_number = GameState.personal_dot_number[_current_level][2]
+			"Clyde":
+				_personal_dot_number = GameState.personal_dot_number[_current_level][3]
+	
+	if personal_dot_counter == _personal_dot_number:
+		release = true
+	
 	var stylebox = StyleBoxFlat.new()
 	stylebox.bg_color = ghost_color
 	stylebox.border_width_bottom = 1
@@ -97,6 +111,10 @@ func _individual_ghost_adjustments() -> void:
 	target_cell_panel.add_theme_stylebox_override("panel", stylebox)
 
 func _physics_process(delta: float) -> void:
+	personal_dot_counter_label.text = str(personal_dot_counter)
+	if personal_dot_counter == _personal_dot_number:
+		release = true
+	
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false and current_state == State.TARGETING:
@@ -256,6 +274,20 @@ func frightened() -> void:
 		return
 	switch_direction()
 
+func _fright_timer_setup() -> void:
+	if GameState.current_level_counter > 19:
+		_fright_time = 0.0
+	else:
+		_fright_time = GameState.fright_time[_current_level]
+	
+	frightened_timer.timeout.connect(func() -> void:
+		_is_frightened = false
+		if current_state == State.LOCKED:
+			return
+		current_state = State.TARGETING
+		speed = 1.0
+	)
+
 func death() -> void:
 	print("Ghost Eaten")
 	_is_frightened = false
@@ -266,6 +298,7 @@ func death() -> void:
 	_match_animation()
 
 func _ghost_house_behaviour() -> void:
+	
 	if (
 		(
 			current_cell_coordinates == _in_front_of_ghost_house[0] or 
@@ -314,7 +347,7 @@ func _check_walkability(to_check_walkable: Vector2i) -> bool:
 func _locked_behaviour() -> void:
 	_direction *= -1
 	_calculate_next_desired_position()
-	if Input.is_action_pressed("release") and current_cell_coordinates.y == _house_exit_coordinates.y:
+	if release == true and current_cell_coordinates.y == _house_exit_coordinates.y:
 		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
 		_direction = (_desired_cell_position - _current_cell_position).sign()
 		_match_animation()
