@@ -120,6 +120,7 @@ func _starting_setup() -> void:
 
 func _physics_process(delta: float) -> void:
 	if pacman_eaten:
+		process_mode = Node.PROCESS_MODE_INHERIT
 		return
 	personal_dot_counter_label.text = str(personal_dot_counter)
 	if personal_dot_counter == _personal_dot_number:

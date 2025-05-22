@@ -52,16 +52,7 @@ func _process(_delta: float) -> void:
 				pacman_dead.emit()
 				_is_pacman_dead = true
 			if ghost.current_state == ghost.State.FRIGHTENED:
-				ghost.death()
-				_ghost_eaten_counter += 1
-				ghost_eaten.emit(_ghost_eaten_counter)
-				ghost.show_points(_ghost_eaten_counter)
-				get_tree().paused = true
-				get_tree().create_timer(1.0).timeout.connect(func() -> void:
-					get_tree().paused = false
-					ghost_eaten_but_make_pacman_visible.emit()
-					ghost.match_animation()
-				)
+				_ghost_death_process(ghost)
 				return
 
 func _assign_special_target(ghost: Node2D) -> void:
@@ -127,6 +118,18 @@ func on_pacman_dead() -> void:
 		get_tree().create_timer(1.0).timeout.connect(func() -> void:
 			ghost.reset_position_on_pacman_death()
 		)
+
+func _ghost_death_process(ghost : Ghost) -> void:
+	ghost.death()
+	_ghost_eaten_counter += 1
+	ghost_eaten.emit(_ghost_eaten_counter)
+	ghost.show_points(_ghost_eaten_counter)
+	get_tree().paused = true
+	get_tree().create_timer(1.0).timeout.connect(func() -> void:
+		get_tree().paused = false
+		ghost_eaten_but_make_pacman_visible.emit()
+		ghost.match_animation()
+	)
 
 func on_game_start() -> void:
 	_is_pacman_dead = false
