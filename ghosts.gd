@@ -5,7 +5,7 @@ signal pacman_dead
 signal ghost_eaten
 signal ghost_eaten_but_make_pacman_visible
 
-@onready var dots_eaten: Label = %DotsEaten
+@onready var global_count_label: Label = %GlobalCountLabel
 
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 var _scatter_chase_timing : Array
@@ -104,13 +104,17 @@ func frightened() -> void:
 
 func set_dots(new_dots: int) -> void:
 	pacman_dots_eaten = new_dots
-	dots_eaten.text = str(pacman_dots_eaten)
-	if _ghost_dot_counter_active:
+	if _ghost_dot_counter_active == true:
 		for ghost in _ghosts_array:
-			if ghost.release == false:
+			if ghost.personal_dot_count_reached == false:
 				ghost = ghost as Ghost
 				ghost.personal_dot_counter += 1
 				break
+	if GameState.global_dot_counter_active == true:
+		GameState.global_dot_count +=1
+		global_count_label.text = "Global Count: " + str(GameState.global_dot_count)
+		if GameState.global_dot_count == 32:
+			GameState.global_dot_counter_active = false
 
 func on_pacman_dead() -> void:
 	for ghost in _ghosts_array as Array[Ghost]:
@@ -118,6 +122,9 @@ func on_pacman_dead() -> void:
 		get_tree().create_timer(1.0).timeout.connect(func() -> void:
 			ghost.reset_position_on_pacman_death()
 		)
+	GameState.global_dot_counter_active = true
+	GameState.global_dot_count = 0
+	_ghost_dot_counter_active = false
 
 func _ghost_death_process(ghost : Ghost) -> void:
 	ghost.death()

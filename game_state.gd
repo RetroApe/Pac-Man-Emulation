@@ -64,3 +64,5 @@ var personal_dot_number : Dictionary[String, Array] = {
 	"level_2": [0, 0, 0, 50],
 	"level_3": [0, 0, 0, 0]
 }
+var global_dot_counter_active := false
+var global_dot_count := 0

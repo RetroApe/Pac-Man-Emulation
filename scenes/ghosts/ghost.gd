@@ -65,6 +65,8 @@ var pacman_eaten := false
 var _current_level : String
 var personal_dot_counter := 0
 var _personal_dot_number := -1
+var personal_dot_count_reached := false
+var _global_dot_counter_number := -1
 var release := false
 
 func _ready() -> void:
@@ -89,13 +91,17 @@ func _individual_ghost_adjustments() -> void:
 				_personal_dot_number = GameState.personal_dot_number[_current_level][0]
 			"Pinky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][1]
+				_global_dot_counter_number = 7
 			"Inky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][2]
+				_global_dot_counter_number = 17
 			"Clyde":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][3]
+				_global_dot_counter_number = 32
 	
 	if personal_dot_counter == _personal_dot_number:
 		release = true
+		personal_dot_count_reached = true
 	
 	var stylebox = StyleBoxFlat.new()
 	stylebox.bg_color = ghost_color
@@ -123,9 +129,11 @@ func _physics_process(delta: float) -> void:
 		process_mode = Node.PROCESS_MODE_INHERIT
 		return
 	personal_dot_counter_label.text = str(personal_dot_counter)
-	if personal_dot_counter == _personal_dot_number:
+	if personal_dot_counter == _personal_dot_number and GameState.global_dot_counter_active == false:
 		release = true
-	
+		personal_dot_count_reached = true
+	elif GameState.global_dot_count == _global_dot_counter_number:
+		release = true
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false and current_state == State.TARGETING:
@@ -391,7 +399,9 @@ func reset_position_on_pacman_death() -> void:
 		is_inside_the_ghost_house = true
 		locked_inside_the_ghost_house = true
 		current_state = State.LOCKED
-		#release = false
+		release = false
 	else:
 		current_state = State.TARGETING
+	if name == "Pinky":
+		_direction = Vector2i.DOWN
 	_starting_setup()

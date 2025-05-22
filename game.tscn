@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dufj73kjgu7d3"]
+[gd_scene load_steps=10 format=3 uid="uid://dufj73kjgu7d3"]
 
 [ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="1_e2o6t"]
 [ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://game.gd" id="1_fc0e3"]
@@ -8,6 +8,10 @@
 [ext_resource type="SpriteFrames" uid="uid://c8inyipwm2ly2" path="res://scenes/ghosts/pinky_sprite_frames.tres" id="6_ryrav"]
 [ext_resource type="SpriteFrames" uid="uid://c5a87yxul3go5" path="res://scenes/ghosts/inky_sprite_frames.tres" id="7_eow3j"]
 [ext_resource type="SpriteFrames" uid="uid://ckbag7ue1x50b" path="res://scenes/ghosts/clyde_sprite_frames.tres" id="8_j5wjh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_j5wjh"]
+line_spacing = 0.0
+font_size = 5
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fc0e3")
@@ -70,13 +74,15 @@ position = Vector2(172, 212)
 unique_name_in_owner = true
 autostart = true
 
-[node name="DotsEaten" type="Label" parent="Ghosts"]
+[node name="GlobalCountLabel" type="Label" parent="Ghosts"]
 unique_name_in_owner = true
 offset_left = 172.0
-offset_top = 4.0
-offset_right = 212.0
-offset_bottom = 26.3333
-text = "000"
+offset_top = 12.0
+offset_right = 215.0
+offset_bottom = 19.0
+text = "Global Count: 000"
+label_settings = SubResource("LabelSettings_j5wjh")
+horizontal_alignment = 1
 
 [node name="StartTimer" type="Timer" parent="."]
 unique_name_in_owner = true
