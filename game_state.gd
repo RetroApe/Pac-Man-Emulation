@@ -27,6 +27,7 @@ var current_level : Dictionary = {
 
 var player_ready_screen := true
 var dots_eaten := 0
+var lives_remaining := 4
 
 var scatter_chase_timing : Dictionary[String, Array] = {
 	"level_1": [7.0, 20.0, 7.0, 20.0, 5.0, 20.0, 5.0, -1.0],

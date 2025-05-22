@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal energizer_eaten
 signal dot_eaten
+signal death_animation_finished
 
 @onready var cell_coordinates: Label = %CellCoordinates
 @onready var is_walkable: Label = %IsWalkable
@@ -22,11 +23,18 @@ const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 var direction := Vector2.RIGHT
 var _speed := 1.0
 var _dots_eaten := 0
+var _start_position : Vector2
+var _start_direction := Vector2.RIGHT
 
 func _ready() -> void:
+	_start_position = global_position
+	this_area.area_entered.connect(_on_area_entered)
+	ready_the_pacman()
+
+func ready_the_pacman() -> void:
+	set_physics_process(true)
 	animated_sprite_2d.play("default")
 	_calculate_next_desired_position()
-	this_area.area_entered.connect(_on_area_entered)
 
 func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
@@ -122,5 +130,11 @@ func death() -> void:
 	animated_sprite_2d.pause()
 	get_tree().create_timer(1.0).timeout.connect(func() -> void:
 		animated_sprite_2d.play("death")
+		animated_sprite_2d.animation_finished.connect(_on_pacman_death_finished)
 	)
 	print("Pac-Man Dead")
+
+func _on_pacman_death_finished() -> void:
+	death_animation_finished.emit()
+	global_position = _start_position
+	direction = _start_direction

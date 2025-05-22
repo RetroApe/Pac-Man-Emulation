@@ -17,6 +17,7 @@ var _current_state := SCATTER
 var pacman_current_cell_coordinates : Vector2i
 var pacman_direction : Vector2i
 var pacman_dots_eaten := 0: set = set_dots
+var _is_pacman_dead := false
 var _ghosts_array : Array[Node]
 var _current_level : String
 var _blinky_coordinates : Vector2i
@@ -44,8 +45,9 @@ func _process(_delta: float) -> void:
 			ghost.target_coordinates = ghost.scatter_coordinates
 	
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
-			if ghost.current_state == ghost.State.TARGETING:
+			if ghost.current_state == ghost.State.TARGETING and _is_pacman_dead == false:
 				pacman_dead.emit()
+				_is_pacman_dead = true
 			if ghost.current_state == ghost.State.FRIGHTENED:
 				ghost.death()
 				get_tree().paused = true
@@ -117,5 +119,11 @@ func on_pacman_dead() -> void:
 		)
 
 func on_game_start() -> void:
+	_is_pacman_dead = false
 	for ghost in _ghosts_array as Array[Ghost]:
 		ghost._match_animation()
+
+func ready_the_ghosts() -> void:
+	for ghost in _ghosts_array as Array[Ghost]:
+		ghost.visible = true
+		ghost.pacman_eaten = false

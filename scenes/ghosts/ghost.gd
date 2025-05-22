@@ -1,8 +1,6 @@
 class_name Ghost
 extends Node2D
 
-signal personal_dot_count_reached
-
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var target_cell_panel: Panel = %TargetCell
 @onready var desired_cell_position_panel: Panel = %DesiredCellPositionPanel
@@ -111,7 +109,7 @@ func _individual_ghost_adjustments() -> void:
 func _starting_setup() -> void:
 	if is_inside_the_ghost_house:
 		_adjust_the_grid = true
-		speed /= 2.0
+		speed = normal_speed / 2.0
 	if locked_inside_the_ghost_house:
 		current_state = State.LOCKED
 	seed(_seed)
@@ -372,7 +370,7 @@ func _locked_behaviour() -> void:
 	_match_animation()
 
 func reset_position_on_pacman_death() -> void:
-	#visible = false
+	visible = false
 	animated_sprite_2d.play("default")
 	global_position = _starting_position
 	_direction = _starting_direction
@@ -380,6 +378,7 @@ func reset_position_on_pacman_death() -> void:
 		is_inside_the_ghost_house = true
 		locked_inside_the_ghost_house = true
 		current_state = State.LOCKED
+		#release = false
 	else:
 		current_state = State.TARGETING
 	_starting_setup()
