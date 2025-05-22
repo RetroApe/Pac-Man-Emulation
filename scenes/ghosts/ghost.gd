@@ -145,6 +145,8 @@ func _physics_process(delta: float) -> void:
 			current_state == State.TARGETING or 
 			current_state == State.EATEN
 		):
+			if current_state == State.EATEN:
+				process_mode = Node.PROCESS_MODE_ALWAYS
 			_calculate_next_move()
 		elif current_state == State.FRIGHTENED:
 			_randomize_next_move()
@@ -170,7 +172,7 @@ func _calculate_next_desired_position() -> void:
 		_desired_cell_position = _current_cell_position
 	if current_state == State.FRIGHTENED or _is_frightened or GameState.player_ready_screen == true:
 		return
-	_match_animation()
+	match_animation()
 
 func _calculate_next_move() -> void:
 	var possible_directions := [Vector2i.UP, Vector2i.LEFT, Vector2i.DOWN, Vector2i.RIGHT]
@@ -225,7 +227,7 @@ func _randomize_next_move() -> void:
 			_direction = dir
 			return
 
-func _match_animation() -> void:
+func match_animation() -> void:
 	if (current_state == State.TARGETING or current_state == State.LOCKED) and !_is_frightened:
 		match _direction:
 			Vector2i.UP:
@@ -295,19 +297,29 @@ func _fright_timer_setup() -> void:
 		if current_state == State.LOCKED:
 			return
 		current_state = State.TARGETING
-		_match_animation()
+		match_animation()
 		speed = 1.0
 	)
 
 func death() -> void:
-	print("Ghost Eaten")
 	_is_frightened = false
 	target_coordinates = _in_front_of_ghost_house[0]
 	current_state = State.EATEN
 	speed = 2.0
 	frightened_timer.stop()
-	_match_animation()
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	match_animation()
+
+func show_points(ghost_eaten_counter : int) -> void:
+	animated_sprite_2d.play("points")
+	match ghost_eaten_counter:
+		1:
+			animated_sprite_2d.frame = 1
+		2:
+			animated_sprite_2d.frame = 2
+		3:
+			animated_sprite_2d.frame = 3
+		4:
+			animated_sprite_2d.frame = 4
 
 func _ghost_house_behaviour() -> void:
 	
@@ -363,11 +375,11 @@ func _locked_behaviour() -> void:
 	if release == true and current_cell_coordinates.y == _house_exit_coordinates.y:
 		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
 		_direction = (_desired_cell_position - _current_cell_position).sign()
-		_match_animation()
+		match_animation()
 		current_state = State.TARGETING
 	if _is_frightened:
 		return
-	_match_animation()
+	match_animation()
 
 func reset_position_on_pacman_death() -> void:
 	visible = false

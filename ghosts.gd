@@ -2,6 +2,8 @@ class_name Ghosts
 extends Node2D
 
 signal pacman_dead
+signal ghost_eaten
+signal ghost_eaten_but_make_pacman_visible
 
 @onready var dots_eaten: Label = %DotsEaten
 
@@ -22,6 +24,7 @@ var _ghosts_array : Array[Node]
 var _current_level : String
 var _blinky_coordinates : Vector2i
 var _ghost_dot_counter_active := true
+var _ghost_eaten_counter := 0
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter]
@@ -30,7 +33,7 @@ func _ready() -> void:
 	_scatter_chase_behaviour()
 
 func _process(_delta: float) -> void:
-	for ghost in _ghosts_array:
+	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
 			_blinky_coordinates = ghost.current_cell_coordinates
 		if (
@@ -50,10 +53,16 @@ func _process(_delta: float) -> void:
 				_is_pacman_dead = true
 			if ghost.current_state == ghost.State.FRIGHTENED:
 				ghost.death()
+				_ghost_eaten_counter += 1
+				ghost_eaten.emit(_ghost_eaten_counter)
+				ghost.show_points(_ghost_eaten_counter)
 				get_tree().paused = true
 				get_tree().create_timer(1.0).timeout.connect(func() -> void:
 					get_tree().paused = false
+					ghost_eaten_but_make_pacman_visible.emit()
+					ghost.match_animation()
 				)
+				return
 
 func _assign_special_target(ghost: Node2D) -> void:
 	ghost = ghost as Ghost
@@ -81,7 +90,7 @@ func _scatter_chase_behaviour() -> void:
 	scatter_chase_timer.start(_scatter_chase_timing[0])
 	scatter_chase_timer.timeout.connect(func() -> void:
 		_scatter_chase_timing_counter += 1
-		_current_state = _scatter_chase_timing_counter % 2
+		_current_state = CHASE if _scatter_chase_timing_counter % 2 else SCATTER
 		for ghost in _ghosts_array:
 			if (
 				ghost.is_inside_the_ghost_house == false and 
@@ -96,6 +105,7 @@ func _scatter_chase_behaviour() -> void:
 	)
 
 func frightened() -> void:
+	_ghost_eaten_counter = 0
 	for ghost in _ghosts_array:
 		ghost.frightened()
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
@@ -121,7 +131,7 @@ func on_pacman_dead() -> void:
 func on_game_start() -> void:
 	_is_pacman_dead = false
 	for ghost in _ghosts_array as Array[Ghost]:
-		ghost._match_animation()
+		ghost.match_animation()
 
 func ready_the_ghosts() -> void:
 	for ghost in _ghosts_array as Array[Ghost]:

@@ -253,8 +253,6 @@ unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_4flbx")
 sprite_frames = SubResource("SpriteFrames_606se")
 animation = &"death"
-frame = 11
-frame_progress = 1.0
 offset = Vector2(0.5, 0.5)
 
 [node name="IsWalkable" type="Label" parent="."]

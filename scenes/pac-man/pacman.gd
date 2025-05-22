@@ -29,6 +29,7 @@ var _start_direction := Vector2.RIGHT
 func _ready() -> void:
 	_start_position = global_position
 	this_area.area_entered.connect(_on_area_entered)
+	animated_sprite_2d.animation_finished.connect(_on_pacman_death_finished)
 	ready_the_pacman()
 
 func ready_the_pacman() -> void:
@@ -130,11 +131,12 @@ func death() -> void:
 	animated_sprite_2d.pause()
 	get_tree().create_timer(1.0).timeout.connect(func() -> void:
 		animated_sprite_2d.play("death")
-		animated_sprite_2d.animation_finished.connect(_on_pacman_death_finished)
 	)
 	print("Pac-Man Dead")
 
 func _on_pacman_death_finished() -> void:
-	death_animation_finished.emit()
-	global_position = _start_position
-	direction = _start_direction
+	if animated_sprite_2d.animation == "death":
+		death_animation_finished.emit()
+		global_position = _start_position
+		direction = _start_direction
+	pass

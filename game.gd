@@ -22,6 +22,14 @@ func _ready() -> void:
 	
 	pacman.energizer_eaten.connect(_on_eaten_energizer)
 	
+	ghosts.ghost_eaten.connect(func(ghost_eaten_counter : int) -> void:
+		print(ghost_eaten_counter)
+		pacman.visible = false
+	)
+	ghosts.ghost_eaten_but_make_pacman_visible.connect(func() -> void:
+		pacman.visible = true
+	)
+	
 	ghosts.pacman_dead.connect(func() -> void:
 		GameState.lives_remaining -= 1
 		pacman.death()
