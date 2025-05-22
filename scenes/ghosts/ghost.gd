@@ -47,6 +47,10 @@ var speed := 1.0
 @export var sprite_frames : SpriteFrames
 @export var ghost_color : Color = Color("RED", 0.6)
 
+var _starting_position : Vector2
+var _is_inside_the_ghost_house_on_start := false
+var _starting_direction : Vector2i
+
 enum State {
 	TARGETING,
 	FRIGHTENED,
@@ -69,21 +73,15 @@ func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter]
 	_individual_ghost_adjustments()
 	
-	if is_inside_the_ghost_house:
-		_adjust_the_grid = true
-		speed /= 2.0
-	if locked_inside_the_ghost_house:
-		current_state = State.LOCKED
-	seed(_seed)
-	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
-	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
-	animated_sprite_2d.play("left")
-	_calculate_next_desired_position()
+	_starting_setup()
 	
 	_fright_timer_setup()
 
 func _individual_ghost_adjustments() -> void:
 	animated_sprite_2d.sprite_frames = sprite_frames
+	_starting_position = global_position
+	_is_inside_the_ghost_house_on_start = is_inside_the_ghost_house
+	_starting_direction = _direction
 	
 	if GameState.current_level_counter > 3:
 		_personal_dot_number = 0
@@ -109,6 +107,18 @@ func _individual_ghost_adjustments() -> void:
 	stylebox.border_width_top = 1
 	stylebox.border_color = Color(ghost_color, 1.0)
 	target_cell_panel.add_theme_stylebox_override("panel", stylebox)
+
+func _starting_setup() -> void:
+	if is_inside_the_ghost_house:
+		_adjust_the_grid = true
+		speed /= 2.0
+	if locked_inside_the_ghost_house:
+		current_state = State.LOCKED
+	seed(_seed)
+	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
+	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
+
+	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
 	if pacman_eaten:
@@ -160,7 +170,7 @@ func _calculate_next_desired_position() -> void:
 
 	if _check_walkability(_desired_cell_coordinates) == false:
 		_desired_cell_position = _current_cell_position
-	if current_state == State.FRIGHTENED or _is_frightened:
+	if current_state == State.FRIGHTENED or _is_frightened or GameState.player_ready_screen == true:
 		return
 	_match_animation()
 
@@ -221,13 +231,13 @@ func _match_animation() -> void:
 	if (current_state == State.TARGETING or current_state == State.LOCKED) and !_is_frightened:
 		match _direction:
 			Vector2i.UP:
-				animated_sprite_2d.animation = "up"
+				animated_sprite_2d.play("up")
 			Vector2i.LEFT:
-				animated_sprite_2d.animation = "left"
+				animated_sprite_2d.play("left")
 			Vector2i.DOWN:
-				animated_sprite_2d.animation = "down"
+				animated_sprite_2d.play("down")
 			Vector2i.RIGHT:
-				animated_sprite_2d.animation = "right"
+				animated_sprite_2d.play("right")
 	if current_state == State.EATEN:
 		animated_sprite_2d.animation = "eaten"
 		match _direction:
@@ -287,6 +297,7 @@ func _fright_timer_setup() -> void:
 		if current_state == State.LOCKED:
 			return
 		current_state = State.TARGETING
+		_match_animation()
 		speed = 1.0
 	)
 
@@ -359,3 +370,16 @@ func _locked_behaviour() -> void:
 	if _is_frightened:
 		return
 	_match_animation()
+
+func reset_position_on_pacman_death() -> void:
+	#visible = false
+	animated_sprite_2d.play("default")
+	global_position = _starting_position
+	_direction = _starting_direction
+	if _is_inside_the_ghost_house_on_start:
+		is_inside_the_ghost_house = true
+		locked_inside_the_ghost_house = true
+		current_state = State.LOCKED
+	else:
+		current_state = State.TARGETING
+	_starting_setup()

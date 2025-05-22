@@ -30,6 +30,10 @@ script = ExtResource("4_7jktm")
 unique_name_in_owner = true
 position = Vector2(112, 116)
 
+[node name="Blinky2" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
+unique_name_in_owner = true
+position = Vector2(172, 212)
+
 [node name="Pinky" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
 unique_name_in_owner = true
 position = Vector2(112, 140)

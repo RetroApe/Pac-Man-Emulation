@@ -10,7 +10,9 @@ const CELL = preload("res://cell.tscn")
 func _ready() -> void:
 	start_timer.timeout.connect(func() -> void:
 		get_tree().paused = false
+		pac_man.animated_sprite_2d.play("right")
 		GameState.player_ready_screen = false
+		ghosts.on_game_start()
 	)
 	get_tree().paused = true
 	GameState.player_ready_screen = true

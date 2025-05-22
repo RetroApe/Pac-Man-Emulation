@@ -12,10 +12,6 @@ radius = 6.0
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4flbx"]
 blend_mode = 1
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_606se"]
-atlas = ExtResource("2_q8msc")
-region = Rect2(32, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_u1c27"]
 atlas = ExtResource("2_q8msc")
 region = Rect2(48, 0, 16, 16)
@@ -59,6 +55,10 @@ region = Rect2(192, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7hik5"]
 atlas = ExtResource("2_q8msc")
 region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2upb"]
+atlas = ExtResource("2_q8msc")
+region = Rect2(208, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("2_q8msc")
@@ -115,10 +115,7 @@ region = Rect2(0, 32, 16, 16)
 [sub_resource type="SpriteFrames" id="SpriteFrames_606se"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_606se")
-}, {
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_u1c27")
 }, {
 "duration": 1.0,
@@ -148,12 +145,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jm5j8")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_7hik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2upb")
 }],
 "loop": false,
 "name": &"death",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -252,9 +252,9 @@ shape = SubResource("CircleShape2D_onrkg")
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_4flbx")
 sprite_frames = SubResource("SpriteFrames_606se")
-animation = &"down"
-frame = 2
-frame_progress = 0.49558
+animation = &"death"
+frame = 11
+frame_progress = 1.0
 offset = Vector2(0.5, 0.5)
 
 [node name="IsWalkable" type="Label" parent="."]

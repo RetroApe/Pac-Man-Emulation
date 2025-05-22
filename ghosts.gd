@@ -112,3 +112,10 @@ func set_dots(new_dots: int) -> void:
 func on_pacman_dead() -> void:
 	for ghost in _ghosts_array as Array[Ghost]:
 		ghost.pacman_eaten = true
+		get_tree().create_timer(1.0).timeout.connect(func() -> void:
+			ghost.reset_position_on_pacman_death()
+		)
+
+func on_game_start() -> void:
+	for ghost in _ghosts_array as Array[Ghost]:
+		ghost._match_animation()

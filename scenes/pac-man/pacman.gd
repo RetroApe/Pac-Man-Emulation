@@ -24,7 +24,7 @@ var _speed := 1.0
 var _dots_eaten := 0
 
 func _ready() -> void:
-	animated_sprite_2d.play("right")
+	animated_sprite_2d.play("default")
 	_calculate_next_desired_position()
 	this_area.area_entered.connect(_on_area_entered)
 
@@ -119,5 +119,8 @@ func _on_area_entered(area: Area2D) -> void:
 
 func death() -> void:
 	set_physics_process(false)
-	#get_tree().paused = true
+	animated_sprite_2d.pause()
+	get_tree().create_timer(1.0).timeout.connect(func() -> void:
+		animated_sprite_2d.play("death")
+	)
 	print("Pac-Man Dead")
