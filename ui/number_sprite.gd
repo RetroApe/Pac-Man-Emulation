@@ -9,3 +9,6 @@ func show_number(number : int) -> void:
 		frame = number
 	else:
 		print("Not a single number or it is a negative number.")
+
+func show_empty_frame() -> void:
+	frame = 10

@@ -11,9 +11,20 @@ const TOTAL_NUMBERS := 6
 var _current_number_displayed := 0
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		set_text_color("red")
+		print("Turn red")
+	
+	display_reset()
+	
 	GameState.score_changed.connect(func() -> void:
-		display(GameState.score)
+		match name:
+			"Score":
+				display(GameState.score)
+			"HighScore":
+				display(GameState.highscore)
 	)
+
 
 func set_text_color(color : String = "default") -> void:
 	for display in get_children() as Array[NumberDisplay]:
@@ -24,10 +35,11 @@ func display(number : int) -> void:
 	if number < _current_number_displayed:
 		return
 	_current_number_displayed = number
-	var number_to_check := str(number).pad_zeros(TOTAL_NUMBERS)
-	for i in range(number_to_check.length()):
-		var num = int(number_to_check[i])
-		match 6 - i:
+	var number_to_check := str(number)
+	var number_positions := number_to_check.length()
+	for i in range(number_positions):
+		var num = int(number_to_check[number_positions - 1 - i])
+		match i + 1:
 			6:
 				_6_number.show_number(num)
 			5:
@@ -40,3 +52,12 @@ func display(number : int) -> void:
 				_2_number.show_number(num)
 			1:
 				_1_number.show_number(num)
+
+func display_reset() -> void:
+	_current_number_displayed = 0
+	_6_number.show_empty_frame()
+	_5_number.show_empty_frame()
+	_4_number.show_empty_frame()
+	_3_number.show_empty_frame()
+	_2_number.show_number(0)
+	_1_number.show_number(0)

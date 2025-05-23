@@ -39,13 +39,13 @@ func _ready() -> void:
 	)
 	
 	ghosts.pacman_dead.connect(func() -> void:
-		GameState.lives_remaining -= 1
 		pacman.death()
 		ghosts.on_pacman_dead()
 	)
 	
 	pacman.death_animation_finished.connect(func() -> void:
 		tile_set.toggle_dots_visibility()
+		GameState.lives_remaining -= 1
 		get_tree().create_timer(0.1).timeout.connect(func() -> void:
 			get_tree().paused = true
 			GameState.player_ready_screen = true

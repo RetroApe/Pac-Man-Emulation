@@ -69,5 +69,10 @@ var personal_dot_number : Dictionary[String, Array] = {
 var global_dot_counter_active := false
 var global_dot_count := 0
 
-var score := 0
+var score := 0 : set = set_score
 var highscore := 0
+
+func set_score(new_score: int) -> void:
+	score = new_score
+	if score > highscore:
+		highscore = score

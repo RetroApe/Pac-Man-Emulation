@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://bilj2m1gphrhi"]
+
+[ext_resource type="Script" uid="uid://bkfuf1boadc4d" path="res://ui/display_numbers.gd" id="1_b3iby"]
+[ext_resource type="SpriteFrames" uid="uid://cexxkp0rtbah1" path="res://ui/numbers.tres" id="2_ykvhw"]
+[ext_resource type="Script" uid="uid://t84x66vs045a" path="res://ui/number_sprite.gd" id="3_8tshf"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7363x"]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qir1n"]
+blend_mode = 1
+
+[node name="Score" type="HBoxContainer"]
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme_override_constants/separation = 0
+script = ExtResource("1_b3iby")
+
+[node name="6Number" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_7363x")
+position = Vector2(3, 4)
+sprite_frames = ExtResource("2_ykvhw")
+animation = &"red"
+script = ExtResource("3_8tshf")
+
+[node name="5Number" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qir1n")
+position = Vector2(11, 4)
+sprite_frames = ExtResource("2_ykvhw")
+script = ExtResource("3_8tshf")
+
+[node name="4Number" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qir1n")
+position = Vector2(19, 4)
+sprite_frames = ExtResource("2_ykvhw")
+script = ExtResource("3_8tshf")
+
+[node name="3Number" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qir1n")
+position = Vector2(27, 4)
+sprite_frames = ExtResource("2_ykvhw")
+script = ExtResource("3_8tshf")
+
+[node name="2Number" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qir1n")
+position = Vector2(35, 4)
+sprite_frames = ExtResource("2_ykvhw")
+script = ExtResource("3_8tshf")
+
+[node name="1Number" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qir1n")
+position = Vector2(43, 4)
+sprite_frames = ExtResource("2_ykvhw")
+script = ExtResource("3_8tshf")
