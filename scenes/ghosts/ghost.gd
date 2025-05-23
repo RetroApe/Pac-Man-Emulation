@@ -283,6 +283,7 @@ func frightened() -> void:
 	if current_state == State.EATEN:
 		return
 	_is_frightened = true
+	z_index = -1
 	if current_state == State.LOCKED or is_inside_the_ghost_house:
 		animated_sprite_2d.animation = "frightened"
 		frightened_timer.start(_fright_time)
@@ -295,8 +296,6 @@ func frightened() -> void:
 	animated_sprite_2d.animation = "frightened"
 	speed = 0.5
 	frightened_timer.start(_fright_time)
-	if current_state == State.EATEN:
-		return
 	switch_direction()
 
 func _fright_timer_setup() -> void:
@@ -307,6 +306,7 @@ func _fright_timer_setup() -> void:
 	
 	frightened_timer.timeout.connect(func() -> void:
 		_is_frightened = false
+		z_index = 0
 		if current_state == State.LOCKED:
 			return
 		current_state = State.TARGETING
@@ -316,6 +316,7 @@ func _fright_timer_setup() -> void:
 
 func death() -> void:
 	_is_frightened = false
+	z_index = 0
 	target_coordinates = _in_front_of_ghost_house[0]
 	current_state = State.EATEN
 	speed = 2.0

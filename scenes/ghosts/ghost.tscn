@@ -1,12 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://do5q0ccp36hbm"]
+[gd_scene load_steps=7 format=3 uid="uid://do5q0ccp36hbm"]
 
 [ext_resource type="Script" uid="uid://c1xbti6tc15u5" path="res://scenes/ghosts/ghost.gd" id="1_6attn"]
 [ext_resource type="SpriteFrames" uid="uid://dsplgcpdq54rm" path="res://scenes/ghosts/blinky_sprite_frames.tres" id="2_3q22o"]
 [ext_resource type="PackedScene" uid="uid://dttg0yqs5kkrv" path="res://utility/red_green_indicator.tscn" id="3_f7qjt"]
 [ext_resource type="Script" uid="uid://5vmywh65ak00" path="res://utility/red_green_indicator.gd" id="4_t1kg5"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v5pp4"]
-blend_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ypo3"]
 bg_color = Color(0.2237, 0.6, 0.174, 1)
@@ -20,8 +17,9 @@ sprite_frames = ExtResource("2_3q22o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-material = SubResource("CanvasItemMaterial_v5pp4")
 sprite_frames = ExtResource("2_3q22o")
+frame = 1
+frame_progress = 0.67545
 
 [node name="TargetCell" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -38,6 +36,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3q22o")
 
 [node name="TargetCellCoordinates" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = -10.0
 offset_top = -28.0
 offset_right = 40.0

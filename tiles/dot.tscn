@@ -1,9 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://6sccxj213h6m"]
+[gd_scene load_steps=4 format=3 uid="uid://6sccxj213h6m"]
 
 [ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_5f360"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_syhbm"]
-blend_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7bw8"]
 atlas = ExtResource("1_5f360")
@@ -15,7 +12,6 @@ radius = 1.0
 [node name="Dot" type="Area2D" groups=["dots"]]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_syhbm")
 texture = SubResource("AtlasTexture_o7bw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
