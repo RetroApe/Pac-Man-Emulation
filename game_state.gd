@@ -1,5 +1,7 @@
 extends Node
 
+signal score_changed
+
 var current_level_counter := 1
 var current_level : Dictionary = {
 	1: "level_1",
@@ -66,3 +68,6 @@ var personal_dot_number : Dictionary[String, Array] = {
 }
 var global_dot_counter_active := false
 var global_dot_count := 0
+
+var score := 0
+var highscore := 0

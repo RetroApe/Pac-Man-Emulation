@@ -1,28 +1,61 @@
-[gd_scene load_steps=5 format=3 uid="uid://dufj73kjgu7d3"]
+[gd_scene load_steps=5 format=3 uid="uid://du20lem43yg4s"]
 
-[ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="1_e2o6t"]
-[ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://game.gd" id="1_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://c28t5y2csfsgm" path="res://scenes/pac-man/pacman.tscn" id="2_feb5d"]
-[ext_resource type="PackedScene" uid="uid://ck0lfko0ayr2l" path="res://scenes/ghosts/ghosts.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://dufj73kjgu7d3" path="res://level.tscn" id="1_80nbo"]
+[ext_resource type="SpriteFrames" uid="uid://cexxkp0rtbah1" path="res://utility/numbers.tres" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://bkfuf1boadc4d" path="res://ui/display_numbers.gd" id="2_fc0e3"]
+[ext_resource type="Script" uid="uid://t84x66vs045a" path="res://ui/number_sprite.gd" id="3_feb5d"]
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_fc0e3")
 
-[node name="TileSet" parent="." instance=ExtResource("1_e2o6t")]
-unique_name_in_owner = true
-z_index = -1
-metadata/_edit_lock_ = true
+[node name="Level" parent="." instance=ExtResource("1_80nbo")]
 
-[node name="PacMan" parent="." instance=ExtResource("2_feb5d")]
-unique_name_in_owner = true
-position = Vector2(112, 212)
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 224.0
+offset_bottom = 288.0
 
-[node name="Ghosts" parent="." instance=ExtResource("4_fc0e3")]
-unique_name_in_owner = true
+[node name="Score" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 16.0
+theme_override_constants/separation = 0
+script = ExtResource("2_fc0e3")
 
-[node name="StartTimer" type="Timer" parent="."]
+[node name="6Number" type="AnimatedSprite2D" parent="UI/Score"]
 unique_name_in_owner = true
-process_mode = 3
-wait_time = 2.0
-one_shot = true
-autostart = true
+position = Vector2(3, 4)
+sprite_frames = ExtResource("2_e2o6t")
+script = ExtResource("3_feb5d")
+
+[node name="5Number" type="AnimatedSprite2D" parent="UI/Score"]
+unique_name_in_owner = true
+position = Vector2(11, 4)
+sprite_frames = ExtResource("2_e2o6t")
+script = ExtResource("3_feb5d")
+
+[node name="4Number" type="AnimatedSprite2D" parent="UI/Score"]
+unique_name_in_owner = true
+position = Vector2(19, 4)
+sprite_frames = ExtResource("2_e2o6t")
+script = ExtResource("3_feb5d")
+
+[node name="3Number" type="AnimatedSprite2D" parent="UI/Score"]
+unique_name_in_owner = true
+position = Vector2(27, 4)
+sprite_frames = ExtResource("2_e2o6t")
+script = ExtResource("3_feb5d")
+
+[node name="2Number" type="AnimatedSprite2D" parent="UI/Score"]
+unique_name_in_owner = true
+position = Vector2(35, 4)
+sprite_frames = ExtResource("2_e2o6t")
+script = ExtResource("3_feb5d")
+
+[node name="1Number" type="AnimatedSprite2D" parent="UI/Score"]
+unique_name_in_owner = true
+position = Vector2(43, 4)
+sprite_frames = ExtResource("2_e2o6t")
+script = ExtResource("3_feb5d")

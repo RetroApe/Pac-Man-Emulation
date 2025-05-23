@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dufj73kjgu7d3"]
+
+[ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://level.gd" id="1_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="2_f2txt"]
+[ext_resource type="PackedScene" uid="uid://c28t5y2csfsgm" path="res://scenes/pac-man/pacman.tscn" id="3_1ainy"]
+[ext_resource type="PackedScene" uid="uid://ck0lfko0ayr2l" path="res://scenes/ghosts/ghosts.tscn" id="4_n6hdu"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_0b4ue")
+
+[node name="TileSet" parent="." instance=ExtResource("2_f2txt")]
+unique_name_in_owner = true
+z_index = -1
+metadata/_edit_lock_ = true
+
+[node name="PacMan" parent="." instance=ExtResource("3_1ainy")]
+unique_name_in_owner = true
+position = Vector2(112, 212)
+
+[node name="Ghosts" parent="." instance=ExtResource("4_n6hdu")]
+unique_name_in_owner = true
+
+[node name="StartTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+wait_time = 2.0
+one_shot = true
+autostart = true

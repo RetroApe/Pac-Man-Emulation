@@ -23,8 +23,16 @@ func _ready() -> void:
 	pacman.energizer_eaten.connect(_on_eaten_energizer)
 	
 	ghosts.ghost_eaten.connect(func(ghost_eaten_counter : int) -> void:
-		print(ghost_eaten_counter)
 		pacman.visible = false
+		match ghost_eaten_counter:
+			1:
+				_increase_score_by(200)
+			2:
+				_increase_score_by(400)
+			3:
+				_increase_score_by(800)
+			4:
+				_increase_score_by(1600)
 	)
 	ghosts.ghost_eaten_but_make_pacman_visible.connect(func() -> void:
 		pacman.visible = true
@@ -60,6 +68,12 @@ func _process(_delta: float) -> void:
 
 func _on_eaten_dot(new_dots: int) -> void:
 	ghosts.pacman_dots_eaten = new_dots
+	_increase_score_by(10)
 
 func _on_eaten_energizer() -> void:
 	ghosts.frightened()
+	_increase_score_by(50)
+
+func _increase_score_by(number : int) -> void:
+	GameState.score += number
+	GameState.score_changed.emit()
