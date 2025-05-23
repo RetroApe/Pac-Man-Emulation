@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dttg0yqs5kkrv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f7qjt"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="RedGreenIndicator" type="Panel"]
+offset_left = -4.0
+offset_top = -27.0
+offset_right = 4.0
+offset_bottom = -19.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f7qjt")

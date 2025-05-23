@@ -2,11 +2,13 @@ class_name Ghost
 extends Node2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+@onready var frightened_timer: Timer = %FrightenedTimer
+
 @onready var target_cell_panel: Panel = %TargetCell
 @onready var desired_cell_position_panel: Panel = %DesiredCellPositionPanel
 @onready var target_cell_coordinates_label: Label = %TargetCellCoordinates
 @onready var personal_dot_counter_label: Label = %PersonalDotCounterLabel
-@onready var frightened_timer: Timer = %FrightenedTimer
+@onready var red_green_indicator: Panel = %RedGreenIndicator
 
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 const WALKABLE_GHOST_HOUSE := [
@@ -67,7 +69,7 @@ var personal_dot_counter := 0
 var _personal_dot_number := -1
 var personal_dot_count_reached := false
 var _global_dot_counter_number := -1
-var release := false
+var release := false : set = set_on_ghost_release
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter]
@@ -125,6 +127,7 @@ func _starting_setup() -> void:
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
+	
 	if pacman_eaten:
 		process_mode = Node.PROCESS_MODE_INHERIT
 		return
@@ -134,10 +137,11 @@ func _physics_process(delta: float) -> void:
 		personal_dot_count_reached = true
 	elif GameState.global_dot_count == _global_dot_counter_number:
 		release = true
+	
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false and current_state == State.TARGETING:
-		speed /= 2.0
+		speed = normal_speed / 2.0
 		_tunnel_traveling = true
 	elif !TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == true and current_state == State.TARGETING:
 		speed = normal_speed
@@ -405,3 +409,7 @@ func reset_position_on_pacman_death() -> void:
 	if name == "Pinky":
 		_direction = Vector2i.DOWN
 	_starting_setup()
+
+func set_on_ghost_release(new_value : bool) -> void:
+	release = new_value
+	red_green_indicator.turn_green() if release else red_green_indicator.turn_red()
