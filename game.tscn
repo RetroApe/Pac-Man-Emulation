@@ -66,10 +66,6 @@ _direction = Vector2i(0, -1)
 sprite_frames = ExtResource("8_j5wjh")
 ghost_color = Color(1, 0.717647, 0.317647, 0.6)
 
-[node name="Blinky2" parent="Ghosts" groups=["ghosts"] instance=ExtResource("3_feb5d")]
-unique_name_in_owner = true
-position = Vector2(172, 212)
-
 [node name="ScatterChaseTimer" type="Timer" parent="Ghosts"]
 unique_name_in_owner = true
 autostart = true
@@ -83,6 +79,20 @@ offset_bottom = 19.0
 text = "Global Count: 000"
 label_settings = SubResource("LabelSettings_j5wjh")
 horizontal_alignment = 1
+
+[node name="ExitTimer" type="Timer" parent="Ghosts"]
+unique_name_in_owner = true
+wait_time = 4.0
+autostart = true
+
+[node name="ExitTimerLabel" type="Label" parent="Ghosts"]
+unique_name_in_owner = true
+offset_left = 172.0
+offset_top = 4.0
+offset_right = 215.0
+offset_bottom = 11.0
+text = "Exit Timer: "
+label_settings = SubResource("LabelSettings_j5wjh")
 
 [node name="StartTimer" type="Timer" parent="."]
 unique_name_in_owner = true
