@@ -70,6 +70,27 @@ ghost_color = Color(1, 0.717647, 0.317647, 0.6)
 unique_name_in_owner = true
 autostart = true
 
+[node name="ScatterLabel" type="Label" parent="Ghosts"]
+unique_name_in_owner = true
+offset_left = 183.0
+offset_top = 108.0
+offset_right = 226.0
+offset_bottom = 121.958
+text = "Scatter Count:
+000"
+label_settings = SubResource("LabelSettings_j5wjh")
+horizontal_alignment = 1
+
+[node name="ChaseLabel" type="Label" parent="Ghosts"]
+unique_name_in_owner = true
+offset_top = 108.0
+offset_right = 43.0
+offset_bottom = 121.958
+text = "Chase Count:
+000"
+label_settings = SubResource("LabelSettings_j5wjh")
+horizontal_alignment = 1
+
 [node name="GlobalCountLabel" type="Label" parent="Ghosts"]
 unique_name_in_owner = true
 offset_left = 172.0

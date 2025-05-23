@@ -13,10 +13,10 @@ func _ready() -> void:
 	get_tree().paused = true
 	GameState.player_ready_screen = true
 	
-	for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
-		var cell_panel : Panel = CELL.instantiate()
-		cell_panel.position = GRID.calculate_cell_position(cell_coord, true) - Vector2(4.0, 4.0)
-		add_child(cell_panel)
+	#for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
+		#var cell_panel : Panel = CELL.instantiate()
+		#cell_panel.position = GRID.calculate_cell_position(cell_coord, true) - Vector2(4.0, 4.0)
+		#add_child(cell_panel)
 	
 	pacman.dot_eaten.connect(_on_eaten_dot)
 	

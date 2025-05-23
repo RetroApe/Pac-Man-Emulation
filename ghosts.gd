@@ -10,6 +10,8 @@ signal ghost_eaten_but_make_pacman_visible
 @onready var exit_timer_label: Label = %ExitTimerLabel
 
 
+@onready var scatter_label: Label = %ScatterLabel
+@onready var chase_label: Label = %ChaseLabel
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 var _scatter_chase_timing : Array
 var _scatter_chase_timing_counter := 0
@@ -74,6 +76,12 @@ func _exit_timer_setup() -> void:
 
 func _process(_delta: float) -> void:
 	exit_timer_label.text = "Exit Timer: " + str(exit_timer.time_left).pad_decimals(2)
+	if _current_state == CHASE:
+		scatter_label.text = "Scatter Count:\n" + "N/A"
+		chase_label.text = "Chase Count:\n" + str(scatter_chase_timer.time_left).pad_decimals(2)
+	elif _current_state == SCATTER :
+		chase_label.text = "Chase Count:\n" + "N/A"
+		scatter_label.text = "Scatter Count:\n" + str(scatter_chase_timer.time_left).pad_decimals(2)
 	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
@@ -116,6 +124,10 @@ func _assign_special_target(ghost: Node2D) -> void:
 
 func frightened() -> void:
 	_ghost_eaten_counter = 0
+	scatter_chase_timer.paused = true
+	get_tree().create_timer(GameState.fright_time[_current_level]).timeout.connect(func() -> void:
+		scatter_chase_timer.paused = false
+	)
 	for ghost in _ghosts_array:
 		ghost.frightened()
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
@@ -137,6 +149,7 @@ func set_dots(new_dots: int) -> void:
 			GameState.global_dot_counter_active = false
 
 func on_pacman_dead() -> void:
+	scatter_chase_timer.paused = true
 	for ghost in _ghosts_array as Array[Ghost]:
 		ghost.pacman_eaten = true
 		get_tree().create_timer(1.0).timeout.connect(func() -> void:
@@ -162,6 +175,7 @@ func _ghost_death_process(ghost : Ghost) -> void:
 func on_game_start() -> void:
 	_is_pacman_dead = false
 	exit_timer.start()
+	scatter_chase_timer.paused = false
 	for ghost in _ghosts_array as Array[Ghost]:
 		ghost.match_animation()
 

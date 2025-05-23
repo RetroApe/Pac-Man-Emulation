@@ -69,7 +69,7 @@ var personal_dot_counter := 0
 var _personal_dot_number := -1
 var personal_dot_count_reached := false
 var _global_dot_counter_number := -1
-var release := false : set = set_on_ghost_release
+var release := false : set = _set_on_ghost_release
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter]
@@ -410,6 +410,6 @@ func reset_position_on_pacman_death() -> void:
 		_direction = Vector2i.DOWN
 	_starting_setup()
 
-func set_on_ghost_release(new_value : bool) -> void:
+func _set_on_ghost_release(new_value : bool) -> void:
 	release = new_value
 	red_green_indicator.turn_green() if release else red_green_indicator.turn_red()

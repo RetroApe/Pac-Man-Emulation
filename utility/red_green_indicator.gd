@@ -14,4 +14,4 @@ func turn_red() -> void:
 	_stylebox.bg_color = Color.RED
 
 func turn_green() -> void:
-	_stylebox.bg_color = Color.WEB_GREEN
+	_stylebox.bg_color = Color.GREEN
