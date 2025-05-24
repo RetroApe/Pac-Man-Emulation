@@ -4,6 +4,7 @@ extends Node2D
 @onready var ghosts: Ghosts = %Ghosts
 @onready var start_timer: Timer = %StartTimer
 @onready var tile_set: Node2D = %TileSet
+@onready var fruit_spawn: Marker2D = %FruitSpawn
 
 const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
@@ -42,7 +43,6 @@ func _ready() -> void:
 		pacman.death()
 		ghosts.on_pacman_dead()
 	)
-	
 	pacman.death_animation_finished.connect(func() -> void:
 		tile_set.toggle_dots_visibility()
 		GameState.lives_remaining -= 1
@@ -68,12 +68,19 @@ func _process(_delta: float) -> void:
 
 func _on_eaten_dot(new_dots: int) -> void:
 	ghosts.pacman_dots_eaten = new_dots
+	_fruit_spawn_check()
 	_increase_score_by(10)
+	print("Game Dots: ", GameState.dots_eaten)
 
 func _on_eaten_energizer() -> void:
+	_fruit_spawn_check()
 	ghosts.frightened()
 	_increase_score_by(50)
 
 func _increase_score_by(number : int) -> void:
 	GameState.score += number
-	GameState.score_changed.emit()
+
+func _fruit_spawn_check() -> void:
+	match GameState.dots_eaten:
+		70, 170: 
+			fruit_spawn.spawn_fruit()

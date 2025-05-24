@@ -27,6 +27,7 @@ var _start_position : Vector2
 var _start_direction := Vector2.RIGHT
 
 func _ready() -> void:
+	_dots_eaten = GameState.dots_eaten
 	_start_position = global_position
 	this_area.area_entered.connect(_on_area_entered)
 	animated_sprite_2d.animation_finished.connect(_on_pacman_death_finished)
@@ -119,6 +120,7 @@ func _wrap_around_the_screen() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("dots"):
 		_dots_eaten += 1
+		GameState.dots_eaten += 1
 		dot_eaten.emit(_dots_eaten)
 		dots_number.text = "Dots: " + str(_dots_eaten)
 		area.queue_free()

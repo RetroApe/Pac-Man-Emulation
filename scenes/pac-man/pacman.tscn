@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="2_q8msc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
-radius = 6.0
+radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
-radius = 6.0
+radius = 2.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u1c27"]
 atlas = ExtResource("2_q8msc")
@@ -236,7 +236,6 @@ corner_radius_bottom_left = 64
 script = ExtResource("1_hf5wl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_4flbx")
 
 [node name="Area2D" type="Area2D" parent="."]

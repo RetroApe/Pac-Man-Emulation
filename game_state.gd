@@ -74,5 +74,6 @@ var highscore := 0
 
 func set_score(new_score: int) -> void:
 	score = new_score
+	score_changed.emit()
 	if score > highscore:
 		highscore = score
