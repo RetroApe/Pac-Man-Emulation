@@ -27,7 +27,6 @@ func _ready() -> void:
 	if _level == "level_1":
 		_first_level()
 		
-		print(_fruit_sprites[1].texture)
 	
 	GameState.level_changed.connect(func() -> void:
 		if GameState.current_level_counter <= 13:
@@ -38,7 +37,6 @@ func _ready() -> void:
 				fruit.assign_texture(_fruit)
 				return
 			
-		print("step")
 		for i in range(_fruit_sprites.size()):
 			if i < _fruit_sprites.size() - 1:
 				_fruit_sprites[i].texture = _fruit_sprites[i + 1].texture
@@ -51,7 +49,10 @@ func _ready() -> void:
 
 
 func _first_level() -> void:
-	for fruit in _fruit_sprites:
-		fruit.remove_texture()
+	clear()
 	_fruit_sprites[0].assign_texture("cherry")
 	
+
+func clear() -> void:
+	for fruit in _fruit_sprites:
+		fruit.remove_texture()

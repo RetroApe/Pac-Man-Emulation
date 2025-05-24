@@ -247,7 +247,6 @@ shape = SubResource("CircleShape2D_onrkg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_606se")
-animation = &"death"
 offset = Vector2(0.5, 0.5)
 
 [node name="IsWalkable" type="Label" parent="."]

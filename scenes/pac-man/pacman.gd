@@ -127,6 +127,8 @@ func _on_area_entered(area: Area2D) -> void:
 		if area.is_in_group("energizers"):
 			energizer_eaten.emit()
 			area.queue_free()
+		if _dots_eaten == 244:
+			animated_sprite_2d.animation = "default"
 
 func death() -> void:
 	set_physics_process(false)

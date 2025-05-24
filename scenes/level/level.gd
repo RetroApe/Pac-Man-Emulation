@@ -1,9 +1,12 @@
+class_name Level
 extends Node2D
+
+signal reset_the_level
 
 @onready var pacman: PacMan = %PacMan
 @onready var ghosts: Ghosts = %Ghosts
 @onready var start_timer: Timer = %StartTimer
-@onready var tile_set: Node2D = %TileSet
+@onready var tile_set: MyTiles = %TileSet
 @onready var fruit_spawn: Marker2D = %FruitSpawn
 
 const GRID = preload("res://resources/Grid.tres")
@@ -57,6 +60,7 @@ func _ready() -> void:
 	)
 
 func _start_the_game() -> void:
+	print("GAME START")
 	get_tree().paused = false
 	pacman.animated_sprite_2d.play("right")
 	GameState.player_ready_screen = false
@@ -83,3 +87,12 @@ func _fruit_spawn_check() -> void:
 	match GameState.dots_eaten:
 		70, 170: 
 			fruit_spawn.spawn_fruit()
+
+func execute_ending_sequence() -> void:
+	get_tree().create_timer(2.0).timeout.connect(func() -> void:
+		ghosts.visible = false
+		tile_set.flash_walls()
+	)
+	tile_set.on_flashing_finished.connect(func() -> void:
+		reset_the_level.emit()
+	)

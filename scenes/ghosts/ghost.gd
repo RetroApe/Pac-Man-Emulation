@@ -78,6 +78,8 @@ func _ready() -> void:
 	_starting_setup()
 	
 	_fright_timer_setup()
+	
+	#GameState.all_dots_eaten.connect(_on_all_dots_eaten)
 
 func _individual_ghost_adjustments() -> void:
 	animated_sprite_2d.sprite_frames = sprite_frames
@@ -409,3 +411,10 @@ func reset_position_on_pacman_death() -> void:
 func _set_on_ghost_release(new_value : bool) -> void:
 	release = new_value
 	red_green_indicator.turn_green() if release else red_green_indicator.turn_red()
+
+#func _on_all_dots_eaten() -> void:
+	#set_physics_process(false)
+	#animated_sprite_2d.pause()
+	#get_tree().create_timer(2.0).timeout.connect(func() -> void:
+		#visible = false
+	#)
