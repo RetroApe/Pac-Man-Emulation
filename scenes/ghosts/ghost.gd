@@ -1,10 +1,11 @@
 class_name Ghost
 extends Node2D
 
+signal target_cell_position_updated
+
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var frightened_timer: Timer = %FrightenedTimer
 
-@onready var target_cell_panel := Panel.new()
 @onready var desired_cell_position_panel := Panel.new()
 @onready var personal_dot_counter_label: Label = %PersonalDotCounterLabel
 @onready var red_green_indicator: Panel = %RedGreenIndicator
@@ -104,17 +105,6 @@ func _individual_ghost_adjustments() -> void:
 		release = true
 		personal_dot_count_reached = true
 	
-	target_cell_panel.size = Vector2(8.0, 8.0)
-	var stylebox = StyleBoxFlat.new()
-	stylebox.bg_color = ghost_color
-	#stylebox.border_width_bottom = 1
-	#stylebox.border_width_left = 1
-	#stylebox.border_width_right = 1
-	#stylebox.border_width_top = 1
-	#stylebox.border_color = Color(ghost_color, 1.0)
-	target_cell_panel.add_theme_stylebox_override("panel", stylebox)
-	
-	add_child(target_cell_panel)
 	add_child(desired_cell_position_panel)
 
 func _starting_setup() -> void:
@@ -127,7 +117,6 @@ func _starting_setup() -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	
-	target_cell_panel.position = Vector2.ZERO
 	desired_cell_position_panel.position = Vector2.ZERO
 
 	_calculate_next_desired_position()
@@ -155,7 +144,7 @@ func _physics_process(delta: float) -> void:
 	
 	if target_coordinates:
 		target_position = GRID.calculate_cell_position(target_coordinates, _adjust_the_grid)
-		target_cell_panel.global_position = target_position - Vector2(4.0, 4.0)
+		target_cell_position_updated.emit(target_position - Vector2(4.0, 4.0))
 	desired_cell_position_panel.global_position = _desired_cell_position - Vector2(4.0, 4.0)
 	
 	if global_position == _desired_cell_position:

@@ -43,6 +43,18 @@ func _ready() -> void:
 	
 	_exit_timer_setup()
 	_scatter_chase_behaviour()
+	
+	for ghost in _ghosts_array as Array[Ghost]:
+		var target_panel = Panel.new()
+		target_panel.name = ghost.name + "Panel"
+		target_panel.size = Vector2(8.0, 8.0)
+		add_child(target_panel)
+		var stylebox = StyleBoxFlat.new()
+		stylebox.bg_color = ghost.ghost_color
+		target_panel.add_theme_stylebox_override("panel", stylebox)
+		ghost.target_cell_position_updated.connect(func(target_position : Vector2) -> void:
+			target_panel.position = target_position
+		)
 
 func _scatter_chase_behaviour() -> void:
 	if GameState.current_level_counter > 5:
