@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dufj73kjgu7d3"]
 
-[ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://level.gd" id="1_0b4ue"]
+[ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://scenes/level/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="2_f2txt"]
 [ext_resource type="PackedScene" uid="uid://c28t5y2csfsgm" path="res://scenes/pac-man/pacman.tscn" id="3_1ainy"]
 [ext_resource type="PackedScene" uid="uid://ck0lfko0ayr2l" path="res://scenes/ghosts/ghosts.tscn" id="4_n6hdu"]

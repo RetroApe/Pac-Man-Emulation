@@ -70,7 +70,6 @@ func _on_eaten_dot(new_dots: int) -> void:
 	ghosts.pacman_dots_eaten = new_dots
 	_fruit_spawn_check()
 	_increase_score_by(10)
-	print("Game Dots: ", GameState.dots_eaten)
 
 func _on_eaten_energizer() -> void:
 	_fruit_spawn_check()

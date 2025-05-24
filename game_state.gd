@@ -1,8 +1,12 @@
 extends Node
 
 signal score_changed
+signal level_changed
 
-var current_level_counter := 1
+var current_level_counter := 1 : 
+	set(new_level):
+		current_level_counter = new_level
+		level_changed.emit()
 var current_level : Dictionary = {
 	1: "level_1",
 	2: "level_2",
@@ -28,7 +32,7 @@ var current_level : Dictionary = {
 }
 
 var player_ready_screen := true
-var dots_eaten := 0
+var dots_eaten := 68
 var lives_remaining := 4
 
 var scatter_chase_timing : Dictionary[String, Array] = {

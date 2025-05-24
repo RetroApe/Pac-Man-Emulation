@@ -27,8 +27,8 @@ func _ready() -> void:
 
 
 func set_text_color(color : String = "default") -> void:
-	for display in get_children() as Array[NumberDisplay]:
-		display.set_color(color)
+	for display_number in get_children() as Array[NumberDisplay]:
+		display_number.set_color(color)
 
 func display(number : int) -> void:
 	number %= 1000000

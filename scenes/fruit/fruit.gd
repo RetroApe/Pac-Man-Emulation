@@ -1,9 +1,7 @@
 class_name Fruit
 extends Area2D
 
-signal fruit_collected
-
-@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+@onready var fruit_sprites: AnimatedSprite2D = %FruitSprites
 @onready var timer: Timer = %Timer
 
 var _fruit := {
@@ -59,7 +57,7 @@ var _current_level := "level_1"
 var _assigned_fruit : Dictionary = _fruit.cherry
 
 func _ready() -> void:
-	animated_sprite_2d.animation = "default"
+	fruit_sprites.animation = "default"
 	if GameState:
 		if GameState.current_level_counter > 13:
 			_current_level = "level_13"
@@ -67,8 +65,8 @@ func _ready() -> void:
 	body_entered.connect(func(body: Node2D) -> void:
 		if typeof(body) == typeof(PacMan):
 			GameState.score += _assigned_fruit.points
-		animated_sprite_2d.animation = "points"
-		animated_sprite_2d.frame = _assigned_fruit.sprite
+		fruit_sprites.animation = "points"
+		fruit_sprites.frame = _assigned_fruit.sprite
 		get_tree().create_timer(2.0).timeout.connect(queue_free)
 	)
 	timer.wait_time += randf()
@@ -78,4 +76,4 @@ func _ready() -> void:
 func _assign_fruit (fruit : String = "apple") -> void:
 	_assigned_fruit = _fruit[fruit]
 	var frame : int = _assigned_fruit.sprite
-	animated_sprite_2d.frame = frame
+	fruit_sprites.frame = frame

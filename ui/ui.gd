@@ -7,7 +7,7 @@ var _lives : int
 func _ready() -> void:
 	_lives = GameState.lives_remaining
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if _lives < GameState.lives_remaining:
 		_lives += 1
 		lives_indicator.add_a_life()
