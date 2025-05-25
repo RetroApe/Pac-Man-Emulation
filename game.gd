@@ -8,6 +8,7 @@ const LEVEL = preload("res://scenes/level/level.tscn")
 
 var _pacman_set_to_die := false
 var _level_set_to_increase := false
+var _pacmaning_in_progress := false
 
 @export var make_pacman_invincible := false : set = _invincibility_change
 
@@ -51,14 +52,16 @@ func _on_game_over() -> void:
 		GameState.current_level_counter = 1
 		level.queue_free()
 		ui.clear_ui()
+		_pacmaning_in_progress = false
 	)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_start"):
 		if level:
 			print("Level found")
-		else:
+		elif _pacmaning_in_progress == false:
 			_make_level()
+			_pacmaning_in_progress = true
 	if event.is_action_pressed("kill_pacman") and level != null and _pacman_set_to_die == false:
 		print("Die Pac-Man, die!")
 		_pacman_set_to_die = true
