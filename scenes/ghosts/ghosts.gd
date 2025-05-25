@@ -8,6 +8,7 @@ signal ghost_eaten_but_make_pacman_visible
 @onready var global_count_label: Label = %GlobalCountLabel
 @onready var exit_timer: Timer = %ExitTimer
 @onready var exit_timer_label: Label = %ExitTimerLabel
+@onready var elroy_indicator: Sprite2D = %ElroyIndicator
 
 @onready var fright_timer: Timer = %FrightTimer
 var _fright_time := 0.0
@@ -96,18 +97,23 @@ func _process(_delta: float) -> void:
 		chase_label.text = "Chase Count:\n" + "N/A"
 		scatter_label.text = "Scatter Count:\n" + str(scatter_chase_timer.time_left).pad_decimals(2)
 	
+	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
 			_blinky_coordinates = ghost.current_cell_coordinates
+			
+			if ghost.elroy_on == true:
+				elroy_indicator.self_modulate.b = 0
+			
 		if (
 			ghost.current_state == ghost.State.TARGETING and 
 			ghost.is_inside_the_ghost_house == false and
-			_current_state == CHASE
+			(_current_state == CHASE or ghost.elroy_on == true)
 		):
 			
 			_assign_special_target(ghost)
 			
-		elif _current_state == SCATTER and ghost.current_state != ghost.State.EATEN:
+		elif _current_state == SCATTER and ghost.current_state != ghost.State.EATEN and ghost.elroy_on == false:
 			ghost.target_coordinates = ghost.scatter_coordinates
 	
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates or _is_pacman_set_to_die == true:

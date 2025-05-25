@@ -70,6 +70,8 @@ var _personal_dot_number := -1
 var personal_dot_count_reached := false
 var _global_dot_counter_number := -1
 var release := false : set = _set_on_ghost_release
+var _elroy_dot_count := -1
+var elroy_on := false
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
@@ -93,15 +95,22 @@ func _individual_ghost_adjustments() -> void:
 		match name:
 			"Blinky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][0]
+				print("Blinky")
 			"Pinky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][1]
 				_global_dot_counter_number = 7
+				print("Pinky")
 			"Inky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][2]
 				_global_dot_counter_number = 17
+				print("Inky")
 			"Clyde":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][3]
 				_global_dot_counter_number = 32
+				print("Clyde")
+	
+	if name == "Blinky":
+		_elroy_dot_count = GameState.elroy_dot_count[_current_level]
 	
 	if personal_dot_counter == _personal_dot_number:
 		release = true
@@ -124,6 +133,8 @@ func _starting_setup() -> void:
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
+	if 244 - GameState.dots_eaten <= _elroy_dot_count and elroy_on == false:
+		elroy_on = true
 	
 	if pacman_eaten:
 		process_mode = Node.PROCESS_MODE_INHERIT

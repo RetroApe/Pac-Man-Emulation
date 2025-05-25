@@ -7,7 +7,7 @@ signal no_lives_left
 
 var is_pacman_invincible := false
 
-var current_level_counter := 11 : 
+var current_level_counter := 112 : 
 	set(new_level):
 		current_level_counter = new_level
 		level_changed.emit()
@@ -53,6 +53,30 @@ var scatter_chase_timing : Dictionary[String, Array] = {
 	"level_3": [7.0, 20.0, 7.0, 20.0, 5.0, 1033.0 + 14.0/60.0, 1.0/60.0, -1.0],
 	"level_4": [7.0, 20.0, 7.0, 20.0, 5.0, 1033.0 + 14.0/60.0, 1.0/60.0, -1.0],
 	"level_5": [5.0, 20.0, 5.0, 20.0, 5.0, 1037.0 + 14.0/60.0, 1.0/60.0, -1.0],
+}
+
+var elroy_dot_count : Dictionary[String, int] = {
+	"level_1": 20,
+	"level_2": 30,
+	"level_3": 40,
+	"level_4": 40,
+	"level_5": 40,
+	"level_6": 50,
+	"level_7": 50,
+	"level_8": 50,
+	"level_9": 60,
+	"level_10": 60,
+	"level_11": 60,
+	"level_12": 80,
+	"level_13": 80,
+	"level_14": 80,
+	"level_15": 100,
+	"level_16": 100,
+	"level_17": 100,
+	"level_18": 100,
+	"level_19": 120,
+	"level_20": 120,
+	"level_21": 120,
 }
 
 var fright_time : Dictionary[String, float] = {

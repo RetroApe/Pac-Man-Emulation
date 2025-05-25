@@ -1,14 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://ck0lfko0ayr2l"]
+[gd_scene load_steps=10 format=3 uid="uid://ck0lfko0ayr2l"]
 
 [ext_resource type="Script" uid="uid://doiygfqfxs7le" path="res://scenes/ghosts/ghosts.gd" id="1_af0an"]
 [ext_resource type="PackedScene" uid="uid://do5q0ccp36hbm" path="res://scenes/ghosts/ghost.tscn" id="2_6k4fd"]
 [ext_resource type="SpriteFrames" uid="uid://c8inyipwm2ly2" path="res://scenes/ghosts/pinky_sprite_frames.tres" id="3_qeybk"]
 [ext_resource type="SpriteFrames" uid="uid://c5a87yxul3go5" path="res://scenes/ghosts/inky_sprite_frames.tres" id="4_07kef"]
 [ext_resource type="SpriteFrames" uid="uid://ckbag7ue1x50b" path="res://scenes/ghosts/clyde_sprite_frames.tres" id="5_afnvi"]
+[ext_resource type="Texture2D" uid="uid://boft72rmj1a1b" path="res://assets/sprites/text.png" id="6_6k4fd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_j5wjh"]
 line_spacing = 0.0
 font_size = 5
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qeybk"]
+blend_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07kef"]
+atlas = ExtResource("6_6k4fd")
+region = Rect2(35, 160, 5, 7)
 
 [node name="Ghosts" type="Node2D"]
 script = ExtResource("1_af0an")
@@ -99,3 +107,10 @@ label_settings = SubResource("LabelSettings_j5wjh")
 
 [node name="FrightTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="ElroyIndicator" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_qeybk")
+position = Vector2(112, 81)
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_07kef")
