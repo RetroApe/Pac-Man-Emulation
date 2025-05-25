@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://11xb1qm4govc"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e2o6t"]
+load_path = "res://.godot/imported/general_sprites.png-3594793d36503301b855635ca8e39057.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc0e3"]
+atlas = SubResource("CompressedTexture2D_e2o6t")
+region = Rect2(131, 18, 10, 11)
+
+[node name="LifeTexture" type="TextureRect"]
+texture = SubResource("AtlasTexture_fc0e3")

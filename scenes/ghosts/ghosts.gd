@@ -26,6 +26,7 @@ var pacman_current_cell_coordinates : Vector2i
 var pacman_direction : Vector2i
 var pacman_dots_eaten := 0: set = set_dots
 var _is_pacman_dead := false
+var _is_pacman_set_to_die := false
 var _ghosts_array : Array[Node]
 var _current_level : String
 var _blinky_coordinates : Vector2i
@@ -106,10 +107,14 @@ func _process(_delta: float) -> void:
 		elif _current_state == SCATTER and ghost.current_state != ghost.State.EATEN:
 			ghost.target_coordinates = ghost.scatter_coordinates
 	
-		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
-			if ghost.current_state == ghost.State.TARGETING and _is_pacman_dead == false and GameState.is_pacman_invincible == false:
+		if ghost.current_cell_coordinates == pacman_current_cell_coordinates or _is_pacman_set_to_die == true:
+			if (
+				ghost.current_state == ghost.State.TARGETING and _is_pacman_dead == false and GameState.is_pacman_invincible == false
+				or _is_pacman_set_to_die == true
+			):
 				pacman_dead.emit()
 				_is_pacman_dead = true
+				_is_pacman_set_to_die = false
 			if ghost.current_state == ghost.State.FRIGHTENED:
 				_ghost_death_process(ghost)
 				return
@@ -209,3 +214,6 @@ func _set_target_panels() -> void:
 		ghost.target_cell_position_updated.connect(func(target_position : Vector2) -> void:
 			target_panel.position = target_position
 		)
+
+func die_pacman_die() -> void:
+	_is_pacman_set_to_die = true

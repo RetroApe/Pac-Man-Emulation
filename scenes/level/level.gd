@@ -9,6 +9,7 @@ signal reset_the_level
 @onready var tile_set: MyTiles = %TileSet
 @onready var fruit_spawn: Marker2D = %FruitSpawn
 @onready var ready_letters: TileMapLayer = %ReadyLetters
+@onready var game_over_letters: TileMapLayer = %GameOverLetters
 
 const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
@@ -58,8 +59,10 @@ func _ready() -> void:
 		ghosts.on_pacman_dead()
 	)
 	pacman.death_animation_finished.connect(func() -> void:
-		tile_set.toggle_dots_visibility()
 		GameState.lives_remaining -= 1
+		if GameState.lives_remaining < 0:
+			return
+		tile_set.toggle_dots_visibility()
 		get_tree().create_timer(0.1).timeout.connect(func() -> void:
 			get_tree().paused = true
 			GameState.player_ready_screen = true
@@ -70,6 +73,8 @@ func _ready() -> void:
 			ready_letters.visible = true
 		)
 	)
+	
+	GameState.no_lives_left.connect(_execute_game_over)
 
 func _start_the_game() -> void:
 	print("GAME START")
@@ -108,5 +113,13 @@ func execute_ending_sequence() -> void:
 	)
 	tile_set.on_flashing_finished.connect(func() -> void:
 		reset_the_level.emit()
-		print("flashing finished")
 	)
+	pacman.set_physics_process(false)
+	pacman.animated_sprite_2d.animation = "default"
+
+func _execute_game_over() -> void:
+	game_over_letters.visible = true
+	get_tree().paused
+
+func die_pacman_die() -> void:
+	ghosts.die_pacman_die()

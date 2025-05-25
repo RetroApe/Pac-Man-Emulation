@@ -40,3 +40,9 @@ unique_name_in_owner = true
 visible = false
 tile_map_data = PackedByteArray("AAALABQAAwACABkAAAAMABQAAwAEABgAAAANABQAAwAAABgAAAAOABQAAwADABgAAAAPABQAAwAJABkAAAAQABQAAwALABkAAAA=")
 tile_set = ExtResource("6_vpf64")
+
+[node name="GameOverLetters" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+tile_map_data = PackedByteArray("AAALABQAAwAMAAQAAAAMABQAAwAEAAQAAAAPABQAAwAOAAQAAAAQABQAAwAGAAUAAAAJABQAAwAGAAQAAAAKABQAAwAAAAQAAAARABQAAwAEAAQAAAASABQAAwACAAUAAAA=")
+tile_set = ExtResource("6_vpf64")

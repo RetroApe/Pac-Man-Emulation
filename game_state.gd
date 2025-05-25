@@ -3,10 +3,11 @@ extends Node
 signal score_changed
 signal level_changed
 signal all_dots_eaten
+signal no_lives_left
 
 var is_pacman_invincible := false
 
-var current_level_counter := 1 : 
+var current_level_counter := 111 : 
 	set(new_level):
 		current_level_counter = new_level
 		level_changed.emit()
@@ -35,12 +36,16 @@ var current_level : Dictionary = {
 }
 
 var player_ready_screen := true
-var dots_eaten := 243 :
+var dots_eaten := 0 :
 	set(new_dots):
 		dots_eaten = new_dots
 		if dots_eaten == 244:
 			all_dots_eaten.emit()
-var lives_remaining := 4
+var lives_remaining := 4 :
+	set(new_lives):
+		lives_remaining = new_lives
+		if lives_remaining < 0:
+			no_lives_left.emit()
 
 var scatter_chase_timing : Dictionary[String, Array] = {
 	"level_1": [7.0, 20.0, 7.0, 20.0, 5.0, 20.0, 5.0, -1.0],
