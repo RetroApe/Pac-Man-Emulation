@@ -72,7 +72,7 @@ var _global_dot_counter_number := -1
 var release := false : set = _set_on_ghost_release
 
 func _ready() -> void:
-	_current_level = GameState.current_level[GameState.current_level_counter]
+	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	_individual_ghost_adjustments()
 	
 	_starting_setup()
@@ -288,6 +288,7 @@ func frightened() -> void:
 		return
 	if _fright_time == 0.0:
 		switch_direction()
+		_is_frightened = false
 		return
 	current_state = State.FRIGHTENED
 	animated_sprite_2d.animation = "frightened"

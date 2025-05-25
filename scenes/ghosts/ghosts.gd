@@ -10,12 +10,14 @@ signal ghost_eaten_but_make_pacman_visible
 @onready var exit_timer_label: Label = %ExitTimerLabel
 
 @onready var fright_timer: Timer = %FrightTimer
+var _fright_time := 0.0
 
 @onready var scatter_label: Label = %ScatterLabel
 @onready var chase_label: Label = %ChaseLabel
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 var _scatter_chase_timing : Array
 var _scatter_chase_timing_counter := 0
+
 enum {
 	SCATTER,
 	CHASE
@@ -34,10 +36,11 @@ var _ghost_dot_counter_active := true
 var _ghost_eaten_counter := 0
 
 func _ready() -> void:
-	_current_level = GameState.current_level[GameState.current_level_counter]
+	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	_ghosts_array = find_children("*", "Ghost", false)
 	
-	fright_timer.wait_time = GameState.fright_time[_current_level]
+	_fright_time = GameState.fright_time[_current_level]
+	fright_timer.wait_time = _fright_time if !is_zero_approx(_fright_time) else 111.0
 	fright_timer.timeout.connect(func() -> void:
 		scatter_chase_timer.paused = false
 	)
@@ -138,8 +141,9 @@ func _assign_special_target(ghost: Node2D) -> void:
 
 func frightened() -> void:
 	_ghost_eaten_counter = 0
-	scatter_chase_timer.paused = true
-	fright_timer.start()
+	if !is_zero_approx(_fright_time):
+		scatter_chase_timer.paused = true
+		fright_timer.start()
 	for ghost in _ghosts_array:
 		ghost.frightened()
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:

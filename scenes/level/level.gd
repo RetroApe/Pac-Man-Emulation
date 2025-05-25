@@ -119,7 +119,6 @@ func execute_ending_sequence() -> void:
 
 func _execute_game_over() -> void:
 	game_over_letters.visible = true
-	get_tree().paused
 
 func die_pacman_die() -> void:
 	ghosts.die_pacman_die()

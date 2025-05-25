@@ -1,6 +1,7 @@
 extends AnimatedSprite2D
 
 func _ready() -> void:
+	frame = 0
 	GameState.no_lives_left.connect(func() -> void:
 		stop()
 		frame = 0

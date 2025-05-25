@@ -22,10 +22,21 @@ var _level_to_fruit_conversion : Dictionary = {
 
 func _ready() -> void:
 	_fruit_sprites = get_children()
-	_level = GameState.current_level[GameState.current_level_counter]
+	var level_count = GameState.current_level_counter if GameState.current_level_counter <= 13 else 13
+	_level = GameState.current_level[level_count]
 	_fruit = _level_to_fruit_conversion[_level]
 	if _level == "level_1":
 		_first_level()
+	else:
+		clear()
+		var count := GameState.current_level_counter - 6
+		if count < 0: count = 0
+		for i in range(_fruit_sprites.size()):
+			var j = count + i
+			if j < 13:
+				_fruit_sprites[i].assign_texture(_level_to_fruit_conversion[GameState.current_level[j]])
+			else:
+				_fruit_sprites[i].assign_texture("key")
 		
 	
 	GameState.level_changed.connect(func() -> void:

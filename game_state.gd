@@ -7,7 +7,7 @@ signal no_lives_left
 
 var is_pacman_invincible := false
 
-var current_level_counter := 111 : 
+var current_level_counter := 191 : 
 	set(new_level):
 		current_level_counter = new_level
 		level_changed.emit()
@@ -75,6 +75,8 @@ var fright_time : Dictionary[String, float] = {
 	"level_17": 0.0,
 	"level_18": 1.0,
 	"level_19": 0.0,
+	"level_20": 0.0,
+	"level_21": 0.0,
 }
 
 var personal_dot_number : Dictionary[String, Array] = {
