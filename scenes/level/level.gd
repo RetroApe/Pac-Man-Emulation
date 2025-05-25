@@ -8,6 +8,7 @@ signal reset_the_level
 @onready var start_timer: Timer = %StartTimer
 @onready var tile_set: MyTiles = %TileSet
 @onready var fruit_spawn: Marker2D = %FruitSpawn
+@onready var ready_letters: TileMapLayer = %ReadyLetters
 
 const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
@@ -16,6 +17,16 @@ func _ready() -> void:
 	start_timer.timeout.connect(_start_the_game)
 	get_tree().paused = true
 	GameState.player_ready_screen = true
+	ready_letters.visible = true
+	
+	pacman.visible = false
+	ghosts.visible = false
+	tile_set.toggle_dots_visibility()
+	get_tree().create_timer(0.1).timeout.connect(func() -> void:
+		pacman.visible = true
+		ghosts.visible = true
+		tile_set.toggle_dots_visibility()
+	)
 	
 	#for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
 		#var cell_panel : Panel = CELL.instantiate()
@@ -56,6 +67,7 @@ func _ready() -> void:
 			ghosts.ready_the_ghosts()
 			pacman.ready_the_pacman()
 			start_timer.start()
+			ready_letters.visible = true
 		)
 	)
 
@@ -65,6 +77,7 @@ func _start_the_game() -> void:
 	pacman.animated_sprite_2d.play("right")
 	GameState.player_ready_screen = false
 	ghosts.on_game_start()
+	ready_letters.visible = false
 
 func _process(_delta: float) -> void:
 	ghosts.pacman_current_cell_coordinates = pacman.current_cell_coordinates
@@ -95,4 +108,5 @@ func execute_ending_sequence() -> void:
 	)
 	tile_set.on_flashing_finished.connect(func() -> void:
 		reset_the_level.emit()
+		print("flashing finished")
 	)

@@ -4,6 +4,8 @@ signal score_changed
 signal level_changed
 signal all_dots_eaten
 
+var is_pacman_invincible := false
+
 var current_level_counter := 1 : 
 	set(new_level):
 		current_level_counter = new_level
@@ -83,6 +85,6 @@ var highscore := 0
 
 func set_score(new_score: int) -> void:
 	score = new_score
-	score_changed.emit()
 	if score > highscore:
 		highscore = score
+	score_changed.emit()

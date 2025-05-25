@@ -65,9 +65,10 @@ func _ready() -> void:
 	body_entered.connect(func(body: Node2D) -> void:
 		if typeof(body) == typeof(PacMan):
 			GameState.score += _assigned_fruit.points
-		fruit_sprites.animation = "points"
-		fruit_sprites.frame = _assigned_fruit.sprite
-		get_tree().create_timer(2.0).timeout.connect(queue_free)
+			timer.stop()
+			fruit_sprites.animation = "points"
+			fruit_sprites.frame = _assigned_fruit.sprite
+			get_tree().create_timer(2.0).timeout.connect(queue_free)
 	)
 	timer.wait_time += randf()
 	timer.start()

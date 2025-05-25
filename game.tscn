@@ -29,6 +29,7 @@ bg_color = Color(0, 0, 0, 1)
 [node name="Game" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_eow3j")
+make_pacman_invincible = true
 
 [node name="Level" parent="." instance=ExtResource("1_80nbo")]
 unique_name_in_owner = true

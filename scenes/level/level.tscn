@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dufj73kjgu7d3"]
+[gd_scene load_steps=7 format=4 uid="uid://dufj73kjgu7d3"]
 
 [ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://scenes/level/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="2_f2txt"]
 [ext_resource type="PackedScene" uid="uid://c28t5y2csfsgm" path="res://scenes/pac-man/pacman.tscn" id="3_1ainy"]
 [ext_resource type="PackedScene" uid="uid://ck0lfko0ayr2l" path="res://scenes/ghosts/ghosts.tscn" id="4_n6hdu"]
 [ext_resource type="Script" uid="uid://ccsd18x67dscl" path="res://scenes/fruit/fruit_spawn.gd" id="5_1ainy"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="6_vpf64"]
 
 [node name="Level" type="Node2D"]
 process_mode = 1
@@ -33,3 +34,9 @@ autostart = true
 unique_name_in_owner = true
 position = Vector2(112, 164)
 script = ExtResource("5_1ainy")
+
+[node name="ReadyLetters" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+tile_map_data = PackedByteArray("AAALABQAAwACABkAAAAMABQAAwAEABgAAAANABQAAwAAABgAAAAOABQAAwADABgAAAAPABQAAwAJABkAAAAQABQAAwALABkAAAA=")
+tile_set = ExtResource("6_vpf64")

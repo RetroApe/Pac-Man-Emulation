@@ -46,7 +46,6 @@ func _ready() -> void:
 	
 	_set_target_panels()
 	
-	
 
 func _scatter_chase_behaviour() -> void:
 	if GameState.current_level_counter > 5:
@@ -108,7 +107,7 @@ func _process(_delta: float) -> void:
 			ghost.target_coordinates = ghost.scatter_coordinates
 	
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
-			if ghost.current_state == ghost.State.TARGETING and _is_pacman_dead == false:
+			if ghost.current_state == ghost.State.TARGETING and _is_pacman_dead == false and GameState.is_pacman_invincible == false:
 				pacman_dead.emit()
 				_is_pacman_dead = true
 			if ghost.current_state == ghost.State.FRIGHTENED:
