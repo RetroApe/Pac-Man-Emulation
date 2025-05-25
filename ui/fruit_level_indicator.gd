@@ -22,23 +22,7 @@ var _level_to_fruit_conversion : Dictionary = {
 
 func _ready() -> void:
 	_fruit_sprites = get_children()
-	var level_count = GameState.current_level_counter if GameState.current_level_counter <= 13 else 13
-	_level = GameState.current_level[level_count]
-	_fruit = _level_to_fruit_conversion[_level]
-	if _level == "level_1":
-		_first_level()
-	else:
-		clear()
-		var count := GameState.current_level_counter - 6
-		if count < 0: count = 0
-		for i in range(_fruit_sprites.size()):
-			var j = count + i
-			if j < 13:
-				_fruit_sprites[i].assign_texture(_level_to_fruit_conversion[GameState.current_level[j]])
-			else:
-				_fruit_sprites[i].assign_texture("key")
-		
-	
+	clear()
 	GameState.level_changed.connect(func() -> void:
 		if GameState.current_level_counter <= 13:
 			_level = GameState.current_level[GameState.current_level_counter]
@@ -54,10 +38,24 @@ func _ready() -> void:
 			else:
 				_fruit_sprites[i].assign_texture(_fruit)
 	)
-	
-	#for i in range (_fruit_sprites.size()):
-		#_fruit_sprites[i].assign_texture(_level_to_fruit_conversion[GameState.current_level[i+1]])
 
+func set_up() -> void:
+	var level_count = GameState.current_level_counter if GameState.current_level_counter <= 13 else 13
+	_level = GameState.current_level[level_count]
+	_fruit = _level_to_fruit_conversion[_level]
+	if _level == "level_1":
+		_first_level()
+	else:
+		clear()
+		var count := GameState.current_level_counter - 6
+		if count < 0: count = 1
+		for i in range(min(_fruit_sprites.size(), GameState.current_level_counter)):
+			var j = count + i
+			if j < 13:
+				_fruit_sprites[i].assign_texture(_level_to_fruit_conversion[GameState.current_level[j]])
+			else:
+				_fruit_sprites[i].assign_texture("key")
+		
 
 func _first_level() -> void:
 	clear()

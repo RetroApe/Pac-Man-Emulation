@@ -13,16 +13,14 @@ var _level_set_to_increase := false
 
 func _ready() -> void:
 	GameState.is_pacman_invincible = make_pacman_invincible
-	
 	GameState.all_dots_eaten.connect(func() -> void:
 		_initiate_level_increase()
 	)
-	
 	GameState.no_lives_left.connect(_on_game_over)
 	
-	_make_level()
 
 func _make_level() -> void:
+	ui.set_up()
 	level = LEVEL.instantiate()
 	add_child(level)
 	level.name = "Level"
@@ -50,6 +48,7 @@ func _invincibility_change(new_value : bool) -> void:
 
 func _on_game_over() -> void:
 	get_tree().create_timer(2.0).timeout.connect(func() -> void:
+		GameState.current_level_counter = 1
 		level.queue_free()
 		ui.clear_ui()
 	)

@@ -7,7 +7,7 @@ signal no_lives_left
 
 var is_pacman_invincible := false
 
-var current_level_counter := 191 : 
+var current_level_counter := 11 : 
 	set(new_level):
 		current_level_counter = new_level
 		level_changed.emit()
@@ -41,7 +41,7 @@ var dots_eaten := 0 :
 		dots_eaten = new_dots
 		if dots_eaten == 244:
 			all_dots_eaten.emit()
-var lives_remaining := 4 :
+var lives_remaining := 0 :
 	set(new_lives):
 		lives_remaining = new_lives
 		if lives_remaining < 0:
