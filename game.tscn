@@ -20,7 +20,6 @@ bg_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_eow3j")
 make_pacman_invincible = true
-starting_lives = 0
 
 [node name="UI" type="Control" parent="."]
 unique_name_in_owner = true
@@ -105,14 +104,14 @@ metadata/_edit_lock_ = true
 
 [node name="HighScoreText" type="TileMapLayer" parent="UI"]
 material = SubResource("CanvasItemMaterial_mfdv2")
-tile_map_data = PackedByteArray("AAAJAAAAAwAHAAwAAAAKAAAAAwAIAAwAAAALAAAAAwAGAAwAAAAMAAAAAwAHAAwAAAAOAAAAAwADAA0AAAAPAAAAAwACAAwAAAAQAAAAAwAOAAwAAAARAAAAAwACAA0AAAASAAAAAwAEAAwAAAA=")
+tile_map_data = PackedByteArray("AAAJAAAAAwAHAAAAAAAKAAAAAwAIAAAAAAALAAAAAwAGAAAAAAAMAAAAAwAHAAAAAAAOAAAAAwADAAEAAAAPAAAAAwACAAAAAAAQAAAAAwAOAAAAAAARAAAAAwACAAEAAAASAAAAAwAEAAAAAAA=")
 tile_set = ExtResource("7_vef74")
 
 [node name="1UPText" type="TileMapLayer" parent="UI"]
 unique_name_in_owner = true
 process_mode = 3
 material = SubResource("CanvasItemMaterial_mfdv2")
-tile_map_data = PackedByteArray("AAADAAAAAwABAA4AAAAEAAAAAwAFAA0AAAAFAAAAAwAAAA0AAAA=")
+tile_map_data = PackedByteArray("AAADAAAAAwABAAIAAAAEAAAAAwAFAAEAAAAFAAAAAwAAAAEAAAA=")
 tile_set = ExtResource("7_vef74")
 script = ExtResource("8_hve3p")
 
@@ -121,7 +120,7 @@ unique_name_in_owner = true
 process_mode = 3
 material = SubResource("CanvasItemMaterial_mfdv2")
 position = Vector2(152, 0)
-tile_map_data = PackedByteArray("AAADAAAAAwACAA4AAAAEAAAAAwAFAA0AAAAFAAAAAwAAAA0AAAA=")
+tile_map_data = PackedByteArray("AAADAAAAAwACAAIAAAAEAAAAAwAFAAEAAAAFAAAAAwAAAAEAAADv/yMAAwACAAAAAADw/yMAAwACAAEAAADx/yMAAwAEAAAAAADy/yMAAwADAAAAAADz/yMAAwAIAAAAAAD0/yMAAwAEAAEAAAD3/yMAAwAAAAIAAAA=")
 tile_set = ExtResource("7_vef74")
 
 [node name="BlackBG" type="Panel" parent="."]
@@ -138,3 +137,4 @@ self_modulate = Color(1, 1, 1, 0.223529)
 position = Vector2(112, 144)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_eow3j")
+metadata/_edit_lock_ = true

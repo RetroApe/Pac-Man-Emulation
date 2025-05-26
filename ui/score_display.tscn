@@ -23,7 +23,7 @@ unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_7363x")
 position = Vector2(3, 4)
 sprite_frames = ExtResource("2_ykvhw")
-animation = &"red"
+animation = &"milky"
 script = ExtResource("3_8tshf")
 
 [node name="5Number" type="AnimatedSprite2D" parent="."]

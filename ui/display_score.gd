@@ -11,9 +11,7 @@ const TOTAL_NUMBERS := 6
 var _current_number_displayed := 0
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		set_text_color("red")
-		print("Turn red")
+	set_text_color("milky")
 	
 	display_reset()
 	
