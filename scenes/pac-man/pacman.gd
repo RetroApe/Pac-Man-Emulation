@@ -23,6 +23,7 @@ const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 var direction := Vector2.RIGHT
 var _speed := 1.0
 var _dots_eaten := 0
+var _skip_frames := 0
 var _start_position : Vector2
 var _start_direction := Vector2.RIGHT
 
@@ -39,6 +40,9 @@ func ready_the_pacman() -> void:
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
+	if _skip_frames > 0:
+		_skip_frames -= 1
+		return
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates)
 	
@@ -119,12 +123,14 @@ func _wrap_around_the_screen() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("dots"):
+		_skip_frames = 1
 		_dots_eaten += 1
 		GameState.dots_eaten += 1
 		dot_eaten.emit(_dots_eaten)
 		dots_number.text = "Dots: " + str(_dots_eaten)
 		area.queue_free()
 		if area.is_in_group("energizers"):
+			_skip_frames = 3
 			energizer_eaten.emit()
 			area.queue_free()
 		if _dots_eaten == 244:

@@ -46,9 +46,10 @@ func _ready() -> void:
 		scatter_chase_timer.paused = false
 	)
 	
+	
+	
 	_exit_timer_setup()
 	_scatter_chase_behaviour()
-	
 	_set_target_panels()
 	
 
