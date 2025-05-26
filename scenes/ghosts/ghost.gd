@@ -135,25 +135,19 @@ func _individual_ghost_adjustments() -> void:
 		match name:
 			"Blinky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][0]
-				print("Blinky")
 			"Pinky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][1]
 				_global_dot_counter_number = 7
-				print("Pinky")
 			"Inky":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][2]
 				_global_dot_counter_number = 17
-				print("Inky")
 			"Clyde":
 				_personal_dot_number = GameState.personal_dot_number[_current_level][3]
 				_global_dot_counter_number = 32
-				print("Clyde")
 	
 	if name == "Blinky":
 		_elroy_one_dot_count = GameState.elroy_dot_count[_current_level]
 		_elroy_two_dot_count = _elroy_one_dot_count / 2
-		print(_elroy_one_dot_count)
-		print(_elroy_two_dot_count)
 	
 	if personal_dot_counter == _personal_dot_number:
 		release = true

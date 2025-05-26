@@ -10,14 +10,14 @@ signal frightened_finished
 @onready var exit_timer: Timer = %ExitTimer
 @onready var exit_timer_label: Label = %ExitTimerLabel
 @onready var elroy_indicator: TileMapLayer = %ElroyIndicator
-@onready var blinky_speed_label: Label = %BlinkySpeedLabel
-@onready var ghosts_speed_label: Label = %GhostsSpeedLabel
+@onready var blinky_speed_display: DisplayNumbers = %BlinkySpeedDisplay
+@onready var ghosts_speed_display: DisplayNumbers = %GhostsSpeedDisplay
 
 @onready var fright_timer: Timer = %FrightTimer
 var _fright_time := 0.0
 
-@onready var scatter_label: Label = %ScatterLabel
-@onready var chase_label: Label = %ChaseLabel
+@onready var scatter_display: DisplayNumbers = %ScatterDisplay
+@onready var chase_display: DisplayNumbers = %ChaseDisplay
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 var _scatter_chase_timing : Array
 var _scatter_chase_timing_counter := 0
@@ -93,19 +93,19 @@ func _exit_timer_setup() -> void:
 func _process(_delta: float) -> void:
 	exit_timer_label.text = "Exit Timer: " + str(exit_timer.time_left).pad_decimals(2)
 	if _current_state == CHASE:
-		scatter_label.text = "N/A"
-		chase_label.text = str(scatter_chase_timer.time_left).pad_decimals(2)
+		scatter_display.display(0)
+		chase_display.display(int(scatter_chase_timer.time_left))
 	elif _current_state == SCATTER :
-		chase_label.text = "N/A"
-		scatter_label.text = str(scatter_chase_timer.time_left).pad_decimals(2)
+		chase_display.display(0)
+		scatter_display.display(int(scatter_chase_timer.time_left))
 	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
-			blinky_speed_label.text = str(int(ghost.speed / 1.25 * 100)) + "%"
+			blinky_speed_display.display(int(ghost.speed / 1.25 * 100))
 		else:
-			ghosts_speed_label.text = str(int(ghost.normal_speed / 1.25 * 100)) + "%"
+			ghosts_speed_display.display(int(ghost.normal_speed / 1.25 * 100))
 			if ghost.current_state == ghost.State.FRIGHTENED:
-				ghosts_speed_label.text = str(int(ghost.speed / 1.25 * 100)) + "%"
+				ghosts_speed_display.display(int(ghost.speed / 1.25 * 100))
 			break
 	
 	for ghost in _ghosts_array as Array[Ghost]:
