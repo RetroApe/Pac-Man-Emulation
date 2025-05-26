@@ -4,6 +4,7 @@ extends Node2D
 signal pacman_dead
 signal ghost_eaten
 signal ghost_eaten_but_make_pacman_visible
+signal frightened_finished
 
 @onready var global_count_label: Label = %GlobalCountLabel
 @onready var exit_timer: Timer = %ExitTimer
@@ -44,6 +45,7 @@ func _ready() -> void:
 	fright_timer.wait_time = _fright_time if !is_zero_approx(_fright_time) else 111.0
 	fright_timer.timeout.connect(func() -> void:
 		scatter_chase_timer.paused = false
+		frightened_finished.emit()
 	)
 	
 	

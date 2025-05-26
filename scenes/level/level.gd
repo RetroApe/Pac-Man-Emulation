@@ -53,6 +53,7 @@ func _ready() -> void:
 	ghosts.ghost_eaten_but_make_pacman_visible.connect(func() -> void:
 		pacman.visible = true
 	)
+	ghosts.frightened_finished.connect(pacman.on_frightened_finished)
 	
 	ghosts.pacman_dead.connect(func() -> void:
 		pacman.death()

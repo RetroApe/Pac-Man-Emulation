@@ -226,7 +226,7 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.510253, 0.00292019, 0.839001, 1)
+border_color = Color(1, 0.717647, 0.317647, 0.466667)
 corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
@@ -248,26 +248,6 @@ shape = SubResource("CircleShape2D_onrkg")
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_606se")
 offset = Vector2(0.5, 0.5)
-
-[node name="IsWalkable" type="Label" parent="."]
-unique_name_in_owner = true
-visible = false
-offset_left = -12.0
-offset_top = -41.0
-offset_right = 48.0
-offset_bottom = -18.0
-scale = Vector2(0.4, 0.4)
-text = "false"
-
-[node name="CellCoordinates" type="Label" parent="."]
-unique_name_in_owner = true
-visible = false
-offset_left = -12.0
-offset_top = -30.0
-offset_right = 48.0
-offset_bottom = -7.0
-scale = Vector2(0.4, 0.4)
-text = "Vector2"
 
 [node name="DotsNumber" type="Label" parent="."]
 unique_name_in_owner = true
@@ -293,7 +273,7 @@ grow_vertical = 2
 pivot_offset = Vector2(4, 4)
 theme_override_styles/panel = SubResource("StyleBoxFlat_hf5wl")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ClydeRange" type="Panel" parent="."]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5

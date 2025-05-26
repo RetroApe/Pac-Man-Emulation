@@ -5,8 +5,6 @@ signal energizer_eaten
 signal dot_eaten
 signal death_animation_finished
 
-@onready var cell_coordinates: Label = %CellCoordinates
-@onready var is_walkable: Label = %IsWalkable
 @onready var desired_cell: Panel = %DesiredCell
 @onready var this_area: Area2D = %Area2D
 @onready var dots_number: Label = %DotsNumber
@@ -22,6 +20,8 @@ const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
 
 var direction := Vector2.RIGHT
 var _speed := 1.0
+var _normal_speed := 1.0
+var _fright_speed := 1.0
 var _dots_eaten := 0
 var _skip_frames := 0
 var _start_position : Vector2
@@ -35,9 +35,25 @@ func _ready() -> void:
 	ready_the_pacman()
 
 func ready_the_pacman() -> void:
+	_set_pacmans_speed()
 	set_physics_process(true)
 	animated_sprite_2d.play("default")
 	_calculate_next_desired_position()
+
+func _set_pacmans_speed() -> void:
+	if GameState.current_level_counter == 1:
+		_normal_speed = 1.0
+		_fright_speed = 1.125
+	elif GameState.current_level_counter >= 2 and GameState.current_level_counter <= 4:
+		_normal_speed = 1.125
+		_fright_speed = 1.1875
+	elif GameState.current_level_counter >= 5 and GameState.current_level_counter <= 20:
+		_normal_speed = 1.25
+		_fright_speed = 1.25
+	else:
+		_normal_speed = 1.125
+		_fright_speed = 1.125
+	_speed = _normal_speed
 
 func _physics_process(delta: float) -> void:
 	if _skip_frames > 0:
@@ -49,24 +65,32 @@ func _physics_process(delta: float) -> void:
 	_process_input()
 	
 	_calculate_next_desired_position()
-	if WALKABLE_CELLS.is_walkable(_desired_cell_coordinates):
-		is_walkable.text = "true"
-	else:
-		is_walkable.text = "false"
 	
-	cell_coordinates.text = "Cell Coordinates: " + str(current_cell_coordinates)
+	_position_correction()
 	
 	#global_position = global_position.move_toward(desired_cell_position, delta * 60.0)
-	if global_position.x != _desired_cell_position.x:
+	if !is_equal_approx(global_position.x, _desired_cell_position.x):
 		var dir_x : float = sign(_desired_cell_position.x - global_position.x)
 		_move_x(dir_x * delta * 60 * _speed)
-	if global_position.y != _desired_cell_position.y:
+	if !is_equal_approx(global_position.y, _desired_cell_position.y):
 		var dir_y : float = sign(_desired_cell_position.y - global_position.y)
 		_move_y(dir_y * delta * 60 * _speed)
 	_wrap_around_the_screen()
 	
 	if global_position == _desired_cell_position:
 		animated_sprite_2d.stop()
+
+func _position_correction() -> void:
+	if (
+		global_position.x >= _desired_cell_position.x - _speed / 2.0 and
+		global_position.x <= _desired_cell_position.x + _speed / 2.0
+	):
+		global_position.x = _desired_cell_position.x
+	if (
+		global_position.y >= _desired_cell_position.y - _speed / 2.0 and
+		global_position.y <= _desired_cell_position.y + _speed / 2.0
+	):
+		global_position.y = _desired_cell_position.y
 
 func _process_input() -> void:
 	var can_change_direction := (
@@ -133,6 +157,7 @@ func _on_area_entered(area: Area2D) -> void:
 			_skip_frames = 3
 			energizer_eaten.emit()
 			area.queue_free()
+			_speed = _fright_speed
 		if _dots_eaten == 244:
 			animated_sprite_2d.animation = "default"
 
@@ -150,3 +175,6 @@ func _on_pacman_death_finished() -> void:
 		global_position = _start_position
 		direction = _start_direction
 	pass
+
+func on_frightened_finished() -> void:
+	_speed = _normal_speed
