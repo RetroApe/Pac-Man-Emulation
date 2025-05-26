@@ -10,11 +10,13 @@ signal reset_the_level
 @onready var fruit_spawn: Marker2D = %FruitSpawn
 @onready var ready_letters: TileMapLayer = %ReadyLetters
 @onready var game_over_letters: TileMapLayer = %GameOverLetters
+@onready var display_numbers: DisplayNumbers = $DisplayNumbers
 
 const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
 
 func _ready() -> void:
+	display_numbers.display(GameState.current_level_counter)
 	start_timer.timeout.connect(_start_the_game)
 	get_tree().paused = true
 	GameState.player_ready_screen = true

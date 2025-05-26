@@ -6,9 +6,11 @@ signal ghost_eaten
 signal ghost_eaten_but_make_pacman_visible
 signal frightened_finished
 
-@onready var global_count_label: Label = %GlobalCountLabel
 @onready var exit_timer: Timer = %ExitTimer
-@onready var exit_timer_label: Label = %ExitTimerLabel
+#@onready var global_count_label: Label = %GlobalCountLabel
+#@onready var exit_timer_label: Label = %ExitTimerLabel
+@onready var exit_display: DisplayNumbers = %ExitDisplay
+@onready var global_count_display: DisplayNumbers = %GlobalCountDisplay
 @onready var elroy_indicator: TileMapLayer = %ElroyIndicator
 @onready var blinky_speed_display: DisplayNumbers = %BlinkySpeedDisplay
 @onready var ghosts_speed_display: DisplayNumbers = %GhostsSpeedDisplay
@@ -175,7 +177,7 @@ func set_dots(new_dots: int) -> void:
 				break
 	if GameState.global_dot_counter_active == true:
 		GameState.global_dot_count +=1
-		global_count_label.text = "Global Count: " + str(GameState.global_dot_count)
+		global_count_display.display(GameState.global_dot_count)
 		if GameState.global_dot_count == 32:
 			GameState.global_dot_counter_active = false
 
@@ -242,7 +244,7 @@ func _scatter_chase_display() -> void:
 	if scatter_chase_timer.is_stopped():
 		chase_display.display_infinite()
 		return
-	exit_timer_label.text = "Exit Timer: " + str(exit_timer.time_left).pad_decimals(2)
+	exit_display.display(int(ceil(exit_timer.time_left)))
 	if _current_state == CHASE:
 		scatter_display.display_not_counting()
 		chase_display.display(int(ceil(scatter_chase_timer.time_left)))

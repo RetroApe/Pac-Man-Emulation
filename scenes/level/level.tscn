@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://dufj73kjgu7d3"]
+[gd_scene load_steps=8 format=4 uid="uid://dufj73kjgu7d3"]
 
 [ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://scenes/level/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="2_f2txt"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ck0lfko0ayr2l" path="res://scenes/ghosts/ghosts.tscn" id="4_n6hdu"]
 [ext_resource type="Script" uid="uid://ccsd18x67dscl" path="res://scenes/fruit/fruit_spawn.gd" id="5_1ainy"]
 [ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="6_vpf64"]
+[ext_resource type="PackedScene" uid="uid://r5hv4oultpmb" path="res://utility/display_numbers.tscn" id="7_wcngd"]
 
 [node name="Level" type="Node2D"]
 process_mode = 1
@@ -46,3 +47,14 @@ unique_name_in_owner = true
 visible = false
 tile_map_data = PackedByteArray("AAALABQAAwAMAAQAAAAMABQAAwAEAAQAAAAPABQAAwAOAAQAAAAQABQAAwAGAAUAAAAJABQAAwAGAAQAAAAKABQAAwAAAAQAAAARABQAAwAEAAQAAAASABQAAwACAAUAAAA=")
 tile_set = ExtResource("6_vpf64")
+
+[node name="LevelText" type="TileMapLayer" parent="."]
+position = Vector2(60, 51)
+scale = Vector2(0.7, 0.7)
+tile_map_data = PackedByteArray("AAAXABMAAwALAAAAAAAYABMAAwAEAAAAAAAZABMAAwAGAAEAAAAaABMAAwAEAAAAAAAbABMAAwALAAAAAAA=")
+tile_set = ExtResource("6_vpf64")
+
+[node name="DisplayNumbers" parent="." instance=ExtResource("7_wcngd")]
+position = Vector2(192, 164)
+scale = Vector2(0.7, 0.7)
+_text_color = 2
