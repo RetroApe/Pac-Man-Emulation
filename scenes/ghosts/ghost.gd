@@ -153,7 +153,7 @@ func _individual_ghost_adjustments() -> void:
 		release = true
 		personal_dot_count_reached = true
 	
-	add_child(desired_cell_position_panel)
+	#add_child(desired_cell_position_panel)
 
 func _starting_setup() -> void:
 	if is_inside_the_ghost_house:

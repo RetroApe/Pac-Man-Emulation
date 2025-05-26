@@ -231,6 +231,7 @@ corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
 corner_radius_bottom_left = 64
+corner_detail = 4
 
 [node name="PacMan" type="CharacterBody2D"]
 script = ExtResource("1_hf5wl")

@@ -229,9 +229,11 @@ func _set_target_panels() -> void:
 		var target_panel = Panel.new()
 		target_panel.name = ghost.name + "Panel"
 		target_panel.size = Vector2(8.0, 8.0)
+		target_panel.show_behind_parent = true
 		add_child(target_panel)
 		var stylebox = StyleBoxFlat.new()
 		stylebox.bg_color = ghost.ghost_color
+		stylebox.set_corner_radius_all(2)
 		target_panel.add_theme_stylebox_override("panel", stylebox)
 		ghost.target_cell_position_updated.connect(func(target_position : Vector2) -> void:
 			target_panel.position = target_position
