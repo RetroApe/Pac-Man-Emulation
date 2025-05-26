@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://du20lem43yg4s"]
+[gd_scene load_steps=12 format=4 uid="uid://du20lem43yg4s"]
 
 [ext_resource type="Script" uid="uid://dtpp4qse7x420" path="res://game.gd" id="1_eow3j"]
 [ext_resource type="PackedScene" uid="uid://bilj2m1gphrhi" path="res://ui/score_display.tscn" id="2_7jktm"]
@@ -6,6 +6,12 @@
 [ext_resource type="Script" uid="uid://dx62lpbir40j7" path="res://ui/lives_indicator.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://dh258lukhxgvn" path="res://ui/fruit_level_indicator.gd" id="5_7jktm"]
 [ext_resource type="Script" uid="uid://dlorrm1hvil3o" path="res://ui/fruit_sprite_ui.gd" id="6_ryrav"]
+[ext_resource type="Texture2D" uid="uid://b7awuihmesp3h" path="res://assets/screenshot_666-pac-man-game-characters-u-s-release.png" id="7_eow3j"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="7_vef74"]
+[ext_resource type="Script" uid="uid://dfell18clyqf5" path="res://utility/blinker.gd" id="8_hve3p"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mfdv2"]
+blend_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eow3j"]
 bg_color = Color(0, 0, 0, 1)
@@ -14,6 +20,7 @@ bg_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_eow3j")
 make_pacman_invincible = true
+starting_lives = 0
 
 [node name="UI" type="Control" parent="."]
 unique_name_in_owner = true
@@ -25,12 +32,17 @@ script = ExtResource("2_fc0e3")
 metadata/_edit_lock_ = true
 
 [node name="Score" parent="UI" instance=ExtResource("2_7jktm")]
+unique_name_in_owner = true
 layout_mode = 1
+offset_top = 9.0
+offset_bottom = 17.0
 
 [node name="HighScore" parent="UI" instance=ExtResource("2_7jktm")]
 layout_mode = 1
 offset_left = 89.0
+offset_top = 9.0
 offset_right = 136.0
+offset_bottom = 17.0
 
 [node name="LivesIndicator" type="HBoxContainer" parent="UI"]
 unique_name_in_owner = true
@@ -91,6 +103,27 @@ metadata/_edit_lock_ = true
 
 [node name="Credit 0" type="TileMapLayer" parent="UI"]
 
+[node name="HighScoreText" type="TileMapLayer" parent="UI"]
+material = SubResource("CanvasItemMaterial_mfdv2")
+tile_map_data = PackedByteArray("AAAJAAAAAwAHAAwAAAAKAAAAAwAIAAwAAAALAAAAAwAGAAwAAAAMAAAAAwAHAAwAAAAOAAAAAwADAA0AAAAPAAAAAwACAAwAAAAQAAAAAwAOAAwAAAARAAAAAwACAA0AAAASAAAAAwAEAAwAAAA=")
+tile_set = ExtResource("7_vef74")
+
+[node name="1UPText" type="TileMapLayer" parent="UI"]
+unique_name_in_owner = true
+process_mode = 3
+material = SubResource("CanvasItemMaterial_mfdv2")
+tile_map_data = PackedByteArray("AAADAAAAAwABAA4AAAAEAAAAAwAFAA0AAAAFAAAAAwAAAA0AAAA=")
+tile_set = ExtResource("7_vef74")
+script = ExtResource("8_hve3p")
+
+[node name="2UPText" type="TileMapLayer" parent="UI"]
+unique_name_in_owner = true
+process_mode = 3
+material = SubResource("CanvasItemMaterial_mfdv2")
+position = Vector2(152, 0)
+tile_map_data = PackedByteArray("AAADAAAAAwACAA4AAAAEAAAAAwAFAA0AAAAFAAAAAwAAAA0AAAA=")
+tile_set = ExtResource("7_vef74")
+
 [node name="BlackBG" type="Panel" parent="."]
 z_index = -10
 offset_left = -20.0
@@ -98,3 +131,10 @@ offset_right = 244.0
 offset_bottom = 292.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eow3j")
 metadata/_edit_lock_ = true
+
+[node name="Screenshot666-pac-man-game-characters-u-s-release" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.223529)
+position = Vector2(112, 144)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_eow3j")

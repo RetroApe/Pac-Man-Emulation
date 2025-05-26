@@ -1,8 +1,11 @@
 class_name UI
 extends Control
 
+@onready var score: HBoxContainer = %Score
 @onready var lives_indicator: LivesIndicator = %LivesIndicator
 @onready var fruit_level_indicator: HBoxContainer = %FruitLevelIndicator
+@onready var _1up_text: Blinker = %"1UPText"
+@onready var _2up_text: TileMapLayer = %"2UPText"
 
 var _lives : int
 
@@ -20,6 +23,11 @@ func set_up() -> void:
 	lives_indicator.set_life_indicator()
 	fruit_level_indicator.clear()
 	fruit_level_indicator.set_up()
+	_1up_text.please_proceed_to_blink()
+	_2up_text.visible = false
+	score.display_reset()
 
 func clear_ui() -> void:
 	fruit_level_indicator.clear()
+	_1up_text.stop_with_all_this_blinking_pretty_please()
+	_2up_text.visible = true

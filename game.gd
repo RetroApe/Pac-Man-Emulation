@@ -66,6 +66,7 @@ func _input(event: InputEvent) -> void:
 		elif _pacmaning_in_progress == false:
 			GameState.global_dot_counter_active = false
 			GameState.global_dot_count = 0
+			GameState.score = 0
 			GameState.lives_remaining = starting_lives
 			GameState.current_level_counter = starting_level
 			GameState.dots_eaten = starting_eaten_dots
