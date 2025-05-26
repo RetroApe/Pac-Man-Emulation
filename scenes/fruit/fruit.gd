@@ -61,6 +61,8 @@ func _ready() -> void:
 	if GameState:
 		if GameState.current_level_counter > 13:
 			_current_level = "level_13"
+		else:
+			_current_level = GameState.current_level[GameState.current_level_counter]
 		_assign_fruit(level_to_fruit_conversion[_current_level])
 	body_entered.connect(func(body: Node2D) -> void:
 		if typeof(body) == typeof(PacMan):
