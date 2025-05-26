@@ -11,6 +11,7 @@ var _level_set_to_increase := false
 var _pacmaning_in_progress := false
 
 @export var make_pacman_invincible := false : set = _invincibility_change
+@export_range(0, 4) var starting_lives := 4
 @export var starting_eaten_dots := 0
 @export_range(1, 256) var starting_level := 1
 @export_range(0, 7) var scatter_chase_count := 0
@@ -63,6 +64,7 @@ func _input(event: InputEvent) -> void:
 		if level:
 			print("Level found")
 		elif _pacmaning_in_progress == false:
+			GameState.lives_remaining = starting_lives
 			GameState.current_level_counter = starting_level
 			GameState.dots_eaten = starting_eaten_dots
 			GameState.scatter_chase_counter_start = scatter_chase_count
