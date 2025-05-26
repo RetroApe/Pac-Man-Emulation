@@ -7,7 +7,7 @@ signal no_lives_left
 
 var is_pacman_invincible := false
 
-var current_level_counter := 6 : 
+var current_level_counter := 1 : 
 	set(new_level):
 		current_level_counter = new_level
 		level_changed.emit()

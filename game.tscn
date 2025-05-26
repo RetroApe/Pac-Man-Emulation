@@ -18,7 +18,7 @@ bg_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_eow3j")
 make_pacman_invincible = true
-starting_eaten_dots = 123
+starting_eaten_dots = 220
 
 [node name="UI" type="Control" parent="."]
 unique_name_in_owner = true

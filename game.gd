@@ -12,10 +12,7 @@ var _pacmaning_in_progress := false
 
 @export var make_pacman_invincible := false : set = _invincibility_change
 @export var starting_eaten_dots := 0
-@export var starting_level := 1
-
-#func _init() -> void:
-	#GameState.current_level_counter = starting_level
+@export_range(1, 256) var starting_level := 1
 
 func _ready() -> void:
 	GameState.is_pacman_invincible = make_pacman_invincible
@@ -23,7 +20,6 @@ func _ready() -> void:
 		_initiate_level_increase()
 	)
 	GameState.no_lives_left.connect(_on_game_over)
-	GameState.dots_eaten = starting_eaten_dots
 	
 
 func _make_level() -> void:
@@ -66,6 +62,8 @@ func _input(event: InputEvent) -> void:
 		if level:
 			print("Level found")
 		elif _pacmaning_in_progress == false:
+			GameState.current_level_counter = starting_level
+			GameState.dots_eaten = starting_eaten_dots
 			_make_level()
 			_pacmaning_in_progress = true
 	if event.is_action_pressed("kill_pacman") and level != null and _pacman_set_to_die == false:

@@ -50,7 +50,7 @@ func set_up() -> void:
 	else:
 		clear()
 		var count := GameState.current_level_counter - 6
-		if count < 0: count = 1
+		if count <= 0: count = 1
 		for i in range(min(_fruit_sprites.size(), GameState.current_level_counter)):
 			var j = count + i
 			if j < 13:

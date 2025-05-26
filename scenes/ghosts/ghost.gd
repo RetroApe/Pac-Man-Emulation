@@ -85,13 +85,14 @@ enum Elroy {
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
+	
+	_set_speed()
+	
 	_individual_ghost_adjustments()
 	
 	_starting_setup()
 	
 	_fright_timer_setup()
-	
-	_set_speed()
 	
 	#GameState.all_dots_eaten.connect(_on_all_dots_eaten)
 
@@ -175,8 +176,6 @@ func _starting_setup() -> void:
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
-	if name == "Blinky":
-		print(speed)
 	if 244 - GameState.dots_eaten <= _elroy_one_dot_count and elroy_state == Elroy.OFF:
 		elroy_state = Elroy.ONE
 		normal_speed = _elroy_one_speed

@@ -9,7 +9,7 @@ signal frightened_finished
 @onready var global_count_label: Label = %GlobalCountLabel
 @onready var exit_timer: Timer = %ExitTimer
 @onready var exit_timer_label: Label = %ExitTimerLabel
-@onready var elroy_indicator: Sprite2D = %ElroyIndicator
+@onready var elroy_indicator: TileMapLayer = %ElroyIndicator
 @onready var blinky_speed_label: Label = %BlinkySpeedLabel
 @onready var ghosts_speed_label: Label = %GhostsSpeedLabel
 
@@ -42,7 +42,6 @@ var _ghost_eaten_counter := 0
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	_ghosts_array = find_children("*", "Ghost", false)
-	
 	
 	_fright_time = GameState.fright_time[_current_level]
 	fright_timer.wait_time = _fright_time if !is_zero_approx(_fright_time) else 111.0
@@ -94,17 +93,19 @@ func _exit_timer_setup() -> void:
 func _process(_delta: float) -> void:
 	exit_timer_label.text = "Exit Timer: " + str(exit_timer.time_left).pad_decimals(2)
 	if _current_state == CHASE:
-		scatter_label.text = "Scatter Count:\n" + "N/A"
-		chase_label.text = "Chase Count:\n" + str(scatter_chase_timer.time_left).pad_decimals(2)
+		scatter_label.text = "N/A"
+		chase_label.text = str(scatter_chase_timer.time_left).pad_decimals(2)
 	elif _current_state == SCATTER :
-		chase_label.text = "Chase Count:\n" + "N/A"
-		scatter_label.text = "Scatter Count:\n" + str(scatter_chase_timer.time_left).pad_decimals(2)
+		chase_label.text = "N/A"
+		scatter_label.text = str(scatter_chase_timer.time_left).pad_decimals(2)
 	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
 			blinky_speed_label.text = str(int(ghost.speed / 1.25 * 100)) + "%"
 		else:
 			ghosts_speed_label.text = str(int(ghost.normal_speed / 1.25 * 100)) + "%"
+			if ghost.current_state == ghost.State.FRIGHTENED:
+				ghosts_speed_label.text = str(int(ghost.speed / 1.25 * 100)) + "%"
 			break
 	
 	for ghost in _ghosts_array as Array[Ghost]:
