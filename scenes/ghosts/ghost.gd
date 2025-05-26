@@ -333,14 +333,15 @@ func switch_direction() -> void:
 func frightened() -> void:
 	if current_state == State.EATEN:
 		return
-	_is_frightened = true
+	if !is_zero_approx(_fright_time):
+		_is_frightened = true
 	z_index = -1
 	if current_state == State.LOCKED or is_inside_the_ghost_house:
 		animated_sprite_2d.animation = "frightened"
 		frightened_timer.start(_fright_time)
 	if is_inside_the_ghost_house:
 		return
-	if _fright_time == 0.0:
+	if is_zero_approx(_fright_time):
 		switch_direction()
 		_is_frightened = false
 		return
