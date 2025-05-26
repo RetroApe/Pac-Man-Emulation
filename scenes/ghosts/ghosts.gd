@@ -10,6 +10,8 @@ signal frightened_finished
 @onready var exit_timer: Timer = %ExitTimer
 @onready var exit_timer_label: Label = %ExitTimerLabel
 @onready var elroy_indicator: Sprite2D = %ElroyIndicator
+@onready var blinky_speed_label: Label = %BlinkySpeedLabel
+@onready var ghosts_speed_label: Label = %GhostsSpeedLabel
 
 @onready var fright_timer: Timer = %FrightTimer
 var _fright_time := 0.0
@@ -41,6 +43,7 @@ func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	_ghosts_array = find_children("*", "Ghost", false)
 	
+	
 	_fright_time = GameState.fright_time[_current_level]
 	fright_timer.wait_time = _fright_time if !is_zero_approx(_fright_time) else 111.0
 	fright_timer.timeout.connect(func() -> void:
@@ -48,12 +51,9 @@ func _ready() -> void:
 		frightened_finished.emit()
 	)
 	
-	
-	
 	_exit_timer_setup()
 	_scatter_chase_behaviour()
 	_set_target_panels()
-	
 
 func _scatter_chase_behaviour() -> void:
 	if GameState.current_level_counter > 5:
@@ -100,23 +100,31 @@ func _process(_delta: float) -> void:
 		chase_label.text = "Chase Count:\n" + "N/A"
 		scatter_label.text = "Scatter Count:\n" + str(scatter_chase_timer.time_left).pad_decimals(2)
 	
+	for ghost in _ghosts_array as Array[Ghost]:
+		if ghost.name == "Blinky":
+			blinky_speed_label.text = str(int(ghost.speed / 1.25 * 100)) + "%"
+		else:
+			ghosts_speed_label.text = str(int(ghost.normal_speed / 1.25 * 100)) + "%"
+			break
 	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
 			_blinky_coordinates = ghost.current_cell_coordinates
 			
-			if ghost.elroy_on == true:
+			if ghost.elroy_state == ghost.Elroy.ONE:
 				elroy_indicator.self_modulate.b = 0
+			elif ghost.elroy_state == ghost.Elroy.TWO:
+				elroy_indicator.self_modulate.g = 0
 			
 		if (
 			ghost.current_state == ghost.State.TARGETING and 
 			ghost.is_inside_the_ghost_house == false and
-			(_current_state == CHASE or ghost.elroy_on == true)
+			(_current_state == CHASE or ghost.elroy_state != ghost.Elroy.OFF)
 		):
 			
 			_assign_special_target(ghost)
 			
-		elif _current_state == SCATTER and ghost.current_state != ghost.State.EATEN and ghost.elroy_on == false:
+		elif _current_state == SCATTER and ghost.current_state != ghost.State.EATEN and ghost.elroy_state == ghost.Elroy.OFF:
 			ghost.target_coordinates = ghost.scatter_coordinates
 	
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates or _is_pacman_set_to_die == true:

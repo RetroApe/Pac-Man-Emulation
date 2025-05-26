@@ -26,6 +26,8 @@ func _ready() -> void:
 	GameState.level_changed.connect(func() -> void:
 		if GameState.current_level_counter <= 13:
 			_level = GameState.current_level[GameState.current_level_counter]
+		else:
+			_level = "level_13"
 		_fruit = _level_to_fruit_conversion[_level]
 		for fruit in _fruit_sprites as Array[FruitSpriteUI]:
 			if fruit.texture == null:

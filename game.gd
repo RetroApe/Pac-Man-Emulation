@@ -11,6 +11,11 @@ var _level_set_to_increase := false
 var _pacmaning_in_progress := false
 
 @export var make_pacman_invincible := false : set = _invincibility_change
+@export var starting_eaten_dots := 0
+@export var starting_level := 1
+
+#func _init() -> void:
+	#GameState.current_level_counter = starting_level
 
 func _ready() -> void:
 	GameState.is_pacman_invincible = make_pacman_invincible
@@ -18,6 +23,7 @@ func _ready() -> void:
 		_initiate_level_increase()
 	)
 	GameState.no_lives_left.connect(_on_game_over)
+	GameState.dots_eaten = starting_eaten_dots
 	
 
 func _make_level() -> void:
@@ -26,7 +32,7 @@ func _make_level() -> void:
 	add_child(level)
 	level.name = "Level"
 	level.reset_the_level.connect(_level_reset)
-	GameState.dots_eaten = 0
+	GameState.dots_eaten = starting_eaten_dots
 	_pacman_set_to_die = false
 	_level_set_to_increase = false
 
@@ -39,7 +45,7 @@ func _level_reset() -> void:
 	level.queue_free()
 	get_tree().create_timer(0.3).timeout.connect(func() -> void:
 		GameState.current_level_counter += 1
-		GameState.dots_eaten = 0
+		GameState.dots_eaten = starting_eaten_dots
 		_make_level()
 	)
 

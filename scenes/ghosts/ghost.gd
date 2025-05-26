@@ -43,6 +43,10 @@ var _adjust_the_grid := false
 @export var _direction := Vector2i.LEFT
 var normal_speed := 1.0
 var speed := 1.0
+var _fright_speed := 1.0
+var _tunnel_speed := 1.0
+var _elroy_one_speed := 1.0
+var _elroy_two_speed := 1.0
 
 @export var sprite_frames : SpriteFrames
 @export var ghost_color : Color = Color("RED", 0.6)
@@ -70,8 +74,14 @@ var _personal_dot_number := -1
 var personal_dot_count_reached := false
 var _global_dot_counter_number := -1
 var release := false : set = _set_on_ghost_release
-var _elroy_dot_count := -1
-var elroy_on := false
+var _elroy_one_dot_count := -1
+var _elroy_two_dot_count := -1
+var elroy_state : Elroy = Elroy.OFF
+enum Elroy {
+	OFF,
+	ONE,
+	TWO
+}
 
 func _ready() -> void:
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
@@ -81,7 +91,36 @@ func _ready() -> void:
 	
 	_fright_timer_setup()
 	
+	_set_speed()
+	
 	#GameState.all_dots_eaten.connect(_on_all_dots_eaten)
+
+func _set_speed() -> void:
+	if GameState.current_level_counter == 1:
+		normal_speed = 0.9375
+		_fright_speed = 0.625
+		_tunnel_speed = 0.5
+		_elroy_one_speed = 1.0
+		_elroy_two_speed = 1.0625
+	elif GameState.current_level_counter >= 2 and GameState.current_level_counter <= 4:
+		normal_speed = 1.0625
+		_fright_speed = 0.6875
+		_tunnel_speed = 0.5625
+		_elroy_one_speed = 1.125
+		_elroy_two_speed = 1.1875
+	elif GameState.current_level_counter >= 5 and GameState.current_level_counter <= 20:
+		normal_speed = 1.1875
+		_fright_speed = 0.75
+		_tunnel_speed = 0.625
+		_elroy_one_speed = 1.25
+		_elroy_two_speed = 1.3125
+	else:
+		normal_speed = 1.1875
+		_fright_speed = 0.75
+		_tunnel_speed = 0.625
+		_elroy_one_speed = 1.25
+		_elroy_two_speed = 1.3125
+	speed = normal_speed
 
 func _individual_ghost_adjustments() -> void:
 	animated_sprite_2d.sprite_frames = sprite_frames
@@ -110,7 +149,10 @@ func _individual_ghost_adjustments() -> void:
 				print("Clyde")
 	
 	if name == "Blinky":
-		_elroy_dot_count = GameState.elroy_dot_count[_current_level]
+		_elroy_one_dot_count = GameState.elroy_dot_count[_current_level]
+		_elroy_two_dot_count = _elroy_one_dot_count / 2
+		print(_elroy_one_dot_count)
+		print(_elroy_two_dot_count)
 	
 	if personal_dot_counter == _personal_dot_number:
 		release = true
@@ -121,7 +163,7 @@ func _individual_ghost_adjustments() -> void:
 func _starting_setup() -> void:
 	if is_inside_the_ghost_house:
 		_adjust_the_grid = true
-		speed = normal_speed / 2.0
+		speed = 0.5
 	if locked_inside_the_ghost_house:
 		current_state = State.LOCKED
 	seed(_seed)
@@ -133,8 +175,16 @@ func _starting_setup() -> void:
 	_calculate_next_desired_position()
 
 func _physics_process(delta: float) -> void:
-	if 244 - GameState.dots_eaten <= _elroy_dot_count and elroy_on == false:
-		elroy_on = true
+	if name == "Blinky":
+		print(speed)
+	if 244 - GameState.dots_eaten <= _elroy_one_dot_count and elroy_state == Elroy.OFF:
+		elroy_state = Elroy.ONE
+		normal_speed = _elroy_one_speed
+		speed = normal_speed
+	if 244 - GameState.dots_eaten <= _elroy_two_dot_count and elroy_state == Elroy.ONE:
+		elroy_state = Elroy.TWO
+		normal_speed = _elroy_two_speed
+		speed = normal_speed
 	
 	if pacman_eaten:
 		process_mode = Node.PROCESS_MODE_INHERIT
@@ -149,7 +199,7 @@ func _physics_process(delta: float) -> void:
 	current_cell_coordinates = GRID.calculate_cell_coordinates(global_position, _adjust_the_grid)
 	_current_cell_position = GRID.calculate_cell_position(current_cell_coordinates, _adjust_the_grid)
 	if TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == false and current_state == State.TARGETING:
-		speed = normal_speed / 2.0
+		speed = _tunnel_speed
 		_tunnel_traveling = true
 	elif !TUNNEL_CELLS.has(current_cell_coordinates) and _tunnel_traveling == true and current_state == State.TARGETING:
 		speed = normal_speed
@@ -303,7 +353,7 @@ func frightened() -> void:
 		return
 	current_state = State.FRIGHTENED
 	animated_sprite_2d.animation = "frightened"
-	speed = 0.5
+	speed = _fright_speed
 	frightened_timer.start(_fright_time)
 	switch_direction()
 
@@ -320,7 +370,7 @@ func _fright_timer_setup() -> void:
 			return
 		current_state = State.TARGETING
 		match_animation()
-		speed = 1.0
+		speed = normal_speed
 	)
 
 func death() -> void:
@@ -380,7 +430,7 @@ func _ghost_house_behaviour() -> void:
 			if _is_frightened:
 				current_state = State.FRIGHTENED
 				return
-			speed = 1.0
+			speed = normal_speed
 
 func _check_walkability(to_check_walkable: Vector2i) -> bool:
 	return !(
