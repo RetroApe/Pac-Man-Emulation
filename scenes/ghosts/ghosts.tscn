@@ -64,13 +64,29 @@ ghost_color = Color(1, 0.717647, 0.317647, 0.6)
 
 [node name="ScatterChaseTimer" type="Timer" parent="."]
 unique_name_in_owner = true
-autostart = true
 
 [node name="ChaseDisplay" parent="." instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(9, 117)
 scale = Vector2(0.7, 0.7)
+_pad_zeros = false
 _text_color = 2
+
+[node name="NumberDisplay4" parent="ChaseDisplay" index="0"]
+visible = false
+
+[node name="NumberDisplay3" parent="ChaseDisplay" index="1"]
+visible = false
+
+[node name="NumberDisplay2" parent="ChaseDisplay" index="2"]
+visible = false
+
+[node name="NumberDisplay1" parent="ChaseDisplay" index="3"]
+visible = false
+
+[node name="NotCounting" parent="ChaseDisplay" index="5"]
+visible = true
+position = Vector2(15.7143, 4)
 
 [node name="ScatterDisplay" parent="." instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
@@ -88,6 +104,12 @@ visible = false
 [node name="NumberDisplay2" parent="ScatterDisplay" index="2"]
 visible = false
 
+[node name="NumberDisplay1" parent="ScatterDisplay" index="3"]
+visible = false
+
+[node name="NotCounting" parent="ScatterDisplay" index="5"]
+visible = true
+
 [node name="BlinkySpeedDisplay" parent="." instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(3, 157)
@@ -98,6 +120,12 @@ _text_color = 1
 [node name="NumberDisplay4" parent="BlinkySpeedDisplay" index="0"]
 visible = false
 
+[node name="NumberDisplay3" parent="BlinkySpeedDisplay" index="1"]
+visible = false
+
+[node name="NumberDisplay2" parent="BlinkySpeedDisplay" index="2"]
+visible = false
+
 [node name="GhostsSpeedDisplay" parent="." instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(3, 166)
@@ -106,6 +134,12 @@ _pad_zeros = false
 _text_color = 2
 
 [node name="NumberDisplay4" parent="GhostsSpeedDisplay" index="0"]
+visible = false
+
+[node name="NumberDisplay3" parent="GhostsSpeedDisplay" index="1"]
+visible = false
+
+[node name="NumberDisplay2" parent="GhostsSpeedDisplay" index="2"]
 visible = false
 
 [node name="GhostHUD" type="TileMapLayer" parent="."]
@@ -165,6 +199,7 @@ position = Vector2(31, 159.8)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_afnvi")
 
+[editable path="ChaseDisplay"]
 [editable path="ScatterDisplay"]
 [editable path="BlinkySpeedDisplay"]
 [editable path="GhostsSpeedDisplay"]

@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://r5hv4oultpmb"]
+[gd_scene load_steps=7 format=3 uid="uid://r5hv4oultpmb"]
 
 [ext_resource type="Script" uid="uid://d18ben32oki0y" path="res://utility/display_numbers.gd" id="1_xq0rh"]
 [ext_resource type="SpriteFrames" uid="uid://cexxkp0rtbah1" path="res://ui/numbers.tres" id="2_57ci8"]
 [ext_resource type="Script" uid="uid://t84x66vs045a" path="res://ui/number_sprite.gd" id="3_xfsow"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="4_57ci8"]
+[ext_resource type="Texture2D" uid="uid://boft72rmj1a1b" path="res://assets/sprites/text.png" id="5_xfsow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gyme"]
+atlas = ExtResource("5_xfsow")
+region = Rect2(88, 16, 8, 8)
 
 [node name="DisplayNumbers" type="Node2D"]
 script = ExtResource("1_xq0rh")
@@ -34,3 +40,17 @@ sprite_frames = ExtResource("2_57ci8")
 script = ExtResource("3_xfsow")
 metadata/_custom_type_script = "uid://t84x66vs045a"
 metadata/_edit_lock_ = true
+
+[node name="INF" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1, 0)
+scale = Vector2(0.75, 0.75)
+tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 3, 0, 8, 0, 24, 0, 0, 0, 2, 0, 0, 0, 3, 0, 13, 0, 24, 0, 0, 0, 3, 0, 0, 0, 3, 0, 5, 0, 24, 0, 0, 0)
+tile_set = ExtResource("4_57ci8")
+
+[node name="NotCounting" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(28, 4)
+texture = SubResource("AtlasTexture_4gyme")

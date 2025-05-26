@@ -79,6 +79,7 @@ var elroy_dot_count : Dictionary[String, int] = {
 	"level_21": 120,
 }
 
+var scatter_chase_counter_start := 0
 var fright_time : Dictionary[String, float] = {
 	"level_1": 6.0,
 	"level_2": 5.0,

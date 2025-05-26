@@ -13,6 +13,7 @@ var _pacmaning_in_progress := false
 @export var make_pacman_invincible := false : set = _invincibility_change
 @export var starting_eaten_dots := 0
 @export_range(1, 256) var starting_level := 1
+@export_range(0, 7) var scatter_chase_count := 0
 
 func _ready() -> void:
 	GameState.is_pacman_invincible = make_pacman_invincible
@@ -64,6 +65,7 @@ func _input(event: InputEvent) -> void:
 		elif _pacmaning_in_progress == false:
 			GameState.current_level_counter = starting_level
 			GameState.dots_eaten = starting_eaten_dots
+			GameState.scatter_chase_counter_start = scatter_chase_count
 			_make_level()
 			_pacmaning_in_progress = true
 	if event.is_action_pressed("kill_pacman") and level != null and _pacman_set_to_die == false:

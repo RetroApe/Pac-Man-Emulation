@@ -20,7 +20,7 @@ var _fright_time := 0.0
 @onready var chase_display: DisplayNumbers = %ChaseDisplay
 @onready var scatter_chase_timer: Timer = %ScatterChaseTimer
 var _scatter_chase_timing : Array
-var _scatter_chase_timing_counter := 0
+var _scatter_chase_timing_counter := GameState.scatter_chase_counter_start
 
 enum {
 	SCATTER,
@@ -60,7 +60,10 @@ func _scatter_chase_behaviour() -> void:
 	else:
 		_scatter_chase_timing = GameState.scatter_chase_timing[_current_level]
 	
-	scatter_chase_timer.start(_scatter_chase_timing[0])
+	_current_state = CHASE if _scatter_chase_timing_counter % 2 else SCATTER
+	
+	if _scatter_chase_timing_counter < 7:
+		scatter_chase_timer.start(_scatter_chase_timing[_scatter_chase_timing_counter])
 	scatter_chase_timer.timeout.connect(func() -> void:
 		_scatter_chase_timing_counter += 1
 		_current_state = CHASE if _scatter_chase_timing_counter % 2 else SCATTER
@@ -91,13 +94,7 @@ func _exit_timer_setup() -> void:
 	)
 
 func _process(_delta: float) -> void:
-	exit_timer_label.text = "Exit Timer: " + str(exit_timer.time_left).pad_decimals(2)
-	if _current_state == CHASE:
-		scatter_display.display(0)
-		chase_display.display(int(scatter_chase_timer.time_left))
-	elif _current_state == SCATTER :
-		chase_display.display(0)
-		scatter_display.display(int(scatter_chase_timer.time_left))
+	_scatter_chase_display()
 	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
@@ -212,10 +209,11 @@ func on_game_start() -> void:
 	exit_timer.start()
 	exit_timer.paused = false
 	
-	_scatter_chase_timing_counter = 0
-	_current_state = SCATTER
+	_scatter_chase_timing_counter = GameState.scatter_chase_counter_start
+	_current_state = CHASE if _scatter_chase_timing_counter % 2 else SCATTER
 	scatter_chase_timer.paused = false
-	scatter_chase_timer.start(_scatter_chase_timing[0])
+	if _scatter_chase_timing_counter < 7:
+		scatter_chase_timer.start(_scatter_chase_timing[_scatter_chase_timing_counter])
 	for ghost in _ghosts_array as Array[Ghost]:
 		ghost.match_animation()
 
@@ -239,3 +237,15 @@ func _set_target_panels() -> void:
 
 func die_pacman_die() -> void:
 	_is_pacman_set_to_die = true
+
+func _scatter_chase_display() -> void:
+	if scatter_chase_timer.is_stopped():
+		chase_display.display_infinite()
+		return
+	exit_timer_label.text = "Exit Timer: " + str(exit_timer.time_left).pad_decimals(2)
+	if _current_state == CHASE:
+		scatter_display.display_not_counting()
+		chase_display.display(int(ceil(scatter_chase_timer.time_left)))
+	elif _current_state == SCATTER :
+		chase_display.display_not_counting()
+		scatter_display.display(int(ceil(scatter_chase_timer.time_left)))
