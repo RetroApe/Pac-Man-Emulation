@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var ui: UI = %UI
+@onready var intro_animation: Node2D = %IntroAnimation
 
 var level: Level
 
@@ -23,6 +24,7 @@ func _ready() -> void:
 	)
 	GameState.no_lives_left.connect(_on_game_over)
 	
+	#intro_animation.play_intro_animation()
 
 func _make_level() -> void:
 	ui.set_up()
@@ -30,6 +32,9 @@ func _make_level() -> void:
 	add_child(level)
 	level.name = "Level"
 	level.reset_the_level.connect(_level_reset)
+	level.level_started_after_pacman_death.connect(func() -> void:
+		_pacman_set_to_die = false
+	)
 	GameState.dots_eaten = starting_eaten_dots
 	_pacman_set_to_die = false
 	_level_set_to_increase = false
@@ -52,12 +57,13 @@ func _invincibility_change(new_value : bool) -> void:
 	GameState.is_pacman_invincible = make_pacman_invincible
 
 func _on_game_over() -> void:
-	get_tree().create_timer(2.0).timeout.connect(func() -> void:
-		GameState.current_level_counter = 1
-		level.queue_free()
-		ui.clear_ui()
-		_pacmaning_in_progress = false
-	)
+	get_tree().create_timer(2.0).timeout.connect(_level_exit)
+
+func _level_exit() -> void:
+	GameState.current_level_counter = 1
+	level.queue_free()
+	ui.clear_ui()
+	_pacmaning_in_progress = false
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_start"):
@@ -71,6 +77,7 @@ func _input(event: InputEvent) -> void:
 			GameState.current_level_counter = starting_level
 			GameState.dots_eaten = starting_eaten_dots
 			GameState.scatter_chase_counter_start = scatter_chase_count
+			#intro_animation.stop_animation()
 			_make_level()
 			_pacmaning_in_progress = true
 	if event.is_action_pressed("kill_pacman") and level != null and _pacman_set_to_die == false:
@@ -80,4 +87,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_increase") and _level_set_to_increase == false:
 		_initiate_level_increase()
 		_level_set_to_increase = true
-	
+	if event.is_action_pressed("level_exit"):
+		if level:
+			_level_exit()
+		else:
+			print("No level to exit")

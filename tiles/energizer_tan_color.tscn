@@ -1,25 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://2ttkrne6mmd"]
+[gd_scene load_steps=9 format=3 uid="uid://sljfix3wa63o"]
 
-[ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_0duds"]
-[ext_resource type="Script" uid="uid://c3b7fyiuaq0xa" path="res://tiles/energizer.gd" id="1_eyt67"]
-[ext_resource type="Script" uid="uid://c16fgqwiwvpq8" path="res://utility/animation_process.gd" id="2_v7uq5"]
+[ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_skpk8"]
+[ext_resource type="Script" uid="uid://c16fgqwiwvpq8" path="res://utility/animation_process.gd" id="2_dre26"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_syhbm"]
 blend_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o7bw8"]
-atlas = ExtResource("1_0duds")
+atlas = ExtResource("1_skpk8")
 region = Rect2(360, 45, 8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ippvd"]
 radius = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v7uq5"]
-atlas = ExtResource("1_0duds")
-region = Rect2(360, 45, 8, 8)
+atlas = ExtResource("1_skpk8")
+region = Rect2(360, 18, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eyt67"]
-atlas = ExtResource("1_0duds")
+atlas = ExtResource("1_skpk8")
 region = Rect2(333, 18, 8, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w2f6l"]
@@ -37,7 +36,6 @@ animations = [{
 }]
 
 [node name="Energizer" type="Area2D" groups=["dots", "energizers"]]
-script = ExtResource("1_eyt67")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -48,8 +46,7 @@ texture = SubResource("AtlasTexture_o7bw8")
 shape = SubResource("CircleShape2D_ippvd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_w2f6l")
 autoplay = "default"
 frame_progress = 0.582175
-script = ExtResource("2_v7uq5")
+script = ExtResource("2_dre26")

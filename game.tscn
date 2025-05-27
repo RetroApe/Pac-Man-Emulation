@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://dx62lpbir40j7" path="res://ui/lives_indicator.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://dh258lukhxgvn" path="res://ui/fruit_level_indicator.gd" id="5_7jktm"]
 [ext_resource type="Script" uid="uid://dlorrm1hvil3o" path="res://ui/fruit_sprite_ui.gd" id="6_ryrav"]
-[ext_resource type="Texture2D" uid="uid://b7awuihmesp3h" path="res://assets/screenshot_666-pac-man-game-characters-u-s-release.png" id="7_eow3j"]
 [ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="7_vef74"]
 [ext_resource type="Script" uid="uid://dfell18clyqf5" path="res://utility/blinker.gd" id="8_hve3p"]
+[ext_resource type="PackedScene" uid="uid://b2sm0lf305dfr" path="res://animation/intro_animation.tscn" id="9_hve3p"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mfdv2"]
 blend_mode = 1
@@ -120,8 +120,11 @@ unique_name_in_owner = true
 process_mode = 3
 material = SubResource("CanvasItemMaterial_mfdv2")
 position = Vector2(152, 0)
-tile_map_data = PackedByteArray("AAADAAAAAwACAAIAAAAEAAAAAwAFAAEAAAAFAAAAAwAAAAEAAADv/yMAAwACAAAAAADw/yMAAwACAAEAAADx/yMAAwAEAAAAAADy/yMAAwADAAAAAADz/yMAAwAIAAAAAAD0/yMAAwAEAAEAAAD3/yMAAwAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAADAAAAAwACAAIAAAAEAAAAAwAFAAEAAAAFAAAAAwAAAAEAAAA=")
 tile_set = ExtResource("7_vef74")
+
+[node name="IntroAnimation" parent="." instance=ExtResource("9_hve3p")]
+unique_name_in_owner = true
 
 [node name="BlackBG" type="Panel" parent="."]
 z_index = -10
@@ -129,12 +132,4 @@ offset_left = -20.0
 offset_right = 244.0
 offset_bottom = 292.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eow3j")
-metadata/_edit_lock_ = true
-
-[node name="Screenshot666-pac-man-game-characters-u-s-release" type="Sprite2D" parent="."]
-visible = false
-self_modulate = Color(1, 1, 1, 0.223529)
-position = Vector2(112, 144)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_eow3j")
 metadata/_edit_lock_ = true

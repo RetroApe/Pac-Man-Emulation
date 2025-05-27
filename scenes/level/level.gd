@@ -2,6 +2,7 @@ class_name Level
 extends Node2D
 
 signal reset_the_level
+signal level_started_after_pacman_death
 
 @onready var pacman: PacMan = %PacMan
 @onready var ghosts: Ghosts = %Ghosts
@@ -86,6 +87,7 @@ func _start_the_game() -> void:
 	GameState.player_ready_screen = false
 	ghosts.on_game_start()
 	ready_letters.visible = false
+	level_started_after_pacman_death.emit()
 
 func _process(_delta: float) -> void:
 	ghosts.pacman_current_cell_coordinates = pacman.current_cell_coordinates
