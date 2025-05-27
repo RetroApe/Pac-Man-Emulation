@@ -7,8 +7,6 @@ signal ghost_eaten_but_make_pacman_visible
 signal frightened_finished
 
 @onready var exit_timer: Timer = %ExitTimer
-#@onready var global_count_label: Label = %GlobalCountLabel
-#@onready var exit_timer_label: Label = %ExitTimerLabel
 @onready var exit_display: DisplayNumbers = %ExitDisplay
 @onready var global_count_display: DisplayNumbers = %GlobalCountDisplay
 @onready var elroy_indicator: TileMapLayer = %ElroyIndicator
@@ -187,7 +185,9 @@ func set_dots(new_dots: int) -> void:
 	if GameState.global_dot_counter_active == true:
 		GameState.global_dot_count +=1
 		global_count_display.display(GameState.global_dot_count)
-		if GameState.global_dot_count == 32:
+		# _ghosts_array[-1] refers to Clyde, assuming he is the last in the array,
+		# which he is, since I put him there
+		if GameState.global_dot_count == 32 and _ghosts_array[-1].is_inside_the_ghost_house == true:
 			GameState.global_dot_counter_active = false
 
 func on_pacman_dead() -> void:

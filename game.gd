@@ -133,11 +133,20 @@ func _input(event: InputEvent) -> void:
 			intro_animation.stop_animation()
 			_make_level()
 			_pacmaning_in_progress = true
-	if event.is_action_pressed("kill_pacman") and level != null and _pacman_set_to_die == false:
+	if (
+		event.is_action_pressed("kill_pacman") and 
+		level != null and 
+		_pacman_set_to_die == false and
+		_level_set_to_increase == false
+	):
 		print("Die Pac-Man, die!")
 		_pacman_set_to_die = true
 		level.die_pacman_die()
-	if level and event.is_action_pressed("level_increase") and _level_set_to_increase == false:
+	if (
+		level and event.is_action_pressed("level_increase") and 
+		_level_set_to_increase == false and
+		_pacman_set_to_die == false
+	):
 		_initiate_level_increase()
 		_level_set_to_increase = true
 	if event.is_action_pressed("level_exit"):
