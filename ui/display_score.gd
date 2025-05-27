@@ -52,6 +52,8 @@ func display(number : int) -> void:
 				_1_number.show_number(num)
 
 func display_reset() -> void:
+	if GameState.score > 0:
+		return
 	_current_number_displayed = 0
 	_6_number.show_empty_frame()
 	_5_number.show_empty_frame()

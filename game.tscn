@@ -37,6 +37,8 @@ offset_top = 9.0
 offset_bottom = 17.0
 
 [node name="HighScore" parent="UI" instance=ExtResource("2_7jktm")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_left = 89.0
 offset_top = 9.0

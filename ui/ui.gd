@@ -2,6 +2,7 @@ class_name UI
 extends Control
 
 @onready var score: HBoxContainer = %Score
+@onready var high_score: HBoxContainer = %HighScore
 @onready var lives_indicator: LivesIndicator = %LivesIndicator
 @onready var fruit_level_indicator: HBoxContainer = %FruitLevelIndicator
 @onready var _1up_text: Blinker = %"1UPText"
@@ -19,6 +20,7 @@ func _process(_delta: float) -> void:
 		lives_indicator.remove_a_life()
 
 func set_up() -> void:
+	high_score.visible = true
 	_lives = GameState.lives_remaining
 	lives_indicator.set_life_indicator()
 	fruit_level_indicator.clear()
