@@ -10,12 +10,45 @@ const LEVEL = preload("res://scenes/level/level.tscn")
 var _pacman_set_to_die := false
 var _level_set_to_increase := false
 var _pacmaning_in_progress := false
+var _is_main_screen_on := true
 
+@export_group("Starting Variables")
 @export var make_pacman_invincible := false : set = _invincibility_change
 @export_range(0, 4) var starting_lives := 4
 @export var starting_eaten_dots := 0
 @export_range(1, 256) var starting_level := 1
 @export_range(0, 7) var scatter_chase_count := 0
+
+@export_group("Debug Display")
+@export var turn_on_all_displays := false :
+	set(new_value):
+		turn_on_all_displays = new_value
+		turn_on_target_display = new_value
+		turn_on_personal_dot_counter = new_value
+		turn_on_release_display = new_value
+		turn_on_exit_timer_display = new_value
+		turn_on_global_count_display = new_value
+		turn_on_elroy_display = new_value
+		turn_on_scatter_chase_display = new_value
+		turn_on_speed_display = new_value
+		turn_on_level_display = new_value
+
+@export_subgroup("Individual")
+@export var turn_on_target_display := false
+@export var turn_on_personal_dot_counter := false
+@export var turn_on_release_display := false
+
+@export_subgroup("HUD")
+@export var turn_on_exit_timer_display := false
+@export var turn_on_global_count_display := false
+@export var turn_on_elroy_display := false
+@export var turn_on_scatter_chase_display := false
+@export var turn_on_speed_display := false
+@export var turn_on_level_display := false
+
+@export_group("Pinky's Target")
+@export var turn_on_pinky_target_correction := false
+
 
 func _ready() -> void:
 	GameState.is_pacman_invincible = make_pacman_invincible
@@ -27,6 +60,8 @@ func _ready() -> void:
 	intro_animation.play_intro_animation()
 
 func _make_level() -> void:
+	_set_up_options()
+	
 	ui.set_up()
 	level = LEVEL.instantiate()
 	add_child(level)
@@ -38,6 +73,21 @@ func _make_level() -> void:
 	GameState.dots_eaten = starting_eaten_dots
 	_pacman_set_to_die = false
 	_level_set_to_increase = false
+
+func _set_up_options() -> void:
+	GameState.turn_on_target_display = turn_on_target_display
+	GameState.turn_on_personal_dot_display = turn_on_personal_dot_counter
+	GameState.turn_on_release_display = turn_on_release_display
+	
+	GameState.turn_on_exit_timer_display = turn_on_exit_timer_display
+	GameState.turn_on_global_count_display = turn_on_global_count_display
+	GameState.turn_on_elroy_display = turn_on_elroy_display
+	GameState.turn_on_scatter_chase_display = turn_on_scatter_chase_display
+	GameState.turn_on_speed_display = turn_on_speed_display
+	GameState.turn_on_level_display = turn_on_level_display
+	GameState.turn_on_pinky_target_correction = turn_on_pinky_target_correction
+	
+	
 
 func _initiate_level_increase() -> void:
 	get_tree().paused = true
@@ -65,12 +115,14 @@ func _level_exit() -> void:
 	ui.clear_ui()
 	_pacmaning_in_progress = false
 	intro_animation.play_intro_animation()
+	_is_main_screen_on = true
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_start"):
 		if level:
 			print("Level found")
 		elif _pacmaning_in_progress == false:
+			_is_main_screen_on = false
 			GameState.global_dot_counter_active = false
 			GameState.global_dot_count = 0
 			GameState.score = 0
@@ -85,11 +137,11 @@ func _input(event: InputEvent) -> void:
 		print("Die Pac-Man, die!")
 		_pacman_set_to_die = true
 		level.die_pacman_die()
-	if event.is_action_pressed("level_increase") and _level_set_to_increase == false:
+	if level and event.is_action_pressed("level_increase") and _level_set_to_increase == false:
 		_initiate_level_increase()
 		_level_set_to_increase = true
 	if event.is_action_pressed("level_exit"):
 		if level:
 			_level_exit()
-		else:
-			print("No level to exit")
+		elif _is_main_screen_on == true:
+			get_tree().quit()

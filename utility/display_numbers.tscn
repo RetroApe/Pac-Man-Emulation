@@ -54,3 +54,5 @@ unique_name_in_owner = true
 visible = false
 position = Vector2(28, 4)
 texture = SubResource("AtlasTexture_4gyme")
+
+[node name="CustomText" type="TileMapLayer" parent="."]

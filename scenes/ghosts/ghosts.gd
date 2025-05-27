@@ -42,6 +42,14 @@ var _ghost_dot_counter_active := true
 var _ghost_eaten_counter := 0
 
 func _ready() -> void:
+	exit_display.visible = GameState.turn_on_exit_timer_display
+	global_count_display.visible = GameState.turn_on_global_count_display
+	chase_display.visible = GameState.turn_on_scatter_chase_display
+	scatter_display.visible = GameState.turn_on_scatter_chase_display
+	blinky_speed_display.visible = GameState.turn_on_speed_display
+	ghosts_speed_display.visible = GameState.turn_on_speed_display
+	elroy_indicator.visible = GameState.turn_on_elroy_display
+	
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	_ghosts_array = find_children("*", "Ghost", false)
 	
@@ -54,7 +62,8 @@ func _ready() -> void:
 	
 	_exit_timer_setup()
 	_scatter_chase_behaviour()
-	_set_target_panels()
+	if GameState.turn_on_target_display:
+		_set_target_panels()
 
 func _scatter_chase_behaviour() -> void:
 	if GameState.current_level_counter > 5:
@@ -146,7 +155,7 @@ func _assign_special_target(ghost: Node2D) -> void:
 			ghost.target_coordinates = pacman_current_cell_coordinates
 		"Pinky":
 			ghost.target_coordinates = pacman_current_cell_coordinates + 4 * pacman_direction
-			if pacman_direction == Vector2i.UP:
+			if pacman_direction == Vector2i.UP and GameState.turn_on_pinky_target_correction == false:
 				ghost.target_coordinates += Vector2i(-4, 0)
 		"Inky":
 			var intermediary := pacman_current_cell_coordinates + 2 * pacman_direction

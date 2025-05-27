@@ -17,6 +17,7 @@ const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
 
 func _ready() -> void:
+	display_numbers.visible = GameState.turn_on_level_display
 	display_numbers.display(GameState.current_level_counter)
 	start_timer.timeout.connect(_start_the_game)
 	get_tree().paused = true

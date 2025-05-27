@@ -5,6 +5,18 @@ signal level_changed
 signal all_dots_eaten
 signal no_lives_left
 
+var turn_on_target_display := false
+var turn_on_personal_dot_display := false
+var turn_on_release_display := false
+
+var turn_on_exit_timer_display := false
+var turn_on_global_count_display := false
+var turn_on_elroy_display := false
+var turn_on_scatter_chase_display := false
+var turn_on_speed_display := false
+var turn_on_level_display := false
+var turn_on_pinky_target_correction := false
+
 var is_pacman_invincible := false
 
 var current_level_counter := 1 : 

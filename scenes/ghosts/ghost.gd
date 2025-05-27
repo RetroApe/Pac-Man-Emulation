@@ -7,7 +7,7 @@ signal target_cell_position_updated
 @onready var frightened_timer: Timer = %FrightenedTimer
 
 @onready var desired_cell_position_panel := Panel.new()
-@onready var personal_dot_counter_label: Label = %PersonalDotCounterLabel
+@onready var personal_dot_display: DisplayNumbers = %PersonalDotDisplay
 @onready var red_green_indicator: Panel = %RedGreenIndicator
 
 const WALKABLE_CELLS = preload("res://resources/WalkableCells.tres")
@@ -84,7 +84,8 @@ enum Elroy {
 }
 
 func _ready() -> void:
-	
+	personal_dot_display.visible = GameState.turn_on_personal_dot_display
+	red_green_indicator.visible = GameState.turn_on_release_display
 	
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	
@@ -186,7 +187,7 @@ func _physics_process(delta: float) -> void:
 	if pacman_eaten:
 		process_mode = Node.PROCESS_MODE_INHERIT
 		return
-	personal_dot_counter_label.text = str(personal_dot_counter)
+	personal_dot_display.display(personal_dot_counter)
 	if personal_dot_counter == _personal_dot_number and GameState.global_dot_counter_active == false:
 		release = true
 		personal_dot_count_reached = true

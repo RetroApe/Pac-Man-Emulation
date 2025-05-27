@@ -1,28 +1,15 @@
-[gd_scene load_steps=13 format=4 uid="uid://ck0lfko0ayr2l"]
+[gd_scene load_steps=9 format=4 uid="uid://ck0lfko0ayr2l"]
 
 [ext_resource type="Script" uid="uid://doiygfqfxs7le" path="res://scenes/ghosts/ghosts.gd" id="1_af0an"]
 [ext_resource type="PackedScene" uid="uid://do5q0ccp36hbm" path="res://scenes/ghosts/ghost.tscn" id="2_6k4fd"]
 [ext_resource type="SpriteFrames" uid="uid://c8inyipwm2ly2" path="res://scenes/ghosts/pinky_sprite_frames.tres" id="3_qeybk"]
 [ext_resource type="SpriteFrames" uid="uid://c5a87yxul3go5" path="res://scenes/ghosts/inky_sprite_frames.tres" id="4_07kef"]
 [ext_resource type="SpriteFrames" uid="uid://ckbag7ue1x50b" path="res://scenes/ghosts/clyde_sprite_frames.tres" id="5_afnvi"]
-[ext_resource type="Texture2D" uid="uid://boft72rmj1a1b" path="res://assets/sprites/text.png" id="6_6k4fd"]
 [ext_resource type="PackedScene" uid="uid://r5hv4oultpmb" path="res://utility/display_numbers.tscn" id="7_07kef"]
 [ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="7_qeybk"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_07kef"]
 blend_mode = 1
-
-[sub_resource type="LabelSettings" id="LabelSettings_j5wjh"]
-line_spacing = 0.0
-font_size = 5
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_07kef"]
-atlas = ExtResource("6_6k4fd")
-region = Rect2(104, 16, 8, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_afnvi"]
-atlas = ExtResource("6_6k4fd")
-region = Rect2(104, 48, 8, 8)
 
 [node name="Ghosts" type="Node2D"]
 script = ExtResource("1_af0an")
@@ -81,13 +68,6 @@ metadata/_edit_lock_ = true
 
 [node name="AdditionalHUD" type="Node2D" parent="."]
 
-[node name="GhostHUD" type="TileMapLayer" parent="AdditionalHUD"]
-unique_name_in_owner = true
-position = Vector2(0, 2)
-scale = Vector2(0.7, 0.7)
-tile_map_data = PackedByteArray("AAAhABMAAwADAAEAAAAiABMAAwACAAAAAAAjABMAAwAAAAAAAAAkABMAAwAEAAEAAAAlABMAAwAEAAEAAAAmABMAAwAEAAAAAAAnABMAAwACAAEAAAABABMAAwACAAAAAAACABMAAwAHAAAAAAADABMAAwAAAAAAAAAEABMAAwADAAEAAAAFABMAAwAEAAAAAAAeAAAAAwAEAAAAAAAfAAAAAwAIAAEAAAAgAAAAAwAIAAAAAAAhAAAAAwAEAAEAAAAcAAIAAwAGAAAAAAAdAAIAAwALAAAAAAAeAAIAAwAOAAAAAAAfAAIAAwABAAAAAAAgAAIAAwAAAAAAAAAhAAIAAwALAAAAAAAiAAAAAwALAAIAAAAiAAIAAwALAAIAAAA=")
-tile_set = ExtResource("7_qeybk")
-
 [node name="ExitDisplay" parent="AdditionalHUD" instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(180.4, 2)
@@ -107,6 +87,11 @@ visible = false
 [node name="NotCounting" parent="AdditionalHUD/ExitDisplay" index="5"]
 position = Vector2(15.7143, 4)
 
+[node name="CustomText" parent="AdditionalHUD/ExitDisplay" index="6"]
+position = Vector2(-1.72, 0)
+tile_map_data = PackedByteArray("AAD+/wAAAwAEAAAAAAD//wAAAwAIAAEAAAAAAAAAAwAIAAAAAAABAAAAAwAEAAEAAAACAAAAAwALAAIAAAA=")
+tile_set = ExtResource("7_qeybk")
+
 [node name="GlobalCountDisplay" parent="AdditionalHUD" instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(186, 13.2)
@@ -123,26 +108,10 @@ visible = false
 [node name="NotCounting" parent="AdditionalHUD/GlobalCountDisplay" index="5"]
 position = Vector2(15.7143, 4)
 
-[node name="GlobalCountLabel" type="Label" parent="AdditionalHUD"]
-unique_name_in_owner = true
-visible = false
-offset_left = 172.0
-offset_top = 12.0
-offset_right = 215.0
-offset_bottom = 19.0
-text = "Global Count: 000"
-label_settings = SubResource("LabelSettings_j5wjh")
-horizontal_alignment = 1
-
-[node name="ExitTimerLabel" type="Label" parent="AdditionalHUD"]
-unique_name_in_owner = true
-visible = false
-offset_left = 172.0
-offset_top = 4.0
-offset_right = 215.0
-offset_bottom = 11.0
-text = "Exit Timer: "
-label_settings = SubResource("LabelSettings_j5wjh")
+[node name="CustomText" parent="AdditionalHUD/GlobalCountDisplay" index="6"]
+position = Vector2(-1.72, 0)
+tile_map_data = PackedByteArray("AAD7/wAAAwAGAAAAAAD8/wAAAwALAAAAAAD9/wAAAwAOAAAAAAD+/wAAAwABAAAAAAD//wAAAwAAAAAAAAAAAAAAAwALAAAAAAABAAAAAwALAAIAAAA=")
+tile_set = ExtResource("7_qeybk")
 
 [node name="ElroyIndicator" type="TileMapLayer" parent="AdditionalHUD"]
 unique_name_in_owner = true
@@ -150,16 +119,6 @@ position = Vector2(8.5, 4.5)
 scale = Vector2(0.7, 0.7)
 tile_map_data = PackedByteArray("AAAQAA0AAwAEABQAAAARAA0AAwALABQAAAASAA0AAwACABUAAAATAA0AAwAOABQAAAAUAA0AAwAJABUAAAA=")
 tile_set = ExtResource("7_qeybk")
-
-[node name="PercentWhite" type="Sprite2D" parent="AdditionalHUD"]
-position = Vector2(31, 168.895)
-scale = Vector2(0.7, 0.7)
-texture = SubResource("AtlasTexture_07kef")
-
-[node name="PercentRed" type="Sprite2D" parent="AdditionalHUD"]
-position = Vector2(31, 159.8)
-scale = Vector2(0.7, 0.7)
-texture = SubResource("AtlasTexture_afnvi")
 
 [node name="ChaseDisplay" parent="AdditionalHUD" instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
@@ -184,6 +143,11 @@ visible = false
 visible = true
 position = Vector2(15.7143, 4)
 
+[node name="CustomText" parent="AdditionalHUD/ChaseDisplay" index="6"]
+position = Vector2(3.13, 3.72)
+tile_map_data = PackedByteArray("AAAAAP7/AwAHAAAAAAABAP7/AwAAAAAAAAACAP7/AwADAAEAAAADAP7/AwAEAAAAAAD///7/AwACAAAAAAA=")
+tile_set = ExtResource("7_qeybk")
+
 [node name="ScatterDisplay" parent="AdditionalHUD" instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(184, 117)
@@ -206,6 +170,11 @@ visible = false
 [node name="NotCounting" parent="AdditionalHUD/ScatterDisplay" index="5"]
 visible = true
 
+[node name="CustomText" parent="AdditionalHUD/ScatterDisplay" index="6"]
+position = Vector2(1.158, 3.72)
+tile_map_data = PackedByteArray("AAAAAP7/AwADAAEAAAABAP7/AwACAAAAAAACAP7/AwAAAAAAAAADAP7/AwAEAAEAAAAEAP7/AwAEAAEAAAAFAP7/AwAEAAAAAAAGAP7/AwACAAEAAAA=")
+tile_set = ExtResource("7_qeybk")
+
 [node name="BlinkySpeedDisplay" parent="AdditionalHUD" instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(3, 157)
@@ -222,6 +191,11 @@ visible = false
 [node name="NumberDisplay2" parent="AdditionalHUD/BlinkySpeedDisplay" index="2"]
 visible = false
 
+[node name="CustomText" parent="AdditionalHUD/BlinkySpeedDisplay" index="6"]
+position = Vector2(-3.99, 0)
+tile_map_data = PackedByteArray("AAAFAAAAAwANAAYAAAA=")
+tile_set = ExtResource("7_qeybk")
+
 [node name="GhostsSpeedDisplay" parent="AdditionalHUD" instance=ExtResource("7_07kef")]
 unique_name_in_owner = true
 position = Vector2(3, 166)
@@ -237,6 +211,11 @@ visible = false
 
 [node name="NumberDisplay2" parent="AdditionalHUD/GhostsSpeedDisplay" index="2"]
 visible = false
+
+[node name="CustomText" parent="AdditionalHUD/GhostsSpeedDisplay" index="6"]
+position = Vector2(4.002, 0)
+tile_map_data = PackedByteArray("AAAEAAAAAwANAAIAAAA=")
+tile_set = ExtResource("7_qeybk")
 
 [editable path="AdditionalHUD/ExitDisplay"]
 [editable path="AdditionalHUD/GlobalCountDisplay"]
