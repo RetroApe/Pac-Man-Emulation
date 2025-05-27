@@ -15,12 +15,15 @@ func add_a_life() -> void:
 	_lives_array.append(life)
 
 func set_life_indicator() -> void:
-	_lives_array.clear()
-	for life in get_children():
-		if !null:
-			life.queue_free()
+	clear()
 	
 	for i in range(GameState.lives_remaining):
 		var life = LIFE_TEXTURE.instantiate()
 		_lives_array.append(life)
 		add_child(life)
+
+func clear() -> void:
+	_lives_array.clear()
+	for life in get_children():
+		if !null:
+			life.queue_free()

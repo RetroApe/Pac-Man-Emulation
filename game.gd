@@ -64,6 +64,7 @@ func _level_exit() -> void:
 	level.queue_free()
 	ui.clear_ui()
 	_pacmaning_in_progress = false
+	intro_animation.play_intro_animation()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_start"):

@@ -84,6 +84,8 @@ enum Elroy {
 }
 
 func _ready() -> void:
+	
+	
 	_current_level = GameState.current_level[GameState.current_level_counter] if GameState.current_level_counter < 21 else "level_21"
 	
 	_set_speed()
@@ -168,6 +170,8 @@ func _starting_setup() -> void:
 	desired_cell_position_panel.position = Vector2.ZERO
 
 	_calculate_next_desired_position()
+	animated_sprite_2d.animation = "default"
+	animated_sprite_2d.frame = 0
 
 func _physics_process(delta: float) -> void:
 	if 244 - GameState.dots_eaten <= _elroy_one_dot_count and elroy_state == Elroy.OFF:

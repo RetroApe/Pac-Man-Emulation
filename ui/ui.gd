@@ -29,5 +29,6 @@ func set_up() -> void:
 
 func clear_ui() -> void:
 	fruit_level_indicator.clear()
+	lives_indicator.clear()
 	_1up_text.stop_with_all_this_blinking_pretty_please()
 	_2up_text.visible = true
