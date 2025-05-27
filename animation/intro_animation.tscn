@@ -397,6 +397,42 @@ tracks/31/keys = {
 "update": 1,
 "values": [&"default"]
 }
+tracks/32/type = "value"
+tracks/32/imported = false
+tracks/32/enabled = true
+tracks/32/path = NodePath("IntroAnimation/Animation/Energizer:position")
+tracks/32/interp = 1
+tracks/32/loop_wrap = true
+tracks/32/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-204, 371)]
+}
+tracks/33/type = "value"
+tracks/33/imported = false
+tracks/33/enabled = true
+tracks/33/path = NodePath("IntroAnimation/Animation/dot_points_energizer:position")
+tracks/33/interp = 1
+tracks/33/loop_wrap = true
+tracks/33/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-146, 407)]
+}
+tracks/34/type = "value"
+tracks/34/imported = false
+tracks/34/enabled = true
+tracks/34/path = NodePath("IntroAnimation/Animation/dot_points:position")
+tracks/34/interp = 1
+tracks/34/loop_wrap = true
+tracks/34/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-204, 196)]
+}
 
 [sub_resource type="Animation" id="Animation_vef74"]
 resource_name = "blinky_entrance"
@@ -974,6 +1010,42 @@ tracks/42/keys = {
 "update": 1,
 "values": [true, true, false, false]
 }
+tracks/43/type = "value"
+tracks/43/imported = false
+tracks/43/enabled = true
+tracks/43/path = NodePath("IntroAnimation/Animation/dot_points_energizer:position")
+tracks/43/interp = 0
+tracks/43/loop_wrap = true
+tracks/43/keys = {
+"times": PackedFloat32Array(9.01887, 9.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-108, 380), Vector2(84, 212)]
+}
+tracks/44/type = "value"
+tracks/44/imported = false
+tracks/44/enabled = true
+tracks/44/path = NodePath("IntroAnimation/Animation/dot_points:position")
+tracks/44/interp = 0
+tracks/44/loop_wrap = true
+tracks/44/keys = {
+"times": PackedFloat32Array(9.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/45/type = "value"
+tracks/45/imported = false
+tracks/45/enabled = true
+tracks/45/path = NodePath("IntroAnimation/Animation/Energizer:position")
+tracks/45/interp = 1
+tracks/45/loop_wrap = true
+tracks/45/keys = {
+"times": PackedFloat32Array(3.00987),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36, 164)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hve3p"]
 _data = {
@@ -1014,104 +1086,113 @@ libraries = {
 
 [node name="Character" type="TileMapLayer" parent="Animation/CharactersText"]
 process_mode = 3
+visible = false
 material = SubResource("CanvasItemMaterial_mfdv2")
 position = Vector2(152, 0)
 tile_map_data = PackedByteArray("AADv/yMAAwACAAAAAADw/yMAAwACAAEAAADx/yMAAwAEAAAAAADy/yMAAwADAAAAAADz/yMAAwAIAAAAAAD0/yMAAwAEAAEAAAD3/yMAAwAAAAIAAAD0/wUAAwACAAAAAAD1/wUAAwAHAAAAAAD2/wUAAwAAAAAAAAD3/wUAAwACAAEAAAD4/wUAAwAAAAAAAAD5/wUAAwACAAAAAAACAAUAAwACAAAAAAADAAUAAwAKAAAAAAAEAAUAAwANAAAAAAAFAAUAAwAAAAAAAAAGAAUAAwAMAAAAAAAHAAUAAwAEAAAAAAABAAUAAwAIAAAAAAAAAAUAAwANAAAAAAD+/wUAAwAKAAIAAAD8/wUAAwACAAEAAAD7/wUAAwAEAAAAAAD6/wUAAwAEAAEAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="BlinkySprite" type="Sprite2D" parent="Animation/CharactersText"]
+visible = false
 position = Vector2(40, 59)
 texture = SubResource("AtlasTexture_mfdv2")
 
 [node name="Shadow" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAAHAAcAAwALAAYAAAAIAAcAAwADAAUAAAAJAAcAAwAHAAQAAAAKAAcAAwAAAAQAAAALAAcAAwADAAQAAAAMAAcAAwAOAAQAAAANAAcAAwAHAAUAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="Blinky" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAASAAcAAwAMAAYAAAAZAAcAAwAMAAYAAAATAAcAAwABAAQAAAAUAAcAAwALAAQAAAAVAAcAAwAIAAQAAAAWAAcAAwANAAQAAAAXAAcAAwAKAAQAAAAYAAcAAwAJAAUAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="PinkySprite" type="Sprite2D" parent="Animation/CharactersText"]
+visible = false
 position = Vector2(40, 83)
 texture = SubResource("AtlasTexture_hve3p")
 
 [node name="Speedy" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAAHAAoAAwALAAoAAAAIAAoAAwADAAkAAAAJAAoAAwAAAAkAAAAKAAoAAwAEAAgAAAALAAoAAwAEAAgAAAAMAAoAAwADAAgAAAANAAoAAwAJAAkAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="Pinky" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAASAAoAAwAMAAoAAAAYAAoAAwAMAAoAAAATAAoAAwAAAAkAAAAUAAoAAwAIAAgAAAAVAAoAAwANAAgAAAAWAAoAAwAKAAgAAAAXAAoAAwAJAAkAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="InkySprite" type="Sprite2D" parent="Animation/CharactersText"]
+visible = false
 position = Vector2(40, 107)
 texture = SubResource("AtlasTexture_iotsf")
 
 [node name="Bashful" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAAHAA0AAwALAA4AAAAIAA0AAwABAAwAAAAJAA0AAwAAAAwAAAAKAA0AAwADAA0AAAALAA0AAwAHAAwAAAAMAA0AAwAFAAwAAAANAA0AAwAFAA0AAAAOAA0AAwALAAwAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="Inky" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAASAA0AAwAMAA4AAAAXAA0AAwAMAA4AAAATAA0AAwAIAAwAAAAUAA0AAwANAAwAAAAVAA0AAwAKAAwAAAAWAA0AAwAJAA0AAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="ClydeSprite" type="Sprite2D" parent="Animation/CharactersText"]
+visible = false
 position = Vector2(40, 131)
 texture = SubResource("AtlasTexture_lc2xo")
 
 [node name="Pokey" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAAHABAAAwALABIAAAAIABAAAwAAABEAAAAJABAAAwAOABAAAAAKABAAAwAKABAAAAALABAAAwAEABAAAAAMABAAAwAJABEAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="Clyde" type="TileMapLayer" parent="Animation/CharactersText"]
+visible = false
 tile_map_data = PackedByteArray("AAASABAAAwAMABIAAAATABAAAwACABAAAAAUABAAAwALABAAAAAVABAAAwAJABEAAAAWABAAAwADABAAAAAXABAAAwAEABAAAAAYABAAAwAMABIAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="dot_points" type="TileMapLayer" parent="Animation"]
+visible = false
+position = Vector2(-204, 196)
 tile_map_data = PackedByteArray("AAAKABgAAAAmAAUAAAAMABgAAwABAAIAAAAMABoAAwAFAAIAAAANABgAAwAAAAIAAAANABoAAwAAAAIAAAAQABgAAwANAAEAAAAQABoAAwANAAEAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="dot_points_energizer" parent="Animation" instance=ExtResource("4_46dt0")]
-position = Vector2(84, 212)
+visible = false
+position = Vector2(-146, 407)
 
 [node name="Midway" type="TileMapLayer" parent="Animation"]
+visible = false
 tile_map_data = PackedByteArray("AAAEAB8AAwAMAAEAAAAGAB8AAwABAAIAAAAHAB8AAwAJAAIAAAAIAB8AAwAIAAIAAAAJAB8AAwAAAAIAAAAMAB8AAwAIAAAAAAALAB8AAwAMAAAAAAASAB8AAwAMAAAAAAAOAB8AAwAHAAEAAAAPAB8AAwAAAAAAAAANAB8AAwADAAAAAAAQAB8AAwAJAAEAAAATAB8AAwAFAAAAAAAUAB8AAwAGAAAAAAAVAB8AAwAOAAIAAAAWAB8AAwACAAAAAAAXAB8AAwAOAAAAAAAYAB8AAwAOAAIAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="Energizer" parent="Animation" instance=ExtResource("4_46dt0")]
 visible = false
-position = Vector2(36, 164)
+position = Vector2(-204, 371)
 
 [node name="pac and ghosts" type="Node2D" parent="Animation"]
-position = Vector2(-50, 0)
+position = Vector2(146, 0)
 
 [node name="Pacman" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-position = Vector2(286, 164)
+position = Vector2(89, 164)
 sprite_frames = ExtResource("5_ngr1h")
 
 [node name="Blinky" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-visible = false
-position = Vector2(128, 164)
+position = Vector2(133, 164)
 sprite_frames = ExtResource("5_ya6vt")
-animation = &"points"
 
 [node name="Pinky" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-visible = false
-position = Vector2(161, 164)
+position = Vector2(150, 164)
 sprite_frames = ExtResource("6_2jhvd")
-animation = &"points"
 
 [node name="Inky" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-visible = false
-position = Vector2(190, 164)
+position = Vector2(165, 164)
 sprite_frames = ExtResource("7_nfdi6")
-animation = &"points"
 
 [node name="Clyde" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-visible = false
-position = Vector2(222, 164)
+position = Vector2(182, 164)
 sprite_frames = ExtResource("8_nfdi6")
-animation = &"points"
 
 [node name="Screenshot666-pac-man-game-characters-u-s-release" type="Sprite2D" parent="."]
 visible = false

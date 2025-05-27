@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://c6mbhsg8hl5h8"]
+
+[ext_resource type="Texture2D" uid="uid://36g1wwdyxp5n" path="res://assets/sprites/maze_parts.png" id="1_lo6eg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7uq5"]
+atlas = ExtResource("1_lo6eg")
+region = Rect2(360, 45, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eyt67"]
+atlas = ExtResource("1_lo6eg")
+region = Rect2(333, 18, 8, 8)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7uq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eyt67")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]

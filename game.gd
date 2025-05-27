@@ -24,7 +24,7 @@ func _ready() -> void:
 	)
 	GameState.no_lives_left.connect(_on_game_over)
 	
-	#intro_animation.play_intro_animation()
+	intro_animation.play_intro_animation()
 
 func _make_level() -> void:
 	ui.set_up()
@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 			GameState.current_level_counter = starting_level
 			GameState.dots_eaten = starting_eaten_dots
 			GameState.scatter_chase_counter_start = scatter_chase_count
-			#intro_animation.stop_animation()
+			intro_animation.stop_animation()
 			_make_level()
 			_pacmaning_in_progress = true
 	if event.is_action_pressed("kill_pacman") and level != null and _pacman_set_to_die == false:
