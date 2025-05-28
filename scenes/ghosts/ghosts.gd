@@ -104,6 +104,7 @@ func _exit_timer_setup() -> void:
 
 func _process(_delta: float) -> void:
 	_scatter_chase_display()
+	exit_display.display(int(ceil(exit_timer.time_left)))
 	
 	for ghost in _ghosts_array as Array[Ghost]:
 		if ghost.name == "Blinky":
@@ -255,7 +256,6 @@ func _scatter_chase_display() -> void:
 	if scatter_chase_timer.is_stopped():
 		chase_display.display_infinite()
 		return
-	exit_display.display(int(ceil(exit_timer.time_left)))
 	if _current_state == CHASE:
 		scatter_display.display_not_counting()
 		chase_display.display(int(ceil(scatter_chase_timer.time_left)))

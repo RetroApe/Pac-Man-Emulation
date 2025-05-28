@@ -15,7 +15,7 @@ var _is_main_screen_on := true
 @export_group("Starting Variables")
 @export var make_pacman_invincible := false : set = _invincibility_change
 @export_range(0, 4) var starting_lives := 4
-@export var starting_eaten_dots := 0
+@export_range(0, 243) var starting_eaten_dots := 0
 @export_range(1, 256) var starting_level := 1
 @export_range(0, 7) var scatter_chase_count := 0
 
