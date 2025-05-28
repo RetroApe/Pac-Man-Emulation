@@ -184,6 +184,9 @@ func _physics_process(delta: float) -> void:
 		normal_speed = _elroy_two_speed
 		speed = normal_speed
 	
+	if current_state == State.FRIGHTENED:
+		speed = _fright_speed
+	
 	if pacman_eaten:
 		process_mode = Node.PROCESS_MODE_INHERIT
 		return

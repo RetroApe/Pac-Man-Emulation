@@ -53,6 +53,8 @@ var dots_eaten := 0 :
 		dots_eaten = new_dots
 		if dots_eaten == 244:
 			all_dots_eaten.emit()
+
+var has_bonus_life := true
 var lives_remaining := 0 :
 	set(new_lives):
 		lives_remaining = new_lives
@@ -132,3 +134,6 @@ func set_score(new_score: int) -> void:
 	if score > highscore:
 		highscore = score
 	score_changed.emit()
+	if score > 10000 and has_bonus_life == true:
+		lives_remaining += 1
+		has_bonus_life = false
