@@ -3,6 +3,7 @@ extends Node2D
 @onready var ui: UI = %UI
 @onready var intro_animation: IntroAnimation = %IntroAnimation
 @onready var ready_player_one_screen: TileMapLayer = %ReadyPlayerOneScreen
+@onready var options: Options = %Options
 
 var level: Level
 
@@ -65,7 +66,7 @@ func _ready() -> void:
 	)
 
 func _make_level() -> void:
-	_set_up_options()
+	#_set_up_options()
 	
 	ui.set_up()
 	level = LEVEL.instantiate()
