@@ -1086,7 +1086,6 @@ libraries = {
 
 [node name="Character" type="TileMapLayer" parent="Animation/CharactersText"]
 process_mode = 3
-visible = false
 material = SubResource("CanvasItemMaterial_mfdv2")
 position = Vector2(152, 0)
 tile_map_data = PackedByteArray("AADv/yMAAwACAAAAAADw/yMAAwACAAEAAADx/yMAAwAEAAAAAADy/yMAAwADAAAAAADz/yMAAwAIAAAAAAD0/yMAAwAEAAEAAAD3/yMAAwAAAAIAAAD0/wUAAwACAAAAAAD1/wUAAwAHAAAAAAD2/wUAAwAAAAAAAAD3/wUAAwACAAEAAAD4/wUAAwAAAAAAAAD5/wUAAwACAAAAAAACAAUAAwACAAAAAAADAAUAAwAKAAAAAAAEAAUAAwANAAAAAAAFAAUAAwAAAAAAAAAGAAUAAwAMAAAAAAAHAAUAAwAEAAAAAAABAAUAAwAIAAAAAAAAAAUAAwANAAAAAAD+/wUAAwAKAAIAAAD8/wUAAwACAAEAAAD7/wUAAwAEAAAAAAD6/wUAAwAEAAEAAAA=")
@@ -1154,13 +1153,12 @@ tile_set = ExtResource("1_enc0n")
 
 [node name="dot_points" type="TileMapLayer" parent="Animation"]
 visible = false
-position = Vector2(-204, 196)
 tile_map_data = PackedByteArray("AAAKABgAAAAmAAUAAAAMABgAAwABAAIAAAAMABoAAwAFAAIAAAANABgAAwAAAAIAAAANABoAAwAAAAIAAAAQABgAAwANAAEAAAAQABoAAwANAAEAAAA=")
 tile_set = ExtResource("1_enc0n")
 
 [node name="dot_points_energizer" parent="Animation" instance=ExtResource("4_46dt0")]
 visible = false
-position = Vector2(-146, 407)
+position = Vector2(-108, 380)
 
 [node name="Midway" type="TileMapLayer" parent="Animation"]
 visible = false
@@ -1169,30 +1167,34 @@ tile_set = ExtResource("1_enc0n")
 
 [node name="Energizer" parent="Animation" instance=ExtResource("4_46dt0")]
 visible = false
-position = Vector2(-204, 371)
+position = Vector2(36, 164)
 
 [node name="pac and ghosts" type="Node2D" parent="Animation"]
-position = Vector2(146, 0)
+position = Vector2(141, 0)
 
 [node name="Pacman" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-position = Vector2(89, 164)
+position = Vector2(91, 164)
 sprite_frames = ExtResource("5_ngr1h")
 
 [node name="Blinky" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-position = Vector2(133, 164)
+position = Vector2(107, 164)
 sprite_frames = ExtResource("5_ya6vt")
+animation = &"left"
 
 [node name="Pinky" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-position = Vector2(150, 164)
+position = Vector2(124, 164)
 sprite_frames = ExtResource("6_2jhvd")
+animation = &"left"
 
 [node name="Inky" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-position = Vector2(165, 164)
+position = Vector2(139, 164)
 sprite_frames = ExtResource("7_nfdi6")
+animation = &"left"
 
 [node name="Clyde" type="AnimatedSprite2D" parent="Animation/pac and ghosts"]
-position = Vector2(182, 164)
+position = Vector2(156, 164)
 sprite_frames = ExtResource("8_nfdi6")
+animation = &"left"
 
 [node name="Screenshot666-pac-man-game-characters-u-s-release" type="Sprite2D" parent="."]
 visible = false

@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var ui: UI = %UI
 @onready var intro_animation: Node2D = %IntroAnimation
+@onready var ready_player_one_screen: TileMapLayer = %ReadyPlayerOneScreen
 
 var level: Level
 
@@ -58,6 +59,9 @@ func _ready() -> void:
 	GameState.no_lives_left.connect(_on_game_over)
 	
 	intro_animation.play_intro_animation()
+	intro_animation.intro_animation_finished.connect(func() -> void:
+		ready_player_one_screen.visible = true
+	)
 
 func _make_level() -> void:
 	_set_up_options()
@@ -131,6 +135,7 @@ func _input(event: InputEvent) -> void:
 			GameState.dots_eaten = starting_eaten_dots
 			GameState.scatter_chase_counter_start = scatter_chase_count
 			intro_animation.stop_animation()
+			ready_player_one_screen.visible = false
 			_make_level()
 			_pacmaning_in_progress = true
 	if (
