@@ -58,7 +58,8 @@ func _ready() -> void:
 	)
 	GameState.no_lives_left.connect(_on_game_over)
 	
-	intro_animation.play_intro_animation()
+	ready_player_one_screen.visible = false
+	#intro_animation.play_intro_animation()
 	intro_animation.intro_animation_finished.connect(func() -> void:
 		ready_player_one_screen.visible = true
 	)
@@ -82,7 +83,6 @@ func _set_up_options() -> void:
 	GameState.turn_on_target_display = turn_on_target_display
 	GameState.turn_on_personal_dot_display = turn_on_personal_dot_counter
 	GameState.turn_on_release_display = turn_on_release_display
-	
 	GameState.turn_on_exit_timer_display = turn_on_exit_timer_display
 	GameState.turn_on_global_count_display = turn_on_global_count_display
 	GameState.turn_on_elroy_display = turn_on_elroy_display
@@ -90,8 +90,6 @@ func _set_up_options() -> void:
 	GameState.turn_on_speed_display = turn_on_speed_display
 	GameState.turn_on_level_display = turn_on_level_display
 	GameState.turn_on_pinky_target_correction = turn_on_pinky_target_correction
-	
-	
 
 func _initiate_level_increase() -> void:
 	get_tree().paused = true
