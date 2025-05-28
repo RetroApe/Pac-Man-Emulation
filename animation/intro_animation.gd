@@ -1,3 +1,4 @@
+class_name IntroAnimation
 extends Node2D
 
 signal intro_animation_finished
@@ -20,3 +21,8 @@ func _on_animation_finished(animation_name: String) -> void:
 		return
 	intro_animation_finished.emit()
 	animation.play("RESET")
+
+func is_intro_animation_playing() -> bool:
+	if animation.current_animation == "entrance" and animation.is_playing():
+		return true
+	return false

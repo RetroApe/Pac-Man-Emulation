@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var ui: UI = %UI
-@onready var intro_animation: Node2D = %IntroAnimation
+@onready var intro_animation: IntroAnimation = %IntroAnimation
 @onready var ready_player_one_screen: TileMapLayer = %ReadyPlayerOneScreen
 
 var level: Level
@@ -125,6 +125,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("level_start"):
 		if level:
 			print("Level found")
+		elif intro_animation.is_intro_animation_playing():
+			intro_animation.stop_animation()
+			ready_player_one_screen.visible = true
 		elif _pacmaning_in_progress == false:
 			_is_main_screen_on = false
 			GameState.global_dot_counter_active = false
