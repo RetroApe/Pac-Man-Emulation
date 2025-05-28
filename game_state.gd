@@ -137,3 +137,15 @@ func set_score(new_score: int) -> void:
 	if score > 10000 and has_bonus_life == true:
 		lives_remaining += 1
 		has_bonus_life = false
+
+func set_all_options_to(value: bool) -> void:
+	turn_on_target_display = value
+	turn_on_personal_dot_display = value
+	turn_on_release_display = value
+	turn_on_exit_timer_display = value
+	turn_on_global_count_display = value
+	turn_on_elroy_display = value
+	turn_on_scatter_chase_display = value
+	turn_on_speed_display = value
+	turn_on_level_display = value
+	turn_on_pinky_target_correction = value

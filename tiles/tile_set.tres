@@ -624,6 +624,8 @@ texture = ExtResource("5_i0bju")
 0:1/0 = 0
 2:3/0 = 0
 3:3/0 = 0
+2:0/next_alternative_id = 3
+2:0/0 = 0
 
 [resource]
 tile_size = Vector2i(8, 8)

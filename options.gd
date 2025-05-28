@@ -2,14 +2,40 @@ class_name Options
 extends Node2D
 
 @onready var choice_yes_no: Node2D = %ChoiceYesNo
+@onready var window_puller: Area2D = %WindowPuller
+@onready var window: Node2D = %Window
+@onready var area_bg: Area2D = %AreaBG
 
 var choices: Array[Node]
+var options_opened := false
+var tween: Tween
+var window_closed_position: Vector2
 
 func _ready() -> void:
 	choices = choice_yes_no.get_children()
-	
 	for choice in choices as Array[Choice]:
 		choice.option_toggled.connect(_on_option_toggled)
+	
+	window_closed_position = window.position
+	window_puller.input_event.connect(func(_viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+		var is_mouse_click: bool = (
+			event is InputEventMouseButton
+			and event.is_pressed()
+			and event.button_index == MOUSE_BUTTON_LEFT
+		)
+		
+		if is_mouse_click and options_opened == false:
+			if tween != null:
+				if tween.is_running():
+					tween.kill()
+			print("clicking window puller")
+			tween = create_tween()
+			tween.set_ease(Tween.EASE_OUT)
+			tween.set_trans(Tween.TRANS_CUBIC)
+			tween.tween_property(window, "position", Vector2.ZERO, 1.0)
+			options_opened = true
+	)
+	
 
 func _on_option_toggled(is_true: bool, option_variable: String) -> void:
 			if is_true == false and option_variable != "turn_on_all_displays":
@@ -46,11 +72,31 @@ func _on_option_toggled(is_true: bool, option_variable: String) -> void:
 				if all_options_set_to_true == true:
 					choices[0].toggle_display()
 
-
 func _turn_all(is_true: bool) -> void:
 	for choice in choices as Array[Choice]:
 		if choice.option_variable != "turn_on_all_displays":
 			if is_true:
 				choice.set_to_true()
+				GameState.set_all_options_to(true)
 			else:
 				choice.set_to_false()
+				GameState.set_all_options_to(false)
+
+func _input(event: InputEvent) -> void:
+	if (
+			(
+					Input.is_action_just_pressed("level_start") 
+					or Input.is_action_just_pressed("level_exit")
+			)
+			and options_opened == true
+		
+	):
+		get_viewport().set_input_as_handled()
+		if tween.is_running():
+			tween.kill()
+		tween = create_tween()
+		tween.set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(window, "position", window_closed_position, 1.0)
+		options_opened = false
+		print("Input set as handled")
