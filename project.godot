@@ -13,7 +13,9 @@ config_version=5
 config/name="Pac-Man-Emulation"
 run/main_scene="uid://du20lem43yg4s"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/image="uid://br465663xekk"
 config/icon="uid://cqcah0ynlhmbj"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 
