@@ -112,7 +112,7 @@ func _turn_all(is_true: bool) -> void:
 				choice.set_to_false()
 				GameState.set_all_options_to(false)
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if (
 			(
 					Input.is_action_just_pressed("level_start") 

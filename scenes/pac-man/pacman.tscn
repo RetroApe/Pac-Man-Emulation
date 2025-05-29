@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c28t5y2csfsgm"]
+[gd_scene load_steps=9 format=3 uid="uid://c28t5y2csfsgm"]
 
 [ext_resource type="Script" uid="uid://b1v2st2vr8726" path="res://scenes/pac-man/pacman.gd" id="1_hf5wl"]
 [ext_resource type="SpriteFrames" uid="uid://bg3pqk56aecyh" path="res://scenes/pac-man/pacman_sprite_frames.tres" id="2_v2upb"]
+[ext_resource type="AudioStream" uid="uid://c2bnwcav6e3kk" path="res://assets/sounds/eat_dot_0.wav" id="3_r7m8o"]
+[ext_resource type="AudioStream" uid="uid://b5i285hy7bxct" path="res://assets/sounds/eat_dot_1.wav" id="4_wiyu8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4flbx"]
 radius = 2.0
@@ -82,3 +84,11 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_v2upb")
+
+[node name="EatSFX1" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_r7m8o")
+
+[node name="EatSFX2" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_wiyu8")

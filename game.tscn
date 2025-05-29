@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://du20lem43yg4s"]
+[gd_scene load_steps=31 format=4 uid="uid://du20lem43yg4s"]
 
 [ext_resource type="Script" uid="uid://dtpp4qse7x420" path="res://game.gd" id="1_eow3j"]
 [ext_resource type="PackedScene" uid="uid://bilj2m1gphrhi" path="res://ui/score_display.tscn" id="2_7jktm"]
@@ -7,11 +7,13 @@
 [ext_resource type="Script" uid="uid://dx62lpbir40j7" path="res://ui/lives_indicator.gd" id="3_feb5d"]
 [ext_resource type="Script" uid="uid://dh258lukhxgvn" path="res://ui/fruit_level_indicator.gd" id="5_7jktm"]
 [ext_resource type="Script" uid="uid://dlorrm1hvil3o" path="res://ui/fruit_sprite_ui.gd" id="6_ryrav"]
+[ext_resource type="AudioStream" uid="uid://dsgf81qt6garp" path="res://assets/sounds/extend.wav" id="7_lc2xo"]
 [ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="7_vef74"]
 [ext_resource type="Script" uid="uid://dfell18clyqf5" path="res://utility/blinker.gd" id="8_hve3p"]
 [ext_resource type="PackedScene" uid="uid://b2sm0lf305dfr" path="res://animation/intro_animation.tscn" id="9_hve3p"]
 [ext_resource type="Script" uid="uid://bfi25tv7wsoll" path="res://options.gd" id="10_iotsf"]
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="11_iotsf"]
+[ext_resource type="AudioStream" uid="uid://b41fd46xafknh" path="res://assets/sounds/credit.wav" id="15_7sc4i"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mfdv2"]
 blend_mode = 1
@@ -114,6 +116,10 @@ offset_right = 99.0
 offset_bottom = 285.0
 theme_override_constants/separation = 6
 script = ExtResource("3_feb5d")
+
+[node name="ExtendLifeSFX" type="AudioStreamPlayer2D" parent="UI"]
+unique_name_in_owner = true
+stream = ExtResource("7_lc2xo")
 
 [node name="FruitLevelIndicator" type="HBoxContainer" parent="UI"]
 unique_name_in_owner = true
@@ -349,3 +355,7 @@ offset_bottom = 292.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_eow3j")
 metadata/_edit_lock_ = true
+
+[node name="CreditSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("15_7sc4i")

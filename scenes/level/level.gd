@@ -9,10 +9,12 @@ signal level_started_after_pacman_death
 @onready var start_timer: Timer = %StartTimer
 @onready var tile_set: MyTiles = %TileSet
 @onready var fruit_spawn: Marker2D = %FruitSpawn
+@onready var player_one: TileMapLayer = %PlayerOne
 @onready var ready_letters: TileMapLayer = %ReadyLetters
 @onready var game_over_letters: TileMapLayer = %GameOverLetters
 @onready var display_numbers: DisplayNumbers = $DisplayNumbers
 @onready var siren_sfx: AudioStreamPlayer2D = %SirenSFX
+@onready var start_game_sfx: AudioStreamPlayer2D = %StartGameSFX
 
 const SIREN_0 = preload("res://assets/sounds/siren0.wav")
 const SIREN_1 = preload("res://assets/sounds/siren1.wav")
@@ -21,6 +23,9 @@ const SIREN_3 = preload("res://assets/sounds/siren3.wav")
 const SIREN_4 = preload("res://assets/sounds/siren4.wav")
 const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
+
+var _fright_in_process := false
+var _ready_screen_padding := 0.1
 
 func _ready() -> void:
 	siren_sfx.stream = SIREN_0
@@ -31,19 +36,23 @@ func _ready() -> void:
 	GameState.player_ready_screen = true
 	ready_letters.visible = true
 	
+	if GameState.score == 0:
+		player_one.visible = true
+		start_timer.start(start_game_sfx.stream.get_length())
+		_ready_screen_padding = 2.0
+		start_game_sfx.play()
+	
 	pacman.visible = false
 	ghosts.visible = false
 	tile_set.toggle_dots_visibility()
 	get_tree().create_timer(0.1).timeout.connect(func() -> void:
-		pacman.visible = true
-		ghosts.visible = true
 		tile_set.toggle_dots_visibility()
 	)
-	
-	#for cell_coord in Ghost.WALKABLE_GHOST_HOUSE:
-		#var cell_panel : Panel = CELL.instantiate()
-		#cell_panel.position = GRID.calculate_cell_position(cell_coord, true) - Vector2(4.0, 4.0)
-		#add_child(cell_panel)
+	get_tree().create_timer(_ready_screen_padding).timeout.connect(func() -> void:
+		pacman.visible = true
+		ghosts.visible = true
+		player_one.visible = false
+	)
 	
 	pacman.dot_eaten.connect(_on_eaten_dot)
 	
@@ -66,9 +75,13 @@ func _ready() -> void:
 		pacman.visible = true
 	)
 	ghosts.ghost_exited_eaten_state.connect(func() -> void:
-		siren_sfx.play()
+		pass
 	)
-	ghosts.frightened_finished.connect(pacman.on_frightened_finished)
+	ghosts.frightened_finished.connect(func() -> void:
+		pacman.on_frightened_finished()
+		siren_sfx.play()
+		_fright_in_process = false
+	)
 	
 	ghosts.pacman_dead.connect(func() -> void:
 		pacman.death()
@@ -113,6 +126,8 @@ func _on_eaten_dot(new_dots: int) -> void:
 
 func _on_eaten_energizer() -> void:
 	_dot_count_check()
+	siren_sfx.play()
+	_fright_in_process = true
 	ghosts.frightened()
 	_increase_score_by(50)
 
@@ -126,16 +141,20 @@ func _dot_count_check() -> void:
 	match 244 - GameState.dots_eaten:
 		120:
 			siren_sfx.stream = SIREN_1
-			siren_sfx.play()
+			if _fright_in_process == false:
+				siren_sfx.play()
 		60:
 			siren_sfx.stream = SIREN_2
-			siren_sfx.play()
+			if _fright_in_process == false:
+				siren_sfx.play()
 		30:
 			siren_sfx.stream = SIREN_3
-			siren_sfx.play()
+			if _fright_in_process == false:
+				siren_sfx.play()
 		15:
 			siren_sfx.stream = SIREN_4
-			siren_sfx.play()
+			if _fright_in_process == false:
+				siren_sfx.play()
 
 func execute_ending_sequence() -> void:
 	get_tree().create_timer(2.0).timeout.connect(func() -> void:

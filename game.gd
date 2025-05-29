@@ -4,6 +4,7 @@ extends Node2D
 @onready var intro_animation: IntroAnimation = %IntroAnimation
 @onready var ready_player_one_screen: TileMapLayer = %ReadyPlayerOneScreen
 @onready var options: Options = %Options
+@onready var credit_sfx: AudioStreamPlayer2D = %CreditSFX
 
 var level: Level
 
@@ -14,7 +15,6 @@ var _level_set_to_increase := false
 var _pacmaning_in_progress := false
 var _is_main_screen_on := true
 var _options_tween : Tween
-var _options_hidden := true
 
 @export_group("Starting Variables")
 @export var make_pacman_invincible := false : set = _invincibility_change
@@ -67,6 +67,7 @@ func _ready() -> void:
 	intro_animation.intro_animation_finished.connect(func() -> void:
 		ready_player_one_screen.visible = true
 		_toggle_options_button(true)
+		credit_sfx.play()
 	)
 
 func _make_level() -> void:
@@ -131,6 +132,7 @@ func _input(event: InputEvent) -> void:
 			print("Level found")
 		elif intro_animation.is_intro_animation_playing():
 			intro_animation.stop_animation()
+			credit_sfx.play()
 			ready_player_one_screen.visible = true
 			_toggle_options_button(true)
 		elif _pacmaning_in_progress == false:

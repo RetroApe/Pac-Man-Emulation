@@ -9,6 +9,8 @@ signal death_animation_finished
 @onready var this_area: Area2D = %Area2D
 @onready var dots_number: Label = %DotsNumber
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
+@onready var eat_sfx_1: AudioStreamPlayer2D = %EatSFX1
+@onready var eat_sfx_2: AudioStreamPlayer2D = %EatSFX2
 
 const GRID = preload("res://resources/Grid.tres")
 var current_cell_coordinates: Vector2i
@@ -147,6 +149,11 @@ func _wrap_around_the_screen() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("dots"):
+		match GameState.dots_eaten % 2:
+			0:
+				eat_sfx_1.play()
+			1:
+				eat_sfx_2.play()
 		_skip_frames = 1
 		_dots_eaten += 1
 		GameState.dots_eaten += 1

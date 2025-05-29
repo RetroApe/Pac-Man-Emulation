@@ -7,6 +7,7 @@ extends Control
 @onready var fruit_level_indicator: HBoxContainer = %FruitLevelIndicator
 @onready var _1up_text: Blinker = %"1UPText"
 @onready var _2up_text: TileMapLayer = %"2UPText"
+@onready var extend_life_sfx: AudioStreamPlayer2D = %ExtendLifeSFX
 
 var _lives : int
 
@@ -14,6 +15,7 @@ func _process(_delta: float) -> void:
 	if _lives < GameState.lives_remaining:
 		_lives += 1
 		lives_indicator.add_a_life()
+		extend_life_sfx.play()
 	elif _lives > GameState.lives_remaining and _lives != 0:
 		_lives -= 1
 		print(_lives)

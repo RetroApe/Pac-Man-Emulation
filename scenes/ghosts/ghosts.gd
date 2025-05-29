@@ -15,6 +15,7 @@ signal ghost_exited_eaten_state
 @onready var ghosts_speed_display: DisplayNumbers = %GhostsSpeedDisplay
 @onready var ghost_eaten_sfx: AudioStreamPlayer2D = %GhostEatenSFX
 @onready var eyes_sfx: AudioStreamPlayer2D = %EyesSFX
+@onready var fright_sfx: AudioStreamPlayer2D = %FrightSFX
 
 @onready var fright_timer: Timer = %FrightTimer
 var _fright_time := 0.0
@@ -42,6 +43,7 @@ var _blinky_coordinates : Vector2i
 var _ghost_dot_counter_active := true
 var _ghost_eaten_counter := 0
 var _store_eaten_ghosts := 0
+var _fright_in_process := false
 
 func _ready() -> void:
 	exit_display.visible = GameState.turn_on_exit_timer_display
@@ -60,6 +62,8 @@ func _ready() -> void:
 	fright_timer.timeout.connect(func() -> void:
 		scatter_chase_timer.paused = false
 		frightened_finished.emit()
+		fright_sfx.stop()
+		_fright_in_process = false
 	)
 	
 	for ghost in _ghosts_array as Array[Ghost]:
@@ -68,6 +72,8 @@ func _ready() -> void:
 			if _store_eaten_ghosts == 0:
 				eyes_sfx.stop()
 				ghost_exited_eaten_state.emit()
+				if _fright_in_process == true:
+					fright_sfx.play()
 	)
 	
 	_exit_timer_setup()
@@ -115,6 +121,9 @@ func _exit_timer_setup() -> void:
 	)
 
 func _process(_delta: float) -> void:
+	if _fright_in_process == false:
+		fright_sfx.stop()
+	
 	_scatter_chase_display()
 	exit_display.display(int(ceil(exit_timer.time_left)))
 	
@@ -158,7 +167,7 @@ func _process(_delta: float) -> void:
 				_is_pacman_dead = true
 				_is_pacman_set_to_die = false
 			if (
-				ghost.current_state == ghost.State.FRIGHTENED 
+				ghost.current_state == ghost.State.FRIGHTENED
 			):
 				_ghost_death_process(ghost)
 				return
@@ -181,14 +190,16 @@ func _assign_special_target(ghost: Node2D) -> void:
 			ghost.target_coordinates = pacman_current_cell_coordinates if ghost_distance > 8.0 else ghost.scatter_coordinates
 
 func frightened() -> void:
+	_fright_in_process = true
+	fright_sfx.play()
 	_ghost_eaten_counter = 0
 	if !is_zero_approx(_fright_time):
 		scatter_chase_timer.paused = true
 		fright_timer.start()
 	for ghost in _ghosts_array:
 		ghost.frightened()
-		if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
-			ghost.death()
+		#if ghost.current_cell_coordinates == pacman_current_cell_coordinates:
+			#ghost.death()
 
 func set_dots(new_dots: int) -> void:
 	pacman_dots_eaten = new_dots
@@ -224,10 +235,13 @@ func _ghost_death_process(ghost : Ghost) -> void:
 	_store_eaten_ghosts += 1
 	eyes_sfx.stop()
 	ghost_eaten_sfx.play()
+	fright_sfx.stop()
 	get_tree().paused = true
 	ghost.set_physics_process(false)
 	ghost.death()
 	_ghost_eaten_counter += 1
+	if _ghost_eaten_counter == 4:
+		_fright_in_process = false
 	ghost_eaten.emit(_ghost_eaten_counter)
 	ghost.show_points(_ghost_eaten_counter)
 	get_tree().create_timer(1.0).timeout.connect(func() -> void:

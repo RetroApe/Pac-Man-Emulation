@@ -3,6 +3,7 @@ extends Area2D
 
 @onready var fruit_sprites: AnimatedSprite2D = %FruitSprites
 @onready var timer: Timer = %Timer
+@onready var fruit_eaten_sfx: AudioStreamPlayer2D = %FruitEatenSFX
 
 var _fruit := {
 	"cherry": {
@@ -55,8 +56,10 @@ var level_to_fruit_conversion : Dictionary = {
 }
 var _current_level := "level_1"
 var _assigned_fruit : Dictionary = _fruit.cherry
+var _sound_played := false
 
 func _ready() -> void:
+	_sound_played = false
 	fruit_sprites.animation = "default"
 	if GameState:
 		if GameState.current_level_counter > 13:
@@ -70,6 +73,9 @@ func _ready() -> void:
 			timer.stop()
 			fruit_sprites.animation = "points"
 			fruit_sprites.frame = _assigned_fruit.sprite
+			if _sound_played == false:
+				fruit_eaten_sfx.play()
+				_sound_played = true
 			get_tree().create_timer(2.0).timeout.connect(queue_free)
 	)
 	timer.wait_time += randf()
