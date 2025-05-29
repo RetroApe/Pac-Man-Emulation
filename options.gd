@@ -2,8 +2,8 @@ class_name Options
 extends Node2D
 
 @onready var choice_yes_no: Control = %ChoiceYesNo
-@onready var window_puller: Area2D = %WindowPuller
-@onready var window: Node2D = %Window
+@onready var options_window_puller: Area2D = %OptionsWindowPuller
+@onready var window: Node2D = %OptionsWindow
 @onready var area_bg: Area2D = %AreaBG
 
 var choices: Array[Node]
@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 	area_bg.input_pickable = false
 	window_closed_position = window.position
-	window_puller.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+	options_window_puller.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 		var is_mouse_click: bool = (
 			event is InputEventMouseButton
 			and event.is_pressed()
@@ -39,19 +39,19 @@ func _ready() -> void:
 			tween.tween_property(window, "position", Vector2.ZERO, 1.0)
 			options_opened = true
 	)
-	window_puller.mouse_entered.connect(func() -> void:
+	options_window_puller.mouse_entered.connect(func() -> void:
 		if tween_scale != null:
 			if tween_scale.is_running():
 				tween_scale.kill()
 		tween_scale = create_tween()
-		tween_scale.tween_property(window_puller, "scale", Vector2(1.1, 1.1), 0.15)
+		tween_scale.tween_property(options_window_puller, "scale", Vector2(1.1, 1.1), 0.15)
 	)
-	window_puller.mouse_exited.connect(func() -> void:
+	options_window_puller.mouse_exited.connect(func() -> void:
 		if tween_scale != null:
 			if tween_scale.is_running():
 				tween_scale.kill()
 		tween_scale = create_tween()
-		tween_scale.tween_property(window_puller, "scale", Vector2.ONE, 0.15)
+		tween_scale.tween_property(options_window_puller, "scale", Vector2.ONE, 0.15)
 	)
 	
 	area_bg.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
@@ -119,6 +119,7 @@ func _input(_event: InputEvent) -> void:
 					or Input.is_action_just_pressed("level_exit")
 			)
 			and options_opened == true
+			
 		
 	):
 		get_viewport().set_input_as_handled()

@@ -106,6 +106,7 @@ func _ready() -> void:
 	GameState.no_lives_left.connect(_execute_game_over)
 
 func _start_the_game() -> void:
+	start_timer.wait_time = 2.0
 	print("GAME START")
 	siren_sfx.play()
 	get_tree().paused = false

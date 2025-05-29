@@ -4,6 +4,7 @@ extends Node2D
 @onready var intro_animation: IntroAnimation = %IntroAnimation
 @onready var ready_player_one_screen: TileMapLayer = %ReadyPlayerOneScreen
 @onready var options: Options = %Options
+@onready var controls: Controls = %Controls
 @onready var credit_sfx: AudioStreamPlayer2D = %CreditSFX
 
 var level: Level
@@ -15,6 +16,7 @@ var _level_set_to_increase := false
 var _pacmaning_in_progress := false
 var _is_main_screen_on := true
 var _options_tween : Tween
+var _game_booting_up := true
 
 @export_group("Starting Variables")
 @export var make_pacman_invincible := false : set = _invincibility_change
@@ -61,19 +63,23 @@ func _ready() -> void:
 	)
 	GameState.no_lives_left.connect(_on_game_over)
 	
-	
 	ready_player_one_screen.visible = false
 	intro_animation.play_intro_animation()
 	intro_animation.intro_animation_finished.connect(func() -> void:
 		ready_player_one_screen.visible = true
-		_toggle_options_button(true)
+		_toggle_buttons(true)
 		credit_sfx.play()
 	)
+	
+	get_tree().create_timer(0.05).timeout.connect(func() -> void:
+		_game_booting_up = false
+	)
+
 
 func _make_level() -> void:
 	_set_up_options()
 	
-	_toggle_options_button(false)
+	_toggle_buttons(false)
 	ui.set_up()
 	level = LEVEL.instantiate()
 	add_child(level)
@@ -127,14 +133,14 @@ func _level_exit() -> void:
 	_is_main_screen_on = true
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("level_start") and _is_main_screen_on:
+	if event.is_action_pressed("level_start") and _is_main_screen_on and not _game_booting_up:
 		if level:
 			print("Level found")
 		elif intro_animation.is_intro_animation_playing():
 			intro_animation.stop_animation()
 			credit_sfx.play()
 			ready_player_one_screen.visible = true
-			_toggle_options_button(true)
+			_toggle_buttons(true)
 		elif _pacmaning_in_progress == false:
 			_is_main_screen_on = false
 			GameState.global_dot_counter_active = false
@@ -170,7 +176,7 @@ func _input(event: InputEvent) -> void:
 		elif _is_main_screen_on == true:
 			get_tree().quit()
 
-func _toggle_options_button(value: bool) -> void:
+func _toggle_buttons(value: bool) -> void:
 	if _options_tween != null:
 		if _options_tween.is_running():
 			_options_tween.kill()
@@ -183,5 +189,7 @@ func _toggle_options_button(value: bool) -> void:
 	_options_tween = create_tween()
 	_options_tween.set_ease(Tween.EASE_OUT)
 	_options_tween.set_trans(Tween.TRANS_CUBIC)
-	_options_tween.tween_property(options, "position", new_position, 0.3)
+	_options_tween.set_parallel(true)
+	_options_tween.tween_property(options, "position:x", new_position.x, 0.3)
+	_options_tween.tween_property(controls, "position:x", new_position.x, 0.3)
 	
