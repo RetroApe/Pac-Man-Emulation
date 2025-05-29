@@ -1,15 +1,15 @@
 class_name Options
 extends Node2D
 
-@onready var choice_yes_no: Node2D = %ChoiceYesNo
+@onready var choice_yes_no: Control = %ChoiceYesNo
 @onready var window_puller: Area2D = %WindowPuller
 @onready var window: Node2D = %Window
 @onready var area_bg: Area2D = %AreaBG
-@onready var input_picker: Area2D = %InputPicker
 
 var choices: Array[Node]
 var options_opened := false
 var tween: Tween
+var tween_scale: Tween
 var window_closed_position: Vector2
 
 func _ready() -> void:
@@ -17,6 +17,7 @@ func _ready() -> void:
 	for choice in choices as Array[Choice]:
 		choice.option_toggled.connect(_on_option_toggled)
 	
+	area_bg.input_pickable = false
 	window_closed_position = window.position
 	window_puller.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 		var is_mouse_click: bool = (
@@ -27,6 +28,7 @@ func _ready() -> void:
 		
 		if is_mouse_click and options_opened == false:
 			viewport.set_input_as_handled()
+			area_bg.input_pickable = true
 			if tween != null:
 				if tween.is_running():
 					tween.kill()
@@ -36,6 +38,20 @@ func _ready() -> void:
 			tween.set_trans(Tween.TRANS_CUBIC)
 			tween.tween_property(window, "position", Vector2.ZERO, 1.0)
 			options_opened = true
+	)
+	window_puller.mouse_entered.connect(func() -> void:
+		if tween_scale != null:
+			if tween_scale.is_running():
+				tween_scale.kill()
+		tween_scale = create_tween()
+		tween_scale.tween_property(window_puller, "scale", Vector2(1.1, 1.1), 0.15)
+	)
+	window_puller.mouse_exited.connect(func() -> void:
+		if tween_scale != null:
+			if tween_scale.is_running():
+				tween_scale.kill()
+		tween_scale = create_tween()
+		tween_scale.tween_property(window_puller, "scale", Vector2.ONE, 0.15)
 	)
 	
 	area_bg.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
@@ -48,18 +64,7 @@ func _ready() -> void:
 		if is_mouse_click:
 			viewport.set_input_as_handled()
 			print("BG Click")
-	)
-	
-	input_picker.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
-		var is_mouse_click: bool = (
-			event is InputEventMouseButton
-			and event.is_pressed()
-			and event.button_index == MOUSE_BUTTON_LEFT
-		)
-		
-		if is_mouse_click:
-			print("Input Picker")
-			viewport.set_input_as_handled()
+			_set_closed_position()
 	)
 
 func _on_option_toggled(is_true: bool, option_variable: String) -> void:
@@ -117,10 +122,14 @@ func _input(event: InputEvent) -> void:
 		
 	):
 		get_viewport().set_input_as_handled()
-		if tween.is_running():
-			tween.kill()
-		tween = create_tween()
-		tween.set_ease(Tween.EASE_OUT)
-		tween.set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(window, "position", window_closed_position, 1.0)
-		options_opened = false
+		_set_closed_position()
+
+func _set_closed_position() -> void:
+	area_bg.input_pickable = false
+	if tween.is_running():
+		tween.kill()
+	tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(window, "position", window_closed_position, 1.0)
+	options_opened = false

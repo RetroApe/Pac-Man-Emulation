@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://du20lem43yg4s"]
+[gd_scene load_steps=29 format=4 uid="uid://du20lem43yg4s"]
 
 [ext_resource type="Script" uid="uid://dtpp4qse7x420" path="res://game.gd" id="1_eow3j"]
 [ext_resource type="PackedScene" uid="uid://bilj2m1gphrhi" path="res://ui/score_display.tscn" id="2_7jktm"]
@@ -26,44 +26,38 @@ region = Rect2(144, 16, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hb5m1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5p1p"]
-size = Vector2(246, 310)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhcbd"]
-size = Vector2(168, 192)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hve3p"]
-size = Vector2(44, 8)
+size = Vector2(44, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfdv2"]
-size = Vector2(68, 8)
+size = Vector2(68, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iotsf"]
-size = Vector2(92, 8)
+size = Vector2(92, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lc2xo"]
-size = Vector2(76, 8)
+size = Vector2(76, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_215e1"]
-size = Vector2(52, 8)
+size = Vector2(52, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7sc4i"]
-size = Vector2(68, 8)
+size = Vector2(68, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_80cx4"]
-size = Vector2(60, 8)
+size = Vector2(60, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e8heu"]
-size = Vector2(60, 8)
+size = Vector2(60, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvswv"]
-size = Vector2(60, 8)
+size = Vector2(60, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boyg6"]
-size = Vector2(60, 8)
+size = Vector2(60, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e36ub"]
-size = Vector2(86, 23)
+size = Vector2(102, 39)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eow3j"]
 bg_color = Color(0, 0, 0, 1)
@@ -222,23 +216,10 @@ tile_set = ExtResource("7_vef74")
 tile_map_data = PackedByteArray("AAANAAYAAwAIABgAAAAOAAYAAwADABkAAAAPAAYAAwAAABkAAAAQAAYAAwALABgAAAAQAAgAAwALAAAAAAAQAAoAAwAAAAAAAAAQAAwAAwAOAAAAAAAQAA4AAwAEAAAAAAAQABAAAwAIAAEAAAAQABIAAwALAAAAAAAQABQAAwALAAAAAAAQABYAAwAEAAEAAAAQABgAAwAAAAEAAAAQABoAAwAEAAAAAAARAAYAAwAAABgAAAARAAgAAwALAAAAAAARAAoAAwACAAEAAAARAAwAAwAEAAEAAAARAA4AAwALAAAAAAARABAAAwAIAAAAAAARABIAAwAOAAAAAAARABQAAwACAAEAAAARABYAAwAAAAAAAAARABgAAwAEAAAAAAARABoAAwAGAAEAAAASAAYAAwAJABkAAAASAAoAAwAGAAAAAAASAA4AAwAEAAAAAAASABAAAwAEAAEAAAASABIAAwABAAAAAAASABQAAwAOAAAAAAASABYAAwAEAAEAAAASABgAAwAEAAAAAAASABoAAwAEAAAAAAATAAYAAwADABkAAAATAAoAAwAEAAAAAAATAA4AAwAAAAAAAAATABIAAwAAAAAAAAATABQAAwAJAAEAAAATABYAAwAEAAAAAAATABgAAwADAAAAAAATABoAAwALAAAAAAAUAAoAAwAEAAEAAAAUAAwAAwAOAAAAAAAUAA4AAwADAAEAAAAUABIAAwALAAAAAAAVAAwAAwAFAAEAAAAVAA4AAwAEAAAAAAAWAAwAAwANAAAAAAAXAAwAAwAEAAEAAAAMAAYAAwADABgAAAAPAAgAAwAAAAAAAAAPAAoAAwAEAAEAAAAPAAwAAwADAAAAAAAPAA4AAwACAAEAAAAPABAAAwAEAAAAAAAPABIAAwAGAAAAAAAPABQAAwAEAAAAAAAPABYAAwADAAEAAAAPABgAAwADAAEAAAAPABoAAwALAAAAAAATAAwAAwACAAAAAAAPAB4AAwACAAAAAAAPAB8AAwAAAAEAAAAQAB4AAwAOAAAAAAAQAB8AAwAIAAAAAAARAB4AAwACAAEAAAARAB8AAwANAAAAAAASAB4AAwACAAEAAAASAB8AAwAKAAAAAAATAB4AAwAEAAAAAAATAB8AAwAJAAEAAAAVAB4AAwAEAAEAAAAPACAAAwAEAAEAAAAQACAAAwAAAAAAAAARACAAAwACAAEAAAASACAAAwAGAAAAAAATACAAAwAEAAAAAAAUAB4AAwACAAAAAAAUACAAAwAEAAEAAAAVAB8AAwAFAAEAAAAWAB8AAwAAAAEAAAA=")
 tile_set = ExtResource("7_vef74")
 
-[node name="AreaBG" type="Area2D" parent="UI/Options/Window"]
+[node name="ChoiceYesNo" type="Control" parent="UI/Options/Window"]
 unique_name_in_owner = true
-position = Vector2(-150, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/AreaBG"]
-position = Vector2(113, 145)
-shape = SubResource("RectangleShape2D_x5p1p")
-
-[node name="InputPicker" type="Area2D" parent="UI/Options/Window"]
-unique_name_in_owner = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/InputPicker"]
-position = Vector2(172, 136)
-shape = SubResource("RectangleShape2D_qhcbd")
-
-[node name="ChoiceYesNo" type="Node2D" parent="UI/Options/Window"]
-unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
 
 [node name="All" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
 unique_name_in_owner = true
@@ -257,7 +238,7 @@ option_variable = "turn_on_target_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/Target"]
-position = Vector2(30, 0)
+position = Vector2(30, -0.5)
 shape = SubResource("RectangleShape2D_mfdv2")
 
 [node name="DotCount" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -267,7 +248,7 @@ option_variable = "turn_on_personal_dot_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/DotCount"]
-position = Vector2(42, 0)
+position = Vector2(42, -0.5)
 shape = SubResource("RectangleShape2D_iotsf")
 
 [node name="Release" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -277,7 +258,7 @@ option_variable = "turn_on_release_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/Release"]
-position = Vector2(34, 0)
+position = Vector2(34, -0.5)
 shape = SubResource("RectangleShape2D_lc2xo")
 
 [node name="Exit" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -287,7 +268,7 @@ option_variable = "turn_on_exit_timer_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/Exit"]
-position = Vector2(22, 0)
+position = Vector2(22, -0.5)
 shape = SubResource("RectangleShape2D_215e1")
 
 [node name="GlobalCoun" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -297,7 +278,7 @@ option_variable = "turn_on_global_count_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/GlobalCoun"]
-position = Vector2(30, 0)
+position = Vector2(30, -0.5)
 shape = SubResource("RectangleShape2D_7sc4i")
 
 [node name="Elroy" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -307,7 +288,7 @@ option_variable = "turn_on_elroy_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/Elroy"]
-position = Vector2(26, 0)
+position = Vector2(26, -0.5)
 shape = SubResource("RectangleShape2D_80cx4")
 
 [node name="ChaseScatterState" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -317,7 +298,7 @@ option_variable = "turn_on_scatter_chase_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/ChaseScatterState"]
-position = Vector2(26, 0)
+position = Vector2(26, -0.5)
 shape = SubResource("RectangleShape2D_e8heu")
 
 [node name="Speed" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -327,7 +308,7 @@ option_variable = "turn_on_speed_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/Speed"]
-position = Vector2(26, 0)
+position = Vector2(26, -0.5)
 shape = SubResource("RectangleShape2D_rvswv")
 
 [node name="Level" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -337,7 +318,7 @@ option_variable = "turn_on_level_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/Level"]
-position = Vector2(26, 0)
+position = Vector2(26, -0.5)
 shape = SubResource("RectangleShape2D_boyg6")
 
 [node name="CorrectPinkyTarget" parent="UI/Options/Window/ChoiceYesNo" instance=ExtResource("2_hve3p")]
@@ -347,8 +328,15 @@ option_variable = "turn_on_pinky_target_correction"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/Window/ChoiceYesNo/CorrectPinkyTarget"]
-position = Vector2(-33, -0.5)
+position = Vector2(-32, -0.5)
 shape = SubResource("RectangleShape2D_e36ub")
+
+[node name="AreaBG" type="Area2D" parent="UI/Options/Window"]
+unique_name_in_owner = true
+position = Vector2(2, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UI/Options/Window/AreaBG"]
+polygon = PackedVector2Array(254, 38, 86, 38, 86, 231, 109, 232, 110, 271, 214, 271, 214, 231, 251, 231, 253, 304, -19, 304, -20, -10, 255, -10)
 
 [node name="BlackBG" type="Panel" parent="."]
 z_index = -10
