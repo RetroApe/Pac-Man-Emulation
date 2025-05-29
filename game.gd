@@ -13,6 +13,8 @@ var _pacman_set_to_die := false
 var _level_set_to_increase := false
 var _pacmaning_in_progress := false
 var _is_main_screen_on := true
+var _options_tween : Tween
+var _options_hidden := true
 
 @export_group("Starting Variables")
 @export var make_pacman_invincible := false : set = _invincibility_change
@@ -59,15 +61,18 @@ func _ready() -> void:
 	)
 	GameState.no_lives_left.connect(_on_game_over)
 	
+	
 	ready_player_one_screen.visible = false
-	#intro_animation.play_intro_animation()
+	intro_animation.play_intro_animation()
 	intro_animation.intro_animation_finished.connect(func() -> void:
 		ready_player_one_screen.visible = true
+		_toggle_options_button(true)
 	)
 
 func _make_level() -> void:
 	#_set_up_options()
 	
+	_toggle_options_button(false)
 	ui.set_up()
 	level = LEVEL.instantiate()
 	add_child(level)
@@ -121,12 +126,13 @@ func _level_exit() -> void:
 	_is_main_screen_on = true
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("level_start"):
+	if event.is_action_pressed("level_start") and _is_main_screen_on:
 		if level:
 			print("Level found")
 		elif intro_animation.is_intro_animation_playing():
 			intro_animation.stop_animation()
 			ready_player_one_screen.visible = true
+			_toggle_options_button(true)
 		elif _pacmaning_in_progress == false:
 			_is_main_screen_on = false
 			GameState.global_dot_counter_active = false
@@ -161,3 +167,19 @@ func _input(event: InputEvent) -> void:
 			_level_exit()
 		elif _is_main_screen_on == true:
 			get_tree().quit()
+
+func _toggle_options_button(value: bool) -> void:
+	if _options_tween != null:
+		if _options_tween.is_running():
+			_options_tween.kill()
+	var new_position := Vector2.ZERO
+	if value == true:
+		new_position = Vector2.ZERO
+	if value == false:
+		new_position = Vector2(30.0, 0.0)
+	
+	_options_tween = create_tween()
+	_options_tween.set_ease(Tween.EASE_OUT)
+	_options_tween.set_trans(Tween.TRANS_CUBIC)
+	_options_tween.tween_property(options, "position", new_position, 0.3)
+	

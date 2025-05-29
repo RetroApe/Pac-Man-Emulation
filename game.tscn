@@ -183,6 +183,7 @@ tile_set = ExtResource("7_vef74")
 
 [node name="Options" type="Node2D" parent="UI"]
 unique_name_in_owner = true
+position = Vector2(30, 0)
 script = ExtResource("10_iotsf")
 
 [node name="WindowPuller" type="Area2D" parent="UI/Options"]
