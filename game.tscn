@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://du20lem43yg4s"]
+[gd_scene load_steps=36 format=4 uid="uid://du20lem43yg4s"]
 
 [ext_resource type="Script" uid="uid://dtpp4qse7x420" path="res://game.gd" id="1_eow3j"]
 [ext_resource type="PackedScene" uid="uid://bilj2m1gphrhi" path="res://ui/score_display.tscn" id="2_7jktm"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b2sm0lf305dfr" path="res://animation/intro_animation.tscn" id="9_hve3p"]
 [ext_resource type="Script" uid="uid://bfi25tv7wsoll" path="res://options.gd" id="10_iotsf"]
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="11_iotsf"]
+[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="14_7sc4i"]
 [ext_resource type="AudioStream" uid="uid://b41fd46xafknh" path="res://assets/sounds/credit.wav" id="15_7sc4i"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mfdv2"]
@@ -30,6 +31,54 @@ region = Rect2(144, 16, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hve3p"]
 size = Vector2(44, 14)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sc4i"]
+bg_color = Color(1, 0, 0, 0.466667)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvswv"]
+bg_color = Color(1, 0.717647, 1, 0.466667)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8heu"]
+bg_color = Color(0, 1, 1, 0.466667)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80cx4"]
+bg_color = Color(1, 0.717647, 0.317647, 0.466667)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+anti_aliasing = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfdv2"]
 size = Vector2(68, 15)
@@ -68,9 +117,6 @@ bg_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_eow3j")
 make_pacman_invincible = true
-starting_level = 10
-scatter_chase_count = 7
-turn_on_all_displays = true
 
 [node name="IntroAnimation" parent="." instance=ExtResource("9_hve3p")]
 unique_name_in_owner = true
@@ -242,8 +288,88 @@ option_variable = "turn_on_all_displays"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/All"]
+visible = false
 position = Vector2(18, 0)
 shape = SubResource("RectangleShape2D_hve3p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Options/OptionsWindow/ChoiceYesNo/All"]
+offset_left = 85.0
+offset_top = -25.0
+offset_right = 250.0
+offset_bottom = 24.0
+
+[node name="Panel" type="Panel" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("14_7sc4i")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("14_7sc4i")
+text = "This is a position each ghost wants to get to."
+scroll_active = false
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="Control" type="Control" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="Control2" type="Control" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_7sc4i")
+
+[node name="Panel2" type="Panel" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_rvswv")
+
+[node name="Panel3" type="Panel" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_e8heu")
+
+[node name="Panel4" type="Panel" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_styles/panel = SubResource("StyleBoxFlat_80cx4")
+
+[node name="Control3" type="Control" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="Control4" type="Control" parent="UI/Options/OptionsWindow/ChoiceYesNo/All/HBoxContainer/Panel/HBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 2
 
 [node name="Target" parent="UI/Options/OptionsWindow/ChoiceYesNo" instance=ExtResource("2_hve3p")]
 unique_name_in_owner = true
@@ -252,6 +378,7 @@ option_variable = "turn_on_target_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/Target"]
+visible = false
 position = Vector2(30, -0.5)
 shape = SubResource("RectangleShape2D_mfdv2")
 
@@ -262,6 +389,7 @@ option_variable = "turn_on_personal_dot_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/DotCount"]
+visible = false
 position = Vector2(42, -0.5)
 shape = SubResource("RectangleShape2D_iotsf")
 
@@ -272,6 +400,7 @@ option_variable = "turn_on_release_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/Release"]
+visible = false
 position = Vector2(34, -0.5)
 shape = SubResource("RectangleShape2D_lc2xo")
 
@@ -282,6 +411,7 @@ option_variable = "turn_on_exit_timer_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/Exit"]
+visible = false
 position = Vector2(22, -0.5)
 shape = SubResource("RectangleShape2D_215e1")
 
@@ -292,6 +422,7 @@ option_variable = "turn_on_global_count_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/GlobalCoun"]
+visible = false
 position = Vector2(30, -0.5)
 shape = SubResource("RectangleShape2D_7sc4i")
 
@@ -302,6 +433,7 @@ option_variable = "turn_on_elroy_display"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/Options/OptionsWindow/ChoiceYesNo/Elroy"]
+visible = false
 position = Vector2(26, -0.5)
 shape = SubResource("RectangleShape2D_80cx4")
 

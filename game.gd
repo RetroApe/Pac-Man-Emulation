@@ -76,7 +76,7 @@ func _ready() -> void:
 
 
 func _make_level() -> void:
-	_set_up_options()
+	#_set_up_options()
 	
 	_toggle_buttons(false)
 	ui.set_up()
