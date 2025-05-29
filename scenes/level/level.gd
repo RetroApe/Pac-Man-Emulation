@@ -86,6 +86,8 @@ func _ready() -> void:
 	ghosts.pacman_dead.connect(func() -> void:
 		pacman.death()
 		ghosts.on_pacman_dead()
+		siren_sfx.stop()
+		
 	)
 	pacman.death_animation_finished.connect(func() -> void:
 		GameState.lives_remaining -= 1

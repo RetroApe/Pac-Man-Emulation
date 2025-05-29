@@ -219,6 +219,8 @@ func set_dots(new_dots: int) -> void:
 			GameState.global_dot_counter_active = false
 
 func on_pacman_dead() -> void:
+	eyes_sfx.stop()
+	fright_sfx.stop()
 	scatter_chase_timer.paused = true
 	fright_timer.stop()
 	for ghost in _ghosts_array as Array[Ghost]:

@@ -11,6 +11,8 @@ signal death_animation_finished
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var eat_sfx_1: AudioStreamPlayer2D = %EatSFX1
 @onready var eat_sfx_2: AudioStreamPlayer2D = %EatSFX2
+@onready var death_sfx: AudioStreamPlayer2D = %DeathSFX
+@onready var death_finished_sfx: AudioStreamPlayer2D = %DeathFinishedSFX
 
 const GRID = preload("res://resources/Grid.tres")
 var current_cell_coordinates: Vector2i
@@ -173,15 +175,29 @@ func death() -> void:
 	animated_sprite_2d.pause()
 	get_tree().create_timer(1.0).timeout.connect(func() -> void:
 		animated_sprite_2d.play("death")
+		animated_sprite_2d.frame_changed.connect(_on_frame_changed)
 	)
 	print("Pac-Man Dead")
+
+func _on_frame_changed() -> void:
+	if animated_sprite_2d.animation == "death":
+		match animated_sprite_2d.frame:
+			1:
+				death_sfx.play()
+			10:
+				death_sfx.stop()
+				death_finished_sfx.play()
+			11:
+				death_finished_sfx.play()
+				animated_sprite_2d.frame_changed.disconnect(_on_frame_changed)
+		
 
 func _on_pacman_death_finished() -> void:
 	if animated_sprite_2d.animation == "death":
 		death_animation_finished.emit()
 		global_position = _start_position
 		direction = _start_direction
-	pass
+		
 
 func on_frightened_finished() -> void:
 	_speed = _normal_speed

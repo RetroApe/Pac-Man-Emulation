@@ -4,7 +4,6 @@ extends Node2D
 @onready var intro_animation: IntroAnimation = %IntroAnimation
 @onready var ready_player_one_screen: TileMapLayer = %ReadyPlayerOneScreen
 @onready var options: Options = %Options
-@onready var controls: Controls = %Controls
 @onready var credit_sfx: AudioStreamPlayer2D = %CreditSFX
 
 var level: Level
@@ -191,5 +190,4 @@ func _toggle_buttons(value: bool) -> void:
 	_options_tween.set_trans(Tween.TRANS_CUBIC)
 	_options_tween.set_parallel(true)
 	_options_tween.tween_property(options, "position:x", new_position.x, 0.3)
-	_options_tween.tween_property(controls, "position:x", new_position.x, 0.3)
 	
