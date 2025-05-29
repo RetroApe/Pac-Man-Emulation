@@ -12,11 +12,18 @@ signal level_started_after_pacman_death
 @onready var ready_letters: TileMapLayer = %ReadyLetters
 @onready var game_over_letters: TileMapLayer = %GameOverLetters
 @onready var display_numbers: DisplayNumbers = $DisplayNumbers
+@onready var siren_sfx: AudioStreamPlayer2D = %SirenSFX
 
+const SIREN_0 = preload("res://assets/sounds/siren0.wav")
+const SIREN_1 = preload("res://assets/sounds/siren1.wav")
+const SIREN_2 = preload("res://assets/sounds/siren2.wav")
+const SIREN_3 = preload("res://assets/sounds/siren3.wav")
+const SIREN_4 = preload("res://assets/sounds/siren4.wav")
 const GRID = preload("res://resources/Grid.tres")
 const CELL = preload("res://cell.tscn")
 
 func _ready() -> void:
+	siren_sfx.stream = SIREN_0
 	display_numbers.visible = GameState.turn_on_level_display
 	display_numbers.display(GameState.current_level_counter)
 	start_timer.timeout.connect(_start_the_game)
@@ -43,6 +50,7 @@ func _ready() -> void:
 	pacman.energizer_eaten.connect(_on_eaten_energizer)
 	
 	ghosts.ghost_eaten.connect(func(ghost_eaten_counter : int) -> void:
+		siren_sfx.stop()
 		pacman.visible = false
 		match ghost_eaten_counter:
 			1:
@@ -56,6 +64,9 @@ func _ready() -> void:
 	)
 	ghosts.ghost_eaten_but_make_pacman_visible.connect(func() -> void:
 		pacman.visible = true
+	)
+	ghosts.ghost_exited_eaten_state.connect(func() -> void:
+		siren_sfx.play()
 	)
 	ghosts.frightened_finished.connect(pacman.on_frightened_finished)
 	
@@ -83,6 +94,7 @@ func _ready() -> void:
 
 func _start_the_game() -> void:
 	print("GAME START")
+	siren_sfx.play()
 	get_tree().paused = false
 	pacman.animated_sprite_2d.play("right")
 	GameState.player_ready_screen = false
@@ -96,21 +108,34 @@ func _process(_delta: float) -> void:
 
 func _on_eaten_dot(new_dots: int) -> void:
 	ghosts.pacman_dots_eaten = new_dots
-	_fruit_spawn_check()
+	_dot_count_check()
 	_increase_score_by(10)
 
 func _on_eaten_energizer() -> void:
-	_fruit_spawn_check()
+	_dot_count_check()
 	ghosts.frightened()
 	_increase_score_by(50)
 
 func _increase_score_by(number : int) -> void:
 	GameState.score += number
 
-func _fruit_spawn_check() -> void:
+func _dot_count_check() -> void:
 	match GameState.dots_eaten:
 		70, 170: 
 			fruit_spawn.spawn_fruit()
+	match 244 - GameState.dots_eaten:
+		120:
+			siren_sfx.stream = SIREN_1
+			siren_sfx.play()
+		60:
+			siren_sfx.stream = SIREN_2
+			siren_sfx.play()
+		30:
+			siren_sfx.stream = SIREN_3
+			siren_sfx.play()
+		15:
+			siren_sfx.stream = SIREN_4
+			siren_sfx.play()
 
 func execute_ending_sequence() -> void:
 	get_tree().create_timer(2.0).timeout.connect(func() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dufj73kjgu7d3"]
+[gd_scene load_steps=9 format=4 uid="uid://dufj73kjgu7d3"]
 
 [ext_resource type="Script" uid="uid://cd4opnv8pk607" path="res://scenes/level/level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dyp3tsyto2co" path="res://tiles/tile_set.tscn" id="2_f2txt"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ccsd18x67dscl" path="res://scenes/fruit/fruit_spawn.gd" id="5_1ainy"]
 [ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="6_vpf64"]
 [ext_resource type="PackedScene" uid="uid://r5hv4oultpmb" path="res://utility/display_numbers.tscn" id="7_wcngd"]
+[ext_resource type="AudioStream" uid="uid://dax1ldhkguqn6" path="res://assets/sounds/siren0.wav" id="8_xv074"]
 
 [node name="Level" type="Node2D"]
 process_mode = 1
@@ -57,3 +58,7 @@ _text_color = 2
 position = Vector2(-188.571, -161.429)
 tile_map_data = PackedByteArray("AAAXABMAAwALAAAAAAAYABMAAwAEAAAAAAAZABMAAwAGAAEAAAAaABMAAwAEAAAAAAAbABMAAwALAAAAAAA=")
 tile_set = ExtResource("6_vpf64")
+
+[node name="SirenSFX" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("8_xv074")

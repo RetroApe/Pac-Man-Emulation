@@ -66,6 +66,8 @@ bg_color = Color(0, 0, 0, 1)
 process_mode = 3
 script = ExtResource("1_eow3j")
 make_pacman_invincible = true
+starting_level = 10
+scatter_chase_count = 7
 turn_on_all_displays = true
 
 [node name="IntroAnimation" parent="." instance=ExtResource("9_hve3p")]

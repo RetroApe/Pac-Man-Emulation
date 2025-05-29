@@ -5,6 +5,7 @@ signal pacman_dead
 signal ghost_eaten
 signal ghost_eaten_but_make_pacman_visible
 signal frightened_finished
+signal ghost_exited_eaten_state
 
 @onready var exit_timer: Timer = %ExitTimer
 @onready var exit_display: DisplayNumbers = %ExitDisplay
@@ -12,6 +13,8 @@ signal frightened_finished
 @onready var elroy_indicator: TileMapLayer = %ElroyIndicator
 @onready var blinky_speed_display: DisplayNumbers = %BlinkySpeedDisplay
 @onready var ghosts_speed_display: DisplayNumbers = %GhostsSpeedDisplay
+@onready var ghost_eaten_sfx: AudioStreamPlayer2D = %GhostEatenSFX
+@onready var eyes_sfx: AudioStreamPlayer2D = %EyesSFX
 
 @onready var fright_timer: Timer = %FrightTimer
 var _fright_time := 0.0
@@ -38,6 +41,7 @@ var _current_level : String
 var _blinky_coordinates : Vector2i
 var _ghost_dot_counter_active := true
 var _ghost_eaten_counter := 0
+var _store_eaten_ghosts := 0
 
 func _ready() -> void:
 	exit_display.visible = GameState.turn_on_exit_timer_display
@@ -56,6 +60,14 @@ func _ready() -> void:
 	fright_timer.timeout.connect(func() -> void:
 		scatter_chase_timer.paused = false
 		frightened_finished.emit()
+	)
+	
+	for ghost in _ghosts_array as Array[Ghost]:
+		ghost.ghost_exited_eaten_state.connect(func() -> void:
+			_store_eaten_ghosts -= 1
+			if _store_eaten_ghosts == 0:
+				eyes_sfx.stop()
+				ghost_exited_eaten_state.emit()
 	)
 	
 	_exit_timer_setup()
@@ -97,7 +109,7 @@ func _exit_timer_setup() -> void:
 	
 	exit_timer.timeout.connect(func() -> void:
 		for ghost in _ghosts_array as Array[Ghost]:
-			if ghost.release == false:
+			if ghost.is_inside_the_ghost_house == true:
 				ghost.release = true
 				break
 	)
@@ -137,13 +149,17 @@ func _process(_delta: float) -> void:
 	
 		if ghost.current_cell_coordinates == pacman_current_cell_coordinates or _is_pacman_set_to_die == true:
 			if (
-				ghost.current_state == ghost.State.TARGETING and _is_pacman_dead == false and GameState.is_pacman_invincible == false
+				ghost.current_state == ghost.State.TARGETING 
+				and _is_pacman_dead == false 
+				and GameState.is_pacman_invincible == false
 				or _is_pacman_set_to_die == true
 			):
 				pacman_dead.emit()
 				_is_pacman_dead = true
 				_is_pacman_set_to_die = false
-			if ghost.current_state == ghost.State.FRIGHTENED:
+			if (
+				ghost.current_state == ghost.State.FRIGHTENED 
+			):
 				_ghost_death_process(ghost)
 				return
 
@@ -205,15 +221,21 @@ func on_pacman_dead() -> void:
 	exit_timer.paused = true
 
 func _ghost_death_process(ghost : Ghost) -> void:
+	_store_eaten_ghosts += 1
+	eyes_sfx.stop()
+	ghost_eaten_sfx.play()
+	get_tree().paused = true
+	ghost.set_physics_process(false)
 	ghost.death()
 	_ghost_eaten_counter += 1
 	ghost_eaten.emit(_ghost_eaten_counter)
 	ghost.show_points(_ghost_eaten_counter)
-	get_tree().paused = true
 	get_tree().create_timer(1.0).timeout.connect(func() -> void:
 		get_tree().paused = false
 		ghost_eaten_but_make_pacman_visible.emit()
 		ghost.match_animation()
+		ghost.set_physics_process(true)
+		eyes_sfx.play()
 	)
 
 func on_game_start() -> void:

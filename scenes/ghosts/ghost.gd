@@ -2,6 +2,7 @@ class_name Ghost
 extends Node2D
 
 signal target_cell_position_updated
+signal ghost_exited_eaten_state
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var frightened_timer: Timer = %FrightenedTimer
@@ -413,9 +414,13 @@ func _ghost_house_behaviour() -> void:
 	
 	if current_state == State.EATEN and current_cell_coordinates == _target_inside_the_house:
 		current_state = State.TARGETING
+		ghost_exited_eaten_state.emit()
 		process_mode = Node.PROCESS_MODE_INHERIT
 		is_inside_the_ghost_house = true
 		_desired_cell_position = GRID.calculate_cell_position(_house_exit_coordinates, _adjust_the_grid)
+		_direction = (_house_exit_coordinates - _target_inside_the_house).sign()
+		match_animation()
+		speed = 0.5
 	if (
 		current_state == State.TARGETING and 
 		is_inside_the_ghost_house and
