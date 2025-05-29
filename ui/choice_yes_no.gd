@@ -15,14 +15,15 @@ func _ready() -> void:
 	else:
 		set_to_false()
 		
-
-func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+func _input_event(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 	var event_is_mouse_click: bool = (
 		event is InputEventMouseButton
 		and event.button_index == MOUSE_BUTTON_LEFT
 		and event.is_pressed()
 	)
 	if event_is_mouse_click:
+		print("Clicking an option")
+		viewport.set_input_as_handled()
 		toggle_display()
 		assert(option_variable, "Option variable is missing.")
 		if option_variable != null:

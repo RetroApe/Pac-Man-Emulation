@@ -5,6 +5,7 @@ extends Node2D
 @onready var window_puller: Area2D = %WindowPuller
 @onready var window: Node2D = %Window
 @onready var area_bg: Area2D = %AreaBG
+@onready var input_picker: Area2D = %InputPicker
 
 var choices: Array[Node]
 var options_opened := false
@@ -17,7 +18,7 @@ func _ready() -> void:
 		choice.option_toggled.connect(_on_option_toggled)
 	
 	window_closed_position = window.position
-	window_puller.input_event.connect(func(_viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
+	window_puller.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
 		var is_mouse_click: bool = (
 			event is InputEventMouseButton
 			and event.is_pressed()
@@ -25,6 +26,7 @@ func _ready() -> void:
 		)
 		
 		if is_mouse_click and options_opened == false:
+			viewport.set_input_as_handled()
 			if tween != null:
 				if tween.is_running():
 					tween.kill()
@@ -36,6 +38,29 @@ func _ready() -> void:
 			options_opened = true
 	)
 	
+	area_bg.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+		var is_mouse_click: bool = (
+			event is InputEventMouseButton
+			and event.is_pressed()
+			and event.button_index == MOUSE_BUTTON_LEFT
+		)
+		
+		if is_mouse_click:
+			viewport.set_input_as_handled()
+			print("BG Click")
+	)
+	
+	input_picker.input_event.connect(func(viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+		var is_mouse_click: bool = (
+			event is InputEventMouseButton
+			and event.is_pressed()
+			and event.button_index == MOUSE_BUTTON_LEFT
+		)
+		
+		if is_mouse_click:
+			print("Input Picker")
+			viewport.set_input_as_handled()
+	)
 
 func _on_option_toggled(is_true: bool, option_variable: String) -> void:
 			if is_true == false and option_variable != "turn_on_all_displays":
@@ -99,4 +124,3 @@ func _input(event: InputEvent) -> void:
 		tween.set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(window, "position", window_closed_position, 1.0)
 		options_opened = false
-		print("Input set as handled")
