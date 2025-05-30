@@ -119,8 +119,6 @@ func _input(_event: InputEvent) -> void:
 					or Input.is_action_just_pressed("level_exit")
 			)
 			and options_opened == true
-			
-		
 	):
 		get_viewport().set_input_as_handled()
 		_set_closed_position()

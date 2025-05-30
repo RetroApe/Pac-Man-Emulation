@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3 uid="uid://2xxctmrfkm7f"]
+
+[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_t03xs"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="2_jt1of"]
+
+[sub_resource type="Animation" id="Animation_8bivd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%ElroyIndicator:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Explanation:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Indicates Blinky's State..."]
+}
+
+[sub_resource type="Animation" id="Animation_jt1of"]
+resource_name = "elroy_tooltip_animation"
+length = 7.5
+loop_mode = 1
+step = 0.625
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%ElroyIndicator:self_modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 0, 1), Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Explanation:text")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.625, 1.25, 1.875, 2.5, 3.125, 3.75, 4.375, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Indicates Blinky's State", "Indicates Blinky's State.", "Indicates Blinky's State..", "Indicates Blinky's State...", "Always in Chase Mode
+Increased Speed", "Always in Chase Mode
+Increased Speed.", "Always in Chase Mode
+Increased Speed..", "Always in Chase Mode
+Increased Speed...", "Another increase of speed"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8bivd"]
+_data = {
+&"RESET": SubResource("Animation_8bivd"),
+&"elroy_tooltip_animation": SubResource("Animation_jt1of")
+}
+
+[node name="Tooltip" type="HBoxContainer"]
+offset_left = 6.0
+offset_top = -58.0
+offset_right = 141.0
+offset_bottom = -9.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_t03xs")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Explanation" type="RichTextLabel" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_t03xs")
+bbcode_enabled = true
+text = "Indicates Blinky's State..."
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.3
+
+[node name="ElroyIndicator" type="TileMapLayer" parent="Panel/HBoxContainer/Control"]
+unique_name_in_owner = true
+position = Vector2(-4, -2)
+scale = Vector2(0.7, 0.7)
+tile_map_data = PackedByteArray(0, 0, 253, 255, 0, 0, 3, 0, 4, 0, 20, 0, 0, 0, 254, 255, 0, 0, 3, 0, 11, 0, 20, 0, 0, 0, 255, 255, 0, 0, 3, 0, 2, 0, 21, 0, 0, 0, 0, 0, 0, 0, 3, 0, 14, 0, 20, 0, 0, 0, 1, 0, 0, 0, 3, 0, 9, 0, 21, 0, 0, 0)
+tile_set = ExtResource("2_jt1of")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HBoxContainer/Control"]
+libraries = {
+&"": SubResource("AnimationLibrary_8bivd")
+}
+autoplay = "elroy_tooltip_animation"

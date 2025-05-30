@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_6jh4o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7sc4i"]
-bg_color = Color(1, 0, 0, 0.466667)
+bg_color = Color(1, 0, 0, 0.6)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -15,7 +15,7 @@ expand_margin_bottom = 4.0
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvswv"]
-bg_color = Color(1, 0.717647, 1, 0.466667)
+bg_color = Color(1, 0.717647, 1, 0.6)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -27,7 +27,7 @@ expand_margin_bottom = 4.0
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e8heu"]
-bg_color = Color(0, 1, 1, 0.466667)
+bg_color = Color(0, 1, 1, 0.6)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -39,7 +39,7 @@ expand_margin_bottom = 4.0
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80cx4"]
-bg_color = Color(1, 0.717647, 0.317647, 0.466667)
+bg_color = Color(1, 0.717647, 0.317647, 0.6)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2

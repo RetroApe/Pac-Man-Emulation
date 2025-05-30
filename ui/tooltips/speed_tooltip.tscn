@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtcmmymwf4s53"]
+
+[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_yplhx"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="2_tcred"]
+
+[node name="Tooltip" type="HBoxContainer"]
+offset_left = 6.0
+offset_top = -58.0
+offset_right = 147.0
+offset_bottom = -9.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_yplhx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_yplhx")
+bbcode_enabled = true
+text = "Speed of Ghosts for [color=red]Blinky[/color] and the rest"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.3
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Panel/HBoxContainer/Control"]
+position = Vector2(-24, -3)
+tile_map_data = PackedByteArray(0, 0, 254, 255, 255, 255, 3, 0, 8, 0, 6, 0, 0, 0, 254, 255, 1, 0, 3, 0, 7, 0, 2, 0, 0, 0, 255, 255, 255, 255, 3, 0, 5, 0, 6, 0, 0, 0, 255, 255, 1, 0, 3, 0, 0, 0, 2, 0, 0, 0)
+tile_set = ExtResource("2_tcred")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="Panel/HBoxContainer/Control"]
+position = Vector2(-29, -3)
+tile_map_data = PackedByteArray(0, 0, 1, 0, 255, 255, 3, 0, 13, 0, 6, 0, 0, 0, 1, 0, 1, 0, 3, 0, 13, 0, 2, 0, 0, 0)
+tile_set = ExtResource("2_tcred")

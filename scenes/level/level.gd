@@ -84,7 +84,7 @@ func _ready() -> void:
 			_fright_in_process = false
 	)
 	ghosts.frightened_finished.connect(func() -> void:
-		if _fright_in_process == true:
+		if _fright_in_process == true and _all_ghosts_eaten == false:
 			pacman.on_frightened_finished()
 			siren_sfx.play()
 			_fright_in_process = false

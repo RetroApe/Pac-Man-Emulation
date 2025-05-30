@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dy81pt5k6qfc7"]
+[gd_scene load_steps=2 format=3 uid="uid://cckg8y4uci2xr"]
 
-[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_dl1bi"]
+[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_vqsxy"]
 
 [node name="Tooltip" type="HBoxContainer"]
 offset_left = 6.0
@@ -11,7 +11,7 @@ offset_bottom = -9.0
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_dl1bi")
+theme = ExtResource("1_vqsxy")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -24,7 +24,7 @@ grow_vertical = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_dl1bi")
-text = "A timer that releases a ghost"
+theme = ExtResource("1_vqsxy")
+text = "Shows how long Scatter and Chase Mode last"
 scroll_active = false
 vertical_alignment = 1
