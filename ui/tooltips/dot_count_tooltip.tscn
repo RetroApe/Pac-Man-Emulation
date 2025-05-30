@@ -1,0 +1,306 @@
+[gd_scene load_steps=10 format=3 uid="uid://bm6cfjcgolkam"]
+
+[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_7jchq"]
+[ext_resource type="SpriteFrames" uid="uid://ckbag7ue1x50b" path="res://scenes/ghosts/clyde_sprite_frames.tres" id="2_tjpsj"]
+[ext_resource type="SpriteFrames" uid="uid://cexxkp0rtbah1" path="res://ui/numbers.tres" id="3_081yt"]
+[ext_resource type="TileSet" uid="uid://guqe5ya1mek0" path="res://tiles/tile_set.tres" id="4_hdpf8"]
+[ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="5_pvhcv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_by6q4"]
+atlas = ExtResource("5_pvhcv")
+region = Rect2(96, 128, 16, 16)
+
+[sub_resource type="Animation" id="Animation_081yt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ghost/number1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost/number0:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Gate:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-130, 58)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ghost:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 31)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ghost/number0:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -15)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Ghost/number1:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5, -15)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Gate/Sprite2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(144, -56)]
+}
+
+[sub_resource type="Animation" id="Animation_7jchq"]
+resource_name = "tooltip_animation"
+length = 4.0
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ghost")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [&"down", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"up", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost/number0")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.99929, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [&"milky", 1.0, false],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}, {
+"args": [0, 0.0],
+"method": &"set_frame_and_progress"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ghost/number1")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [5, 0.0],
+"method": &"set_frame_and_progress"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ghost/number1:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Ghost/number0:offset")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.93404, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(3.5, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Ghost:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = false
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.4, 2.43333, 2.46667, 2.5, 2.53333, 2.56667, 2.6, 2.63333, 2.66667, 2.7, 2.73333, 2.76667, 2.8, 2.83333, 2.86667, 2.9, 2.93333, 2.96667, 3, 3.03333, 3.06667, 3.1, 3.13333, 3.16667, 3.2, 3.23333, 3.26667, 3.3, 3.33333, 3.36667, 3.4, 3.43333, 3.46667, 3.48333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(14, 31), Vector2(14, 31), Vector2(14, 30.9993), Vector2(14, 30.9944), Vector2(14, 30.9811), Vector2(14, 30.9553), Vector2(14, 30.9126), Vector2(14, 30.849), Vector2(14, 30.7602), Vector2(14, 30.642), Vector2(14, 30.4903), Vector2(14, 30.3009), Vector2(14, 30.0695), Vector2(14, 29.7919), Vector2(14, 29.464), Vector2(14, 29.0816), Vector2(14, 28.6404), Vector2(14, 28.1363), Vector2(14, 27.6035), Vector2(14, 27.1314), Vector2(14, 26.7201), Vector2(14, 26.3655), Vector2(14, 26.0633), Vector2(14, 25.8093), Vector2(14, 25.5994), Vector2(14, 25.4294), Vector2(14, 25.2949), Vector2(14, 25.192), Vector2(14, 25.1163), Vector2(14, 25.0637), Vector2(14, 25.03), Vector2(14, 25.0109), Vector2(14, 25.0024), Vector2(14, 25.0001), Vector2(14, 25), Vector2(14, 25)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Gate:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = false
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.4, 2.43333, 2.46667, 2.5, 2.53333, 2.56667, 2.6, 2.63333, 2.66667, 2.7, 2.73333, 2.76667, 2.8, 2.83333, 2.86667, 2.9, 2.93333, 2.96667, 3, 3.03333, 3.06667, 3.1, 3.13333, 3.16667, 3.2, 3.23333, 3.26667, 3.3, 3.33333, 3.36667, 3.4, 3.43333, 3.46667, 3.48333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-130, 58), Vector2(-130, 58), Vector2(-130, 58.0034), Vector2(-130, 58.027), Vector2(-130, 58.0912), Vector2(-130, 58.2163), Vector2(-130, 58.4224), Vector2(-130, 58.7299), Vector2(-130, 59.159), Vector2(-130, 59.7301), Vector2(-130, 60.4634), Vector2(-130, 61.3792), Vector2(-130, 62.4977), Vector2(-130, 63.8392), Vector2(-130, 65.424), Vector2(-130, 67.2724), Vector2(-130, 69.4046), Vector2(-130, 71.841), Vector2(-130, 74.4164), Vector2(-130, 76.6982), Vector2(-130, 78.686), Vector2(-130, 80.4001), Vector2(-130, 81.8607), Vector2(-130, 83.0882), Vector2(-130, 84.1028), Vector2(-130, 84.9248), Vector2(-130, 85.5744), Vector2(-130, 86.072), Vector2(-130, 86.4378), Vector2(-130, 86.6921), Vector2(-130, 86.8551), Vector2(-130, 86.9472), Vector2(-130, 86.9886), Vector2(-130, 86.9996), Vector2(-130, 87), Vector2(-130, 87)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Ghost/number0:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -15), Vector2(0, -15)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Ghost/number1:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-5, -15), Vector2(-5, -15)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Gate/Sprite2D:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(144, -56), Vector2(144, -56)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjpsj"]
+_data = {
+&"RESET": SubResource("Animation_081yt"),
+&"tooltip_explanation": SubResource("Animation_7jchq")
+}
+
+[node name="Tooltip" type="HBoxContainer"]
+offset_left = 8.0
+offset_top = -57.0
+offset_right = 168.0
+offset_bottom = -8.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_7jchq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_7jchq")
+text = "A Ghost counts eaten dots. "
+scroll_active = false
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Ghost" type="AnimatedSprite2D" parent="Panel/HBoxContainer/Control"]
+position = Vector2(14, 31)
+sprite_frames = ExtResource("2_tjpsj")
+
+[node name="number0" type="AnimatedSprite2D" parent="Panel/HBoxContainer/Control/Ghost"]
+position = Vector2(0, -15)
+sprite_frames = ExtResource("3_081yt")
+
+[node name="number1" type="AnimatedSprite2D" parent="Panel/HBoxContainer/Control/Ghost"]
+visible = false
+position = Vector2(-5, -15)
+sprite_frames = ExtResource("3_081yt")
+
+[node name="Gate" type="TileMapLayer" parent="Panel/HBoxContainer/Control"]
+position = Vector2(-130, 58)
+tile_map_data = PackedByteArray(0, 0, 19, 0, 249, 255, 0, 0, 25, 0, 5, 0, 0, 0, 16, 0, 249, 255, 0, 0, 26, 0, 5, 0, 0, 0)
+tile_set = ExtResource("4_hdpf8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/HBoxContainer/Control/Gate"]
+position = Vector2(144, -56)
+texture = SubResource("AtlasTexture_by6q4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HBoxContainer/Control"]
+deterministic = true
+libraries = {
+&"": SubResource("AnimationLibrary_tjpsj")
+}
+autoplay = "tooltip_explanation"

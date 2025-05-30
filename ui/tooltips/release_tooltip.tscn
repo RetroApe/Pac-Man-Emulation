@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://nrfh53314pop"]
+
+[ext_resource type="Theme" uid="uid://dj84dr8san7ep" path="res://ui/UI_theme.tres" id="1_l6fr5"]
+[ext_resource type="SpriteFrames" uid="uid://dsplgcpdq54rm" path="res://scenes/ghosts/blinky_sprite_frames.tres" id="2_wi4o6"]
+[ext_resource type="PackedScene" uid="uid://dttg0yqs5kkrv" path="res://utility/red_green_indicator.tscn" id="3_23jxw"]
+[ext_resource type="Script" uid="uid://5vmywh65ak00" path="res://utility/red_green_indicator.gd" id="4_7sjui"]
+
+[sub_resource type="Animation" id="Animation_wi4o6"]
+resource_name = "release_tooltip_animation"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ghost")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost/RedGreenIndicator")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"turn_red"
+}, {
+"args": [],
+"method": &"turn_green"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_23jxw"]
+_data = {
+&"release_tooltip_animation": SubResource("Animation_wi4o6")
+}
+
+[node name="Tooltip" type="HBoxContainer"]
+offset_left = 8.0
+offset_top = -67.0
+offset_right = 143.0
+offset_bottom = -8.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l6fr5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l6fr5")
+text = "Is Ghost allowed to go outside the ghost house"
+scroll_active = false
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="Ghost" type="AnimatedSprite2D" parent="Panel/HBoxContainer/CenterContainer"]
+position = Vector2(4, 0)
+sprite_frames = ExtResource("2_wi4o6")
+
+[node name="RedGreenIndicator" parent="Panel/HBoxContainer/CenterContainer/Ghost" instance=ExtResource("3_23jxw")]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = -6.0
+offset_bottom = -6.0
+script = ExtResource("4_7sjui")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/HBoxContainer/CenterContainer"]
+libraries = {
+&"": SubResource("AnimationLibrary_23jxw")
+}
+autoplay = "release_tooltip_animation"
+
+[node name="Control" type="Control" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2

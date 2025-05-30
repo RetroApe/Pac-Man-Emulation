@@ -282,6 +282,7 @@ func _set_target_panels() -> void:
 		var stylebox = StyleBoxFlat.new()
 		stylebox.bg_color = ghost.ghost_color
 		stylebox.set_corner_radius_all(2)
+		stylebox.anti_aliasing = false
 		target_panel.add_theme_stylebox_override("panel", stylebox)
 		ghost.target_cell_position_updated.connect(func(target_position : Vector2) -> void:
 			target_panel.position = target_position

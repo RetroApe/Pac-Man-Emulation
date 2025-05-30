@@ -26,6 +26,7 @@ const CELL = preload("res://cell.tscn")
 
 var _fright_in_process := false
 var _ready_screen_padding := 0.1
+var _all_ghosts_eaten := false
 
 func _ready() -> void:
 	siren_sfx.stream = SIREN_0
@@ -70,17 +71,23 @@ func _ready() -> void:
 				_increase_score_by(800)
 			4:
 				_increase_score_by(1600)
+				_all_ghosts_eaten = true
 	)
 	ghosts.ghost_eaten_but_make_pacman_visible.connect(func() -> void:
 		pacman.visible = true
 	)
 	ghosts.ghost_exited_eaten_state.connect(func() -> void:
-		pass
+		if _all_ghosts_eaten == true and _fright_in_process == true:
+			_all_ghosts_eaten = false
+			pacman.on_frightened_finished()
+			siren_sfx.play()
+			_fright_in_process = false
 	)
 	ghosts.frightened_finished.connect(func() -> void:
-		pacman.on_frightened_finished()
-		siren_sfx.play()
-		_fright_in_process = false
+		if _fright_in_process == true:
+			pacman.on_frightened_finished()
+			siren_sfx.play()
+			_fright_in_process = false
 	)
 	
 	ghosts.pacman_dead.connect(func() -> void:
