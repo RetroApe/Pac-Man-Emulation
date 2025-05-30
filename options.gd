@@ -93,6 +93,8 @@ func _on_option_toggled(is_true: bool, option_variable: String) -> void:
 					GameState.turn_on_level_display = is_true
 				"turn_on_pinky_target_correction":
 					GameState.turn_on_pinky_target_correction = is_true
+				"crt":
+					GameState.turn_on_crt = is_true
 			
 			if is_true == true and option_variable != "turn_on_all_displays":
 				var all_options_set_to_true := true

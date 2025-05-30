@@ -4,6 +4,7 @@ signal score_changed
 signal level_changed
 signal all_dots_eaten
 signal no_lives_left
+signal crt_shader_changed
 
 var turn_on_target_display := false
 var turn_on_personal_dot_display := false
@@ -16,6 +17,10 @@ var turn_on_scatter_chase_display := false
 var turn_on_speed_display := false
 var turn_on_level_display := false
 var turn_on_pinky_target_correction := false
+var turn_on_crt := true :
+	set(new_value):
+		turn_on_crt = new_value
+		crt_shader_changed.emit()
 
 var is_pacman_invincible := false
 
@@ -149,3 +154,4 @@ func set_all_options_to(value: bool) -> void:
 	turn_on_speed_display = value
 	turn_on_level_display = value
 	turn_on_pinky_target_correction = value
+	turn_on_crt = value
