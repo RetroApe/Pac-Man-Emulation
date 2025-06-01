@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://dsplgcpdq54rm"]
+[gd_resource type="SpriteFrames" load_steps=28 format=3 uid="uid://dsplgcpdq54rm"]
 
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="1_fshrc"]
 
@@ -57,6 +57,22 @@ region = Rect2(160, 112, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_a3cf4"]
 atlas = ExtResource("1_fshrc")
 region = Rect2(176, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrr2p"]
+atlas = ExtResource("1_fshrc")
+region = Rect2(192, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kx8v"]
+atlas = ExtResource("1_fshrc")
+region = Rect2(208, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwxky"]
+atlas = ExtResource("1_fshrc")
+region = Rect2(160, 128, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5n6tc"]
+atlas = ExtResource("1_fshrc")
+region = Rect2(192, 128, 32, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fshrc"]
 atlas = ExtResource("1_fshrc")
@@ -168,6 +184,28 @@ animations = [{
 }],
 "loop": true,
 "name": &"intermission_2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrr2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kx8v")
+}],
+"loop": true,
+"name": &"intermission_3_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwxky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5n6tc")
+}],
+"loop": true,
+"name": &"intermission_3_right",
 "speed": 5.0
 }, {
 "frames": [{
