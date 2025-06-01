@@ -1,0 +1,439 @@
+[gd_scene load_steps=16 format=3 uid="uid://dcufh4wxy4nh6"]
+
+[ext_resource type="AudioStream" uid="uid://dbwcnn871me23" path="res://assets/sounds/intermission.wav" id="1_rrs1u"]
+[ext_resource type="Script" uid="uid://eygarxhhm0op" path="res://animation/intermissions.gd" id="1_sldkj"]
+[ext_resource type="SpriteFrames" uid="uid://bg3pqk56aecyh" path="res://scenes/pac-man/pacman_sprite_frames.tres" id="3_gdrdw"]
+[ext_resource type="SpriteFrames" uid="uid://dsplgcpdq54rm" path="res://scenes/ghosts/blinky_sprite_frames.tres" id="4_2521r"]
+[ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="5_u04h4"]
+
+[sub_resource type="Animation" id="Animation_2521r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intermissions/Intermission1/PacMan:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(235, 160)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intermissions/Intermission1/Blinky:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(260, 160)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Intermissions/Intermission2/Blinky2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(260, 164)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Intermissions/Intermission2/PacMan2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(235, 164)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Intermissions/Intermission2/BlinkyTear:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Intermissions/Intermission2/BlinkyTear:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Intermissions/Intermission2/Blinky2:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"left"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Intermissions/Intermission2/Blinky2:frame")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Intermissions/Intermission2:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_sldkj"]
+resource_name = "intermission_1"
+length = 10.56
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intermissions/Intermission1/PacMan:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6.5, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(235, 160), Vector2(-26, 160), Vector2(-26, 160), Vector2(244, 160)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intermissions/Intermission1/Blinky:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 4, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(260, 160), Vector2(-10, 160), Vector2(-10, 160), Vector2(258, 160)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Intermissions/Intermission1/PacMan")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 6.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [&"left", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"big_pacman", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Intermissions/Intermission1/Blinky")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [&"left", 1.0, false],
+"method": &"play"
+}, {
+"args": [&"frightened", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Intermissions/IntermissionSFX")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 10.56),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_u04h4"]
+resource_name = "intermission_2"
+length = 9.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intermissions/Intermission2/Blinky2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 3.5, 4.5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(236, 164), Vector2(236, 164), Vector2(124, 164), Vector2(116, 164), Vector2(116, 164)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intermissions/Intermission2/PacMan2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(235, 164), Vector2(-15, 164)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Intermissions/Intermission2/Blinky2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 4.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [&"", 1.0, false],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Intermissions/Intermission2/PacMan2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"left", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Intermissions/Intermission2/BlinkyTear:visible")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.37, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Intermissions/Intermission2/BlinkyTear:frame")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3.5, 3.85, 4.35, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Intermissions/Intermission2/Blinky2:animation")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"left", &"intermission_2"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Intermissions/Intermission2/Blinky2:frame")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(5.5, 6.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Intermissions/IntermissionSFX")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Intermissions/Intermission2:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gdrdw"]
+_data = {
+&"RESET": SubResource("Animation_2521r"),
+&"intermission_1": SubResource("Animation_sldkj"),
+&"intermission_2": SubResource("Animation_u04h4")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_viuml"]
+atlas = ExtResource("5_u04h4")
+region = Rect2(144, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvkpl"]
+atlas = ExtResource("5_u04h4")
+region = Rect2(160, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75645"]
+atlas = ExtResource("5_u04h4")
+region = Rect2(176, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxwjo"]
+atlas = ExtResource("5_u04h4")
+region = Rect2(192, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjppr"]
+atlas = ExtResource("5_u04h4")
+region = Rect2(208, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1cbgh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvkpl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75645")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxwjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjppr")
+}],
+"loop": false,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="Intermissions" type="AnimationPlayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_gdrdw")
+}
+script = ExtResource("1_sldkj")
+
+[node name="IntermissionSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_rrs1u")
+
+[node name="Intermission1" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+
+[node name="PacMan" type="AnimatedSprite2D" parent="Intermission1"]
+position = Vector2(235, 160)
+sprite_frames = ExtResource("3_gdrdw")
+frame_progress = 0.380152
+
+[node name="Blinky" type="AnimatedSprite2D" parent="Intermission1"]
+position = Vector2(260, 160)
+sprite_frames = ExtResource("4_2521r")
+
+[node name="Intermission2" type="Node2D" parent="."]
+position = Vector2(0, 1)
+
+[node name="Nail" type="Sprite2D" parent="Intermission2"]
+position = Vector2(124, 162)
+texture = SubResource("AtlasTexture_viuml")
+
+[node name="PacMan2" type="AnimatedSprite2D" parent="Intermission2"]
+position = Vector2(235, 164)
+sprite_frames = ExtResource("3_gdrdw")
+frame_progress = 0.462924
+
+[node name="BlinkyTear" type="AnimatedSprite2D" parent="Intermission2"]
+visible = false
+position = Vector2(124, 163)
+sprite_frames = SubResource("SpriteFrames_1cbgh")
+frame = 3
+
+[node name="Blinky2" type="AnimatedSprite2D" parent="Intermission2"]
+position = Vector2(236, 164)
+sprite_frames = ExtResource("4_2521r")
+animation = &"left"
+
+[node name="Intermission3" type="Node2D" parent="."]
+
+[node name="PacMan3" type="AnimatedSprite2D" parent="Intermission3"]
+position = Vector2(235, 164)
+sprite_frames = ExtResource("3_gdrdw")
+frame_progress = 0.462924
+
+[node name="Blinky3" type="AnimatedSprite2D" parent="Intermission3"]
+position = Vector2(236, 164)
+sprite_frames = ExtResource("4_2521r")
+animation = &"left"

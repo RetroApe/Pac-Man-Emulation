@@ -131,7 +131,6 @@ shader_parameter/pixel_strength = -2.0
 process_mode = 3
 material = SubResource("ShaderMaterial_f1jbl")
 script = ExtResource("1_eow3j")
-make_pacman_invincible = true
 
 [node name="IntroAnimation" parent="." instance=ExtResource("9_hve3p")]
 unique_name_in_owner = true
@@ -156,7 +155,9 @@ metadata/_edit_lock_ = true
 [node name="Score" parent="UI" instance=ExtResource("2_7jktm")]
 unique_name_in_owner = true
 layout_mode = 0
+offset_left = 0.0
 offset_top = 9.0
+offset_right = 47.0
 offset_bottom = 17.0
 
 [node name="HighScore" parent="UI" instance=ExtResource("2_7jktm")]

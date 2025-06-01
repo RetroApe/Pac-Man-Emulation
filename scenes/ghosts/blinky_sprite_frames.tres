@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=22 format=3 uid="uid://dsplgcpdq54rm"]
+[gd_resource type="SpriteFrames" load_steps=24 format=3 uid="uid://dsplgcpdq54rm"]
 
 [ext_resource type="Texture2D" uid="uid://d154b6kdsverr" path="res://assets/sprites/general_sprites.png" id="1_fshrc"]
 
@@ -49,6 +49,14 @@ region = Rect2(160, 64, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_neao1"]
 atlas = ExtResource("1_fshrc")
 region = Rect2(176, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8f6bx"]
+atlas = ExtResource("1_fshrc")
+region = Rect2(160, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3cf4"]
+atlas = ExtResource("1_fshrc")
+region = Rect2(176, 112, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fshrc"]
 atlas = ExtResource("1_fshrc")
@@ -150,6 +158,17 @@ animations = [{
 "loop": true,
 "name": &"frightened_flashing",
 "speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8f6bx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3cf4")
+}],
+"loop": true,
+"name": &"intermission_2",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
