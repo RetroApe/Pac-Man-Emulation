@@ -116,7 +116,6 @@ func _ready() -> void:
 
 func _start_the_game() -> void:
 	start_timer.wait_time = 2.0
-	print("GAME START")
 	siren_sfx.play()
 	get_tree().paused = false
 	pacman.animated_sprite_2d.play("right")

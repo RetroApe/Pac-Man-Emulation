@@ -28,7 +28,6 @@ func _input_event(viewport: Viewport, event: InputEvent, _shape_idx: int) -> voi
 		and event.is_pressed()
 	)
 	if event_is_mouse_click:
-		print("Clicking an option")
 		viewport.set_input_as_handled()
 		toggle_display()
 		assert(option_variable, "Option variable is missing.")
@@ -36,7 +35,6 @@ func _input_event(viewport: Viewport, event: InputEvent, _shape_idx: int) -> voi
 			option_toggled.emit(yes.visible, option_variable)
 
 func _set_tooltip(value := false) -> void:
-	print("Tooltip")
 	if tooltip == null:
 		return
 	if value:

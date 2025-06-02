@@ -32,7 +32,6 @@ func _ready() -> void:
 			if tween != null:
 				if tween.is_running():
 					tween.kill()
-			print("clicking window puller")
 			tween = create_tween()
 			tween.set_ease(Tween.EASE_OUT)
 			tween.set_trans(Tween.TRANS_CUBIC)
@@ -63,7 +62,6 @@ func _ready() -> void:
 		
 		if is_mouse_click:
 			viewport.set_input_as_handled()
-			print("BG Click")
 			_set_closed_position()
 	)
 

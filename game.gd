@@ -9,6 +9,7 @@ extends Node2D
 var level: Level
 
 const LEVEL = preload("res://scenes/level/level.tscn")
+var INTERMISSION_SCENE = preload("res://animation/intermissions.tscn")
 
 var _pacman_set_to_die := false
 var _level_set_to_increase := false
@@ -108,13 +109,34 @@ func _initiate_level_increase() -> void:
 	level.execute_ending_sequence()
 
 func _level_reset() -> void:
-	print("reseting the level")
 	level.queue_free()
 	get_tree().create_timer(0.3).timeout.connect(func() -> void:
-		GameState.current_level_counter += 1
-		GameState.dots_eaten = starting_eaten_dots
-		_make_level()
+		var intermission : AnimationPlayer = INTERMISSION_SCENE.instantiate()
+		match GameState.current_level_counter:
+			2:
+				print("Playing first intermission")
+				add_child(intermission)
+				intermission.play("intermission_1")
+			5:
+				add_child(intermission)
+				intermission.play("intermission_2")
+			9, 13, 17:
+				add_child(intermission)
+				intermission.play("intermission_3")
+		if intermission.is_playing():
+			intermission.animation_finished.connect(func(_value: String) -> void:
+				intermission.call_deferred("queue_free")
+				_level_reset_plus()
+				print("Intermission ended")
+			)
+		else:
+			_level_reset_plus()
 	)
+
+func _level_reset_plus() -> void:
+	GameState.current_level_counter += 1
+	GameState.dots_eaten = starting_eaten_dots
+	_make_level()
 
 func _invincibility_change(new_value : bool) -> void:
 	make_pacman_invincible = new_value
