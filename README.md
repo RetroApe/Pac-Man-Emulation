@@ -74,7 +74,7 @@ Points table for each eaten Ghost
 	</tr>
 </table>
 
-#### <span style="color: yellow">Pac-Man</span> <span class="pacman">ᗤ</span> Cornering
+### Pac-Man ᗤ Cornering
 In short, Pac-Man is able to navigate the turns in the maze faster or slower than his enemies. He does not have to wait until he reaches the middle of a turn to change direction as the ghosts do (see picture below). Instead, he may start turning several pixels before he reaches the center of a turn and for several pixels after passing it.
 
 <img src="/readme_images/cornering_example2_sm.webp" alt="Cornering example">
